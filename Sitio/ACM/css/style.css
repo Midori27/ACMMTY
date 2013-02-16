@@ -1,0 +1,147 @@
+
+/*GENERAL*/
+.clearer{clear:both;}
+#spacer {padding-bottom:28px;}
+.hide{ display:none;}
+
+/*HTML*/
+body {
+	margin:0px;
+	padding:0px;
+	font-family:'Droid Sans','Century gothic',sans-serif;line-height:21px;
+	font-size:12px;
+	color:#7b7b7b;
+	}
+	
+	
+#sidebar h2 {font-size:14px;margin:10px 0 20px 0;padding:0px;font-family: 'Numans', sans-serif;color:#555;font-weight:normal;}
+h3 {margin:10px 0 10px 0;font-size:12px;font-family: 'Numans', sans-serif;color:#2b2a2a;letter-spacing:1px;font-weight:normal;}
+p {margin: 0 0 20px 0;}
+li { list-style:none;}
+a {color:#d36503; outline:none;text-decoration:none;}
+a:hover { color:#000000;outline:none;}
+a:active{outline: none;}
+fieldset {border:none;}
+.black {color:#000;}
+.detailImg {margin-bottom:20px;}
+
+/*TOPBAR*/
+
+#topbar {
+	height:85px;
+	background:-webkit-linear-gradient(#18256b 0%, #181818 100%);
+	margin:0 auto;
+	padding:0px;
+	width:100%;
+	position:fixed;
+	z-index:9999;
+	}	
+	
+	
+.logo {
+	margin:15px 0 0 162px;
+	float:left;
+	}
+	
+	
+
+/*navegacion*/
+#navigation {
+	margin:0 0 20px 15px;
+	float:left;
+	}
+	
+	
+#navigation li {
+	margin:0;
+	padding:0;
+	float:left;
+	margin:20px 25px 0 0;
+	}
+#navigation ul a {
+	font-size:10px;
+	letter-spacing:2px;
+	line-height:24px;
+	text-decoration:none;
+	color:#f9f9f9;
+	}
+	
+#navigation ul a:hover {
+	color:rgba(93,103,181,1);
+	}
+	
+.current{
+	color:#171313;
+	}
+
+#sidebar {float:left;width:285px;margin:150px 0 0 0;padding:0 0 0 20px;position:fixed;text-align:right;}
+#footer {width:100%;margin:30px 0 0 0;border-top:1px #cbc8c5 solid;text-align:center;padding-top:10px;}
+
+#slogan {text-align:right;width:255px;margin: 0 0 50px 30px;}
+
+
+
+#content {
+	width:600px;
+	float:left;
+	margin:60px 0 50px 320px;
+	padding-left:18px;
+	}
+	
+#contenth {   /*content Especial para HOME*/
+	width: 600px;
+	float: left;
+	margin: 85px 0 50px 0px;
+	}
+	
+#contenth2 {
+	float:left;
+	margin:0px 0 0px 320px;
+	padding-left:18px;
+	}
+	
+#content p, #contentInside p {font-size: 12px;line-height:21px;margin:0 0 25px 0;}
+#contentInside {width:600px;float:left;margin:150px 0 50px 320px;padding-left:18px;}
+
+/*Socials*/
+#socials ul {float:right;margin:0 0 30px 0;padding:0;}
+#socials li {float:left;display:block;margin:0 0 0 7px;}
+#socials li.twitter a {width:24px;height:24px;display:block;background:url('../images/socials/twitter.jpg') no-repeat bottom left;}
+#socials li.facebook a {width:24px;height:24px;display:block;background:url('../images/socials/facebook.jpg') no-repeat bottom left;}
+#socials li.flickr a {width:24px;height:24px;display:block;background:url('../images/socials/flickr.jpg') no-repeat bottom left;}
+#socials li.linkedin a {width:24px;height:24px;display:block;background:url('../images/socials/linkedin.jpg') no-repeat bottom left;}
+#socials ul a:hover {background-position:top left;}
+
+
+
+.Group img{
+	padding:0 0 0 0;
+	}
+	
+.Group a{
+	display:block;
+	}
+.ventana {
+	width:550px;
+	height:465px;
+	background:url('../images/bg-work.jpg')no-repeat top center;
+	margin-top:90px;
+	}
+.ventana img {
+	margin:24px 0 0 20px;
+	}
+
+
+
+
+/* Forma de co0ntacto*/
+#form {width:570px;margin: 20px 0 40px 0;}
+.notification_error{border: 1px solid #f1dfc5;height:auto;color:#ca5702;width:457px;padding:10px 10px 10px 60px;background:url(../images/icons/erro.png) no-repeat center left #fdf0dc;text-align:left;-moz-border-radius:5px;margin-bottom:10px;}
+.notification_ok{border: 1px #cbcf8e solid;height:auto;width:90%;padding: 10px;background: #f5f9fd;text-align: center;-moz-border-radius: 5px;margin-bottom:10px;}
+label  {width: 100px;margin:5px;float:left;text-align:left;}
+textarea{height:120px;width:400px;margin:5px;padding:5px;float:left;border:1px solid #cccccc;color:#333333;font:11px Verdana, Helvetica, Arial, sans-serif;-moz-border-radius: 3px;}
+.button {margin:5px 0 0 300px;}
+.textbox {width:400px;height:15px;margin:5px;padding:5px;float:left;border:1px solid #cccccc;color:#333333;font:11px Verdana, Helvetica, Arial, sans-serif;-moz-border-radius: 3px;}
+
+
+
