@@ -4,12 +4,9 @@
  */
 package Controlador;
 
-import java.sql.Statement;
+import Modelo.Persona;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +31,7 @@ public class ServletAdministrador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();   
+        PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -46,7 +43,9 @@ public class ServletAdministrador extends HttpServlet {
             out.println("<h1>Servlet ServletAdministrador at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        } finally {            
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {            
             out.close();
         }
     }

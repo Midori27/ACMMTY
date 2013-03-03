@@ -13,8 +13,8 @@ import java.util.Date;
 public class Administrador extends Persona {
     private int nivel;
 
-    public Administrador(int nivel, String nombreUsuario, String password, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String tel, String dir, int tipo) {
-        super(nombreUsuario, password, apellidoP, apellidoM, email, fechaNacimiento, tel, dir, tipo);
+    public Administrador(int nivel, int id, String nombreUsuario, String password, String nombre, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String tel, String dir, int tipo) {
+        super(id, nombreUsuario, password, nombre, apellidoP, apellidoM, email, fechaNacimiento, tel, dir, tipo);
         this.nivel = nivel;
     }
 

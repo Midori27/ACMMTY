@@ -13,8 +13,8 @@ import java.util.Date;
 public class Externo extends Usuario {
     private String universidad;
 
-    public Externo(String universidad, int tipoUsuario, String carrera, String nombreUsuario, String password, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String tel, String dir, int tipo) {
-        super(tipoUsuario, carrera, nombreUsuario, password, apellidoP, apellidoM, email, fechaNacimiento, tel, dir, tipo);
+    public Externo(String universidad, int tipoUsuario, String carrera, int id, String nombreUsuario, String password, String nombre, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String tel, String dir, int tipo) {
+        super(tipoUsuario, carrera, id, nombreUsuario, password, nombre, apellidoP, apellidoM, email, fechaNacimiento, tel, dir, tipo);
         this.universidad = universidad;
     }
 

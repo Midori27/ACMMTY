@@ -14,8 +14,8 @@ public class Interno extends Usuario{
     private String matricula;
     private String campus;
 
-    public Interno(String matricula, String carrera, int tipoUsuario, String campus, String nombreUsuario, String password, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String tel, String dir, int tipo) {
-        super(tipoUsuario, carrera, nombreUsuario, password, apellidoP, apellidoM, email, fechaNacimiento, tel, dir, tipo);
+    public Interno(String matricula, String carrera, int tipoUsuario, String campus, int id, String nombreUsuario, String password, String nombre, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String tel, String dir, int tipo) {
+        super(tipoUsuario, carrera, id, nombreUsuario, password, nombre, apellidoP, apellidoM, email, fechaNacimiento, tel, dir, tipo);
         this.matricula = matricula;
         this.campus = campus;
     }

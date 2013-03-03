@@ -4,6 +4,8 @@
  */
 package Modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -11,30 +13,73 @@ import java.util.Date;
  * @author juanjo
  */
 public class Persona {
+    private static final String COL_ID = "Id";
+    private static final String COL_NOMBRE_USUARIO = "username";
+    private static final String COL_PASSWORD = "password";
+    private static final String COL_NOMBRE = "nombre";
+    private static final String COL_APELLIDO_P = "apellidoP";
+    private static final String COL_APELLIDO_M = "apellidoM";
+    private static final String COL_EMAIL = "email";
+    private static final String COL_FECHA_NACIMIENTO = "fechaNacimiento";
+    private static final String COL_TELEFONO = "telefono";
+    private static final String COL_DIR = "direccion";
+    private static final String COL_TIPO = "tipo";
+    
+    private int id;
     private String nombreUsuario;
     private String password;
+    private String nombre;
     private String apellidoP;
     private String apellidoM;
     private String email;
     private Date fechaNacimiento;
-    private String tel;
+    private String telefono;
     private String dir;
     private int tipo;
 
-    public Persona(String nombreUsuario, String password, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String tel, String dir, int tipo) {
+    public Persona(int id, String nombreUsuario, String password, String nombre, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String telefono, String dir, int tipo) {
+        this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.password = password;
+        this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
-        this.tel = tel;
+        this.telefono = telefono;
         this.dir = dir;
         this.tipo = tipo;
+    }
+    
+    public Persona(ResultSet rs){
+        try{
+            this.id = rs.getInt(COL_ID);
+            this.nombreUsuario = rs.getString(COL_NOMBRE_USUARIO);
+            this.password = rs.getString(COL_PASSWORD);
+            this.nombre = rs.getString(COL_NOMBRE);
+            this.apellidoP = rs.getString(COL_APELLIDO_P);
+            this.apellidoM = rs.getString(COL_APELLIDO_M);
+            this.email = rs.getString(COL_EMAIL);
+            this.fechaNacimiento = rs.getDate(COL_FECHA_NACIMIENTO);
+            this.telefono = rs.getString(COL_TELEFONO);
+            this.dir = rs.getString(COL_DIR);
+            this.tipo = rs.getInt(COL_TIPO);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public Persona() {
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -50,6 +95,14 @@ public class Persona {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getNombre() {
+        return password;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getApellidoP() {
@@ -84,12 +137,12 @@ public class Persona {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getTel() {
-        return tel;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getDir() {
