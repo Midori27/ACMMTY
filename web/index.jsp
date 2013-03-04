@@ -12,5 +12,8 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form action="admin" method="POST">
+            <input type="submit">
+        </form>
     </body>
 </html>

@@ -4,9 +4,10 @@
  */
 package Controlador;
 
-import Modelo.Persona;
+import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,9 @@ public class ServletAdministrador extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        Usuario u = new Usuario("patote", "cuaqk", "Pato", "McPato", "Patinson", "pato@quack.com", new Date(1985,12,12), "818082823", "Monterrey", "Nuevo Leon", 1, "ITC", "A01033223", "Monterrey", "ITESM");
+        
         try {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -40,6 +44,8 @@ public class ServletAdministrador extends HttpServlet {
             out.println("<title>Servlet ServletAdministrador</title>");            
             out.println("</head>");
             out.println("<body>");
+            out.println(cq.insertaUsuarioBD(u));
+            out.println(Usuario.CAMPOS_TABLA);
             out.println("<h1>Servlet ServletAdministrador at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");

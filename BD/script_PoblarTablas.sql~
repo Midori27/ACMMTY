@@ -1,49 +1,12 @@
 --
--- Base de datos: `RegistroACM`
+-- Base de datos: `PortalACM`
 --
 
 
 -- --------------------------------------------------------
--- Insertar datos en la tabla `Persona`
+-- Insertar datos en la tabla `Usuario`
 -- --------------------------------------------------------
-insert into Persona (username,password,nombre,apellidoP,apellidoM,fechaNacimiento,telefono,direccion,email,tipo)values ('JuanJo','1234','Juan','Lenero','Lozano','1992-05-28',88888888,'Miguel Angel 123 Colonia Contry La Silla','juan@gmail.com',0), ('LuisH','hola','Luis','Gonzalez','Guerra','1978-04-05',83335932,'Pinos 3333 Colonia Beto','lhgonzalez@itesm.mx',0), ('MariaMa','mr38','Maria','Martinez','','1996-12-18',12345678,'Mizar 456 Colonia Contry','maria@hotmail.com',1), ('Pedro184','purpura','Pedro','Alvarez','Castro','1994-02-25',45678901,'Hamsburgo 567 Colonia Alta Vista','pedro94@hotmail.com',1),
- ('Angel','an123','Angel','Zepeda','Rosalez','1990-05-10', 12986735,'Revolucion 1865 Colonia Playa','angle123@gmail.com',1), ('MarthaGN','magica','Martha','Gimenez','Navarro','1992-07-13', 869553597,'Rio Naza 568 Colonia La Presa','marthag@gmail.com',1), ('Pa99LAM','secreto','Pablo','Perez','Parra','1989-11-20', 12579563,'Benitez 175 Colonia Rio','pablopp@hotmail.com',1), ('AleT','kosa12','Alejandra','Torres','Castillo','1991-10-30', 675359012,'Costa Azul 2208 Colonia Laguna','alextc@gmail.com',1);
-
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `Administrador`
--- --------------------------------------------------------
-insert into Administrador values (1,1);
-insert into Administrador values (2,0);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `Usuario`
--- --------------------------------------------------------
-insert into Usuario values (3,0,'ITC');
-insert into Usuario values (4,1,'ITIC');
-insert into Usuario values (5,0,'INT');
-insert into Usuario values (6,0,'IMA');
-insert into Usuario values (7,1,'LATI');
-insert into Usuario values (8,1,'ITC');
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `Interno`
--- --------------------------------------------------------
-insert into Interno values (3,'A01074693','Monterrey');
-insert into Interno values (5,'A00864537','Saltillo');
-insert into Interno values (6,'A00949370','Monterrey');
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `Externo`
--- --------------------------------------------------------
-insert into Externo values (4,'UANL');
-insert into Externo values (7,'UNAM');
-insert into Externo values (8,'UDG');
-
+insert into Usuario (username,password,nombre,apellidoP,apellidoM,fechaNacimiento,telefono,ciudad,estado,email,tipo,carrera,matricula,campus,universidad)values ('JuanJo','1234','Juan','Lenero','Lozano','1992-05-28','88884324','Monterrey','Nuevo Leon','juan@gmail.com',0,'ITC','A01034171','Monterrey','ITESM'), ('LuisH','hola','Luis','Gonzalez','Guerra','1978-04-05','88886534','Monterrey','Nuevo Leon','lhgonzalez@itesm.mx',1,'ITC','A01031234','Monterrey','ITESM'), ('MariaMa','mr38','Maria','Martinez','','1996-12-18','83482345','Monterrey','Nuevo Leon','maria@hotmail.com',1,'ITIC','A010342341','Monterrey','ITESM'), ('Pedro184','purpura','Pedro','Alvarez','Castro','1994-02-25','82345323','Monterrey','Nuevo Leon','pedro94@hotmail.com',1,'ITE','A01023454','Monterrey','ITESM'),('Angel','an123','Angel','Zepeda','Rosalez','1990-05-10','81345674','Monterrey','Nuevo Leon','angle123@gmail.com',1,'LAD','A01045432','Monterrey','ITESM'), ('MarthaGN','magica','Martha','Gimenez','Navarro','1992-07-13', '88346578','Monterrey','Nuevo Leon','marthag@gmail.com',1,'ITC','A01035567','Monterrey','ITESM'), ('Pa99LAM','secreto','Pablo','Perez','Parra','1989-11-20','88984367','Monterrey','Nuevo Leon','pablopp@hotmail.com',2,'ITC',null,'Monterrey','UDEM'), ('AleT','kosa12','Alejandra','Torres','Castillo','1991-10-30','88749382','Monterrey','Nuevo Leon','alextc@gmail.com',2,'ITC',null,'Monterrey','UDEM');
 
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Evento`
@@ -69,7 +32,7 @@ insert into EventoEquipo values (3,5);
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Equipo`
 -- --------------------------------------------------------
-insert into Equipo(eventoID,nombre,puntaje) values (1,'The Algo Geeks',350),
+insert into Equipo(idEvento,nombre,puntaje) values (1,'The Algo Geeks',350),
 (1,'The Best Team',200),
 (1,'Byte',250),
 (3,'ANY Dream', 150),
@@ -102,7 +65,7 @@ insert into UsuarioEventoEq values (6,4);
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Comentario`
 -- --------------------------------------------------------
-insert into Comentario (descripcion,fecha,eventoID,personaID)values 
+insert into Comentario (descripcion,fecha,idEvento,idUsuario)values 
 ('Es imposible resolver el problema 5','2012-11-25',1,3),
 ('Donde esta publicada la solucion?','2012-10-30',2,4),
 ('Quien ya tiene la solucion?','2013-01-18',2,8),
