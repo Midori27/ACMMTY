@@ -31,7 +31,7 @@ public class ControladorQuery {
     /**
      * Crea un objeto Usuario con los datos extraidos del registro de la base
      * de datos con el id provisto como parámetro.
-     * @param id  El id del registro que se desea obtener de la base de datos.
+     * @param id  Un entero que representa el id del registro que se desea obtener de la base de datos.
      * @return Usuario Un objeto usuario inicializado con los datos de la base.
      * @see Modelo.Usuario
      */ 
@@ -65,6 +65,11 @@ public class ControladorQuery {
         return u;
     }
     
+    /**
+     * Toma un objeto Usuario u e inserta sus campos en un registro de la base de datos.
+     * @param u El objeto Usuario cuyos datos se desean registrar en la base de datos.
+     * @return true si se pudo insertar el registro, false en caso contrario
+     */
     public boolean insertaUsuarioBD(Usuario u){
         Connection conexion = pool.getConexion();
         PreparedStatement insertaUsuario = null;
@@ -103,5 +108,44 @@ public class ControladorQuery {
         }
         
         return resultado;
+    }
+    
+    /**
+     * Toma como parametros dos Strings que representn el nombre de usuario y el password y 
+     * realiza una consulta a la base de datos que determina si existe un registro en la tabla
+     * de usuarios que concuerde con los dos parámetros.
+     * @param nombreUsuario El String que representa el nombre del usuario.
+     * @param password El String que representa el password del usuario.
+     * @return Integer El valor del id del usuario ó null si no existe.
+     */
+    public Integer existeUsuario(String nombreUsuario, String password){
+        Connection conexion = pool.getConexion();
+        PreparedStatement existeUsuario = null;
+        ResultSet rs = null;
+        Integer id = null;
+        String query = "SELECT * FROM "+Usuario.NOMBRE_TABLA+" WHERE "+Usuario.COL_NOMBRE_USUARIO+" = ? AND "+Usuario.COL_PASSWORD+" = ?";
+        
+        try{
+            existeUsuario = conexion.prepareStatement(query);
+            existeUsuario.setString(1,nombreUsuario);
+            existeUsuario.setString(2,password);
+            rs = existeUsuario.executeQuery();
+            
+            if(rs.next()){
+                id = rs.getInt(Usuario.COL_ID);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                existeUsuario.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return id;
     }
 }
