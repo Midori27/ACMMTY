@@ -4,18 +4,23 @@
  */
 package Controlador;
 
+import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author juanjo
  */
 public class ServletUsuario extends HttpServlet {
+    private static final String URL_REDIRECCION_USUARIO_CREADO = "index.jsp";
+    private static final String URL_REDIRECCION_MODIFICAR_USUARIO = "";
 
     /**
      * Processes requests for both HTTP
@@ -30,20 +35,11 @@ public class ServletUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletUsuario</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletUsuario at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+        HttpSession s = request.getSession();
+        if(s==null || s.getAttribute(ServletLogin.ATRIBUTO_ID) == null){
+            creaUsuario(request);
+            response.sendRedirect(URL_REDIRECCION_USUARIO_CREADO);
+            
         }
     }
 
@@ -87,4 +83,34 @@ public class ServletUsuario extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public void creaUsuario(HttpServletRequest request){
+        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        Usuario u = null;
+        String nombreUsuario = request.getParameter("nombreUsuario");
+        String password = request.getParameter("password");
+        String nombre = request.getParameter("nombre");
+        String apellidoP = request.getParameter("apellidoP");
+        String apellidoM = request.getParameter("apellidoM");
+        String email = request.getParameter("email");
+        String fechaNacimiento = request.getParameter("fechaNacimiento");
+        String telefono = request.getParameter("telefono");
+        String ciudad = request.getParameter("ciudad");
+        String estado = request.getParameter("estado");
+        String carrera = request.getParameter("carrera");
+        String matricula = request.getParameter("matricula");
+        String campus = request.getParameter("campus");
+        String universidad = request.getParameter("universidad");
+        Integer tipo = null;
+        
+        if(universidad.equals("ITESM")){
+            tipo = 1;
+        } else{
+            tipo = 2;
+        }
+        
+        u = new Usuario(nombreUsuario, password, nombre, apellidoP, apellidoM, email, new Date(), telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
+        cq.insertaUsuarioBD(u);  
+        
+    }
 }

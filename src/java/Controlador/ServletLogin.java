@@ -51,8 +51,8 @@ public class ServletLogin extends HttpServlet {
         //Se obtiene el despachador.
         RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD);
         //Se obtiene el nombre y password de los parametros en el request.
-        String nombreUsuario = request.getParameter("uname");
-        String password = request.getParameter("pass");
+        String nombreUsuario = request.getParameter("nombreUsuario");
+        String password = request.getParameter("password");
         //Se verifica el usuario y password.
         Integer id = cq.existeUsuario(nombreUsuario, password);
         cq.actualizaUsuarioBD(2, Usuario.COL_CAMPUS, "Alegria");

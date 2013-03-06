@@ -254,6 +254,51 @@ public class ControladorQuery {
     }
     
      /**
+     * Obtiene todos los eventos guardados en la base de datos y los regresa en un arreglo de objetos Evento.
+     * de datos con el id provisto como parámetro.
+     * @return Evento[] Un arreglo que contiene los objetos evento que se encuentran en la base.
+     * @see Modelo.Evento
+     */ 
+    public Evento[] getEventosBd(){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectEventos = null;
+        ResultSet rs = null;
+        Evento eventos[] = null;
+        String query = "SELECT * FROM "+Evento.NOMBRE_TABLA;
+        int numRegistros;
+        int i = 0;
+        try{
+            selectEventos = conexion.prepareStatement(query);
+            rs = selectEventos.executeQuery();
+            if(rs.first()){
+                rs.last();
+                numRegistros = rs.getRow();
+                eventos = new Evento[numRegistros];
+                rs.beforeFirst();
+                
+                while(rs.next()){
+                    eventos[i] = new Evento(rs);
+                    i++;
+                }
+            }
+            
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectEventos.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return eventos;
+    }
+    
+     /**
      * Toma el id de un evento registrado en la base de datos y lo borra.
      * @param id entero positivo que representa el id del evento cuyos datos se desean borrar de la base de datos.
      * @return true si se pudo borrar el registro, false en caso contrario
