@@ -4,7 +4,7 @@
  */
 package Controlador;
 
-import Modelo.Usuario;
+import Modelo.Evento;
 import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,7 +73,6 @@ public class ControladorQuery {
     public boolean insertaUsuarioBD(Usuario u){
         Connection conexion = pool.getConexion();
         PreparedStatement insertaUsuario = null;
-        ResultSet rs = null;
         boolean resultado = true;
         String query = "INSERT INTO "+Usuario.NOMBRE_TABLA+" "+Usuario.CAMPOS_TABLA+" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
@@ -102,6 +101,39 @@ public class ControladorQuery {
             pool.cierraConexion(conexion);
             try{
                 insertaUsuario.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+     /**
+     * Actualiza el campo del registro en la tabla de usuarios que tiene el id provisto.
+     * @param id Un entero positivo que representa el id del registro en la base de datos.
+     * @param campo Un String que representa el campo que se desea actualizar.
+     * @param valor Un String que representa el nuevo valor del campo a actualizar.
+     * @return true si se pudo actualizar el registro, false en caso contrario
+     */
+    public boolean actualizaUsuarioBD(int id, String campo, String valor){
+        Connection conexion = pool.getConexion();
+        PreparedStatement actualizaUsuario = null;
+        boolean resultado = true;
+        String query = "UPDATE "+Usuario.NOMBRE_TABLA+" SET "+campo+"=? WHERE "+Usuario.COL_ID+"=?";
+        
+        try{
+            actualizaUsuario = conexion.prepareStatement(query);
+            actualizaUsuario.setString(1, valor);
+            actualizaUsuario.setInt(2, id);
+            actualizaUsuario.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                actualizaUsuario.close();
             } catch (SQLException e){
                 e.printStackTrace();
             }
@@ -148,4 +180,107 @@ public class ControladorQuery {
         
         return id;
     }
+    
+       /**
+     * Toma un objeto Evento e inserta sus campos en un registro de la base de datos.
+     * @param e El objeto Evento cuyos datos se desean registrar en la base de datos.
+     * @return true si se pudo insertar el registro, false en caso contrario
+     */
+    public boolean insertaEventoBD(Evento ev){
+        Connection conexion = pool.getConexion();
+        PreparedStatement insertaEvento = null;
+        ResultSet rs = null;
+        boolean resultado = true;
+        String query = "INSERT INTO "+Evento.NOMBRE_TABLA+" "+Evento.CAMPOS_TABLA+" VALUES (?,?,?,?,?)";
+        
+        try{
+            insertaEvento = conexion.prepareStatement(query);
+            insertaEvento.setString(1, ev.getNombre());
+            insertaEvento.setDate(2, java.sql.Date.valueOf("1990-11-27"));
+            insertaEvento.setString(3,ev.getLugar());
+            insertaEvento.setString(4,ev.getDescripcion());
+            insertaEvento.setInt(5,ev.getMaxIntegrantesEquipo());
+            insertaEvento.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                insertaEvento.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+        /**
+     * Crea un objeto Usuario con los datos extraidos del registro de la base
+     * de datos con el id provisto como parámetro.
+     * @param id  Un entero que representa el id del registro que se desea obtener de la base de datos.
+     * @return Usuario Un objeto usuario inicializado con los datos de la base.
+     * @see Modelo.Usuario
+     */ 
+    public Evento getEventoBd(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectEvento = null;
+        ResultSet rs = null;
+        Evento ev = null;
+        String query = "SELECT * FROM "+Evento.NOMBRE_TABLA+" WHERE "+Evento.COL_ID+" = ?";
+        
+        try{
+            selectEvento = conexion.prepareStatement(query);
+            selectEvento.setInt(1,id);
+            rs = selectEvento.executeQuery();
+            
+            if(rs.next()){
+                ev = new Evento(rs);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectEvento.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return ev;
+    }
+    
+     /**
+     * Toma el id de un evento registrado en la base de datos y lo borra.
+     * @param id entero positivo que representa el id del evento cuyos datos se desean borrar de la base de datos.
+     * @return true si se pudo borrar el registro, false en caso contrario
+     */
+    public boolean borraEventoBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement borraEvento = null;
+        boolean resultado = true;
+        String query = "DELETE FROM "+Evento.NOMBRE_TABLA+" WHERE "+Evento.COL_ID+"=?";
+        
+        try{
+            borraEvento = conexion.prepareStatement(query);
+            borraEvento.setInt(1,id);
+            borraEvento.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                borraEvento.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
 }

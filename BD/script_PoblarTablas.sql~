@@ -6,66 +6,25 @@
 -- --------------------------------------------------------
 -- Insertar datos en la tabla `Usuario`
 -- --------------------------------------------------------
-insert into Usuario (username,password,nombre,apellidoP,apellidoM,fechaNacimiento,telefono,ciudad,estado,email,tipo,carrera,matricula,campus,universidad)values ('JuanJo','1234','Juan','Lenero','Lozano','1992-05-28','88884324','Monterrey','Nuevo Leon','juan@gmail.com',0,'ITC','A01034171','Monterrey','ITESM'), ('LuisH','hola','Luis','Gonzalez','Guerra','1978-04-05','88886534','Monterrey','Nuevo Leon','lhgonzalez@itesm.mx',1,'ITC','A01031234','Monterrey','ITESM'), ('MariaMa','mr38','Maria','Martinez','','1996-12-18','83482345','Monterrey','Nuevo Leon','maria@hotmail.com',1,'ITIC','A010342341','Monterrey','ITESM'), ('Pedro184','purpura','Pedro','Alvarez','Castro','1994-02-25','82345323','Monterrey','Nuevo Leon','pedro94@hotmail.com',1,'ITE','A01023454','Monterrey','ITESM'),('Angel','an123','Angel','Zepeda','Rosalez','1990-05-10','81345674','Monterrey','Nuevo Leon','angle123@gmail.com',1,'LAD','A01045432','Monterrey','ITESM'), ('MarthaGN','magica','Martha','Gimenez','Navarro','1992-07-13', '88346578','Monterrey','Nuevo Leon','marthag@gmail.com',1,'ITC','A01035567','Monterrey','ITESM'), ('Pa99LAM','secreto','Pablo','Perez','Parra','1989-11-20','88984367','Monterrey','Nuevo Leon','pablopp@hotmail.com',2,'ITC',null,'Monterrey','UDEM'), ('AleT','kosa12','Alejandra','Torres','Castillo','1991-10-30','88749382','Monterrey','Nuevo Leon','alextc@gmail.com',2,'ITC',null,'Monterrey','UDEM');
+insert into Usuario (username,password,nombre,apellidoP,apellidoM,fechaNacimiento,telefono,ciudad,estado,email,tipo,carrera,matricula,campus,universidad)values ('JuanJo','1234','Juan','Lenero','Lozano','1992-05-28','88884324','Monterrey','Nuevo Leon','juan@gmail.com',0,'ITC','A01034171','Monterrey','ITESM'), ('LuisH','hola','Luis','Gonzalez','Guerra','1978-04-05','88886534','Monterrey','Nuevo Leon','lhgonzalez@itesm.mx',1,'ITC','A01031234','Monterrey','ITESM'), ('MariaMa','mr38','Maria','Martinez','Tijerina','1996-12-18','83482345','Monterrey','Nuevo Leon','maria@hotmail.com',1,'ITIC','A010342341','Monterrey','ITESM'), ('Pedro184','purpura','Pedro','Alvarez','Castro','1994-02-25','82345323','Monterrey','Nuevo Leon','pedro94@hotmail.com',1,'ITE','A01023454','Monterrey','ITESM'),('Angel','an123','Angel','Zepeda','Rosalez','1990-05-10','81345674','Monterrey','Nuevo Leon','angle123@gmail.com',1,'LAD','A01045432','Monterrey','ITESM'), ('MarthaGN','magica','Martha','Gimenez','Navarro','1992-07-13', '88346578','Monterrey','Nuevo Leon','marthag@gmail.com',1,'ITC','A01035567','Monterrey','ITESM'), ('Pa99LAM','secreto','Pablo','Perez','Parra','1989-11-20','88984367','Monterrey','Nuevo Leon','pablopp@hotmail.com',2,'ITC',null,'Monterrey','UDEM'), ('AleT','kosa12','Alejandra','Torres','Castillo','1991-10-30','88749382','Monterrey','Nuevo Leon','alextc@gmail.com',2,'ITC',null,'Monterrey','UDEM');
 
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Evento`
 -- --------------------------------------------------------
-insert into Evento (nombre,fecha,lugar,descripcion,tipo)values ('Hackathon','2012-10-08',' biblioteca del Campus Monterrey','maraton hacking de 24 horas',1),
-('Top Tec Programmer','2013-01-28','virtual','competencia individual de programacion',0),
-('ICPC','2012-04-23','Centro Estudiantil','Competencia de programacion',1);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `EventoIndividual`
--- --------------------------------------------------------
-insert into EventoIndividual values (2);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `EventoEquipo`
--- --------------------------------------------------------
-insert into EventoEquipo values (1,4);
-insert into EventoEquipo values (3,5);
-
+insert into Evento (nombre,fecha,lugar,descripcion,integrantesPorEquipo)values ('Hackathon','2012-10-08',' biblioteca del Campus Monterrey','maraton hacking de 24 horas',4),
+('Top Tec Programmer','2013-01-28','virtual','competencia individual de programacion',1),
+('ICPC','2012-04-23','Centro Estudiantil','Competencia de programacion',4);
 
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Equipo`
 -- --------------------------------------------------------
-insert into Equipo(idEvento,nombre,puntaje) values (1,'The Algo Geeks',350),
-(1,'The Best Team',200),
-(1,'Byte',250),
-(3,'ANY Dream', 150),
-(3,'LOL', 380);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `UsuarioEventoIn`
--- --------------------------------------------------------
-insert into UsuarioEventoIn values (3,2,'activo',185);
-insert into UsuarioEventoIn values (6,2,'',50);
-insert into UsuarioEventoIn values (7,2,'activo',245);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `UsuarioEventoEq`
--- --------------------------------------------------------
-insert into UsuarioEventoEq values (3,1);
-insert into UsuarioEventoEq values (4,2);
-insert into UsuarioEventoEq values (6,3);
-insert into UsuarioEventoEq values (7,3);
-insert into UsuarioEventoEq values (5,2);
-insert into UsuarioEventoEq values (8,1);
-insert into UsuarioEventoEq values (8,4);
-insert into UsuarioEventoEq values (5,5);
-insert into UsuarioEventoEq values (3,4);
-insert into UsuarioEventoEq values (6,4);
-
+insert into Equipo(idEvento, idUsuario, nombre, estado, puntaje) values (1,3,'The Algo Geeks','pagado',100),
+(1,4,'The Algo Geeks',100),
 
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Comentario`
 -- --------------------------------------------------------
-insert into Comentario (descripcion,fecha,idEvento,idUsuario)values 
+insert into Comentario (descripcion,fecha,idEvento,idUsuario) values 
 ('Es imposible resolver el problema 5','2012-11-25',1,3),
 ('Donde esta publicada la solucion?','2012-10-30',2,4),
 ('Quien ya tiene la solucion?','2013-01-18',2,8),

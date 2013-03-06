@@ -43,29 +43,8 @@ CREATE TABLE IF NOT EXISTS Evento (
   fecha DATE NOT NULL,
   lugar varchar(50) NOT NULL,
   descripcion varchar(150) NOT NULL,
-  tipo int(1) NOT NULL,
+  integrantesPorEquipo int(2) NOT NULL,
   PRIMARY KEY (id)
-) ;
-
-
--- --------------------------------------------------------
--- Creacion de la tabla EventoIndividual
--- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS EventoIndividual (
-  id int(11) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (id) REFERENCES Evento(id)
-) ;
-
-
--- --------------------------------------------------------
--- Creacion de la tabla EventoEquipo
--- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS EventoEquipo (
-  id int(11) NOT NULL ,
-  NumPersonaXEquipo int(2) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (id) REFERENCES Evento(id)
 ) ;
 
 
@@ -75,38 +54,14 @@ CREATE TABLE IF NOT EXISTS EventoEquipo (
 CREATE TABLE IF NOT EXISTS Equipo (
   id int(11) NOT NULL AUTO_INCREMENT,
   idEvento int(11) NOT NULL,
-  nombre varchar(30) NOT NULL,
-  puntaje int (8) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (idEvento) REFERENCES EventoEquipo(id)
-) ;
-
-
--- --------------------------------------------------------
--- Creacion de la tabla UsuarioEventoIn
--- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS UsuarioEventoIn (
-  idUsuario int(11) NOT NULL ,
-  idEvento int(11) NOT NULL,
-  estado varchar(30) ,
-  puntaje int (8) NOT NULL,
-  PRIMARY KEY (idUsuario, idEvento),
-  FOREIGN KEY (idEvento) REFERENCES EventoIndividual(id),
+  idUsuario int(11) NOT NULL,
+  nombre varchar(35) NOT NULL,
+  estado varchar(35) NOT NULL,
+  puntaje int (9) NOT NULL,
+  PRIMARY KEY (id, idEvento, idUsuario),
+  FOREIGN KEY (idEvento) REFERENCES Evento(id),
   FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
 ) ;
-
-
--- --------------------------------------------------------
--- Creacion de la tabla UsuarioEventoEq
--- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS UsuarioEventoEq (
-  idUsuario int(11) NOT NULL ,
-  idEquipo int(11) NOT NULL,
-  PRIMARY KEY (idUsuario, idEquipo),
-  FOREIGN KEY (idEquipo) REFERENCES Equipo(id),
-  FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
-) ;
-
 
 -- --------------------------------------------------------
 -- Creacion de la tabla Comentario

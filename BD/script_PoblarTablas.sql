@@ -11,61 +11,20 @@ insert into Usuario (username,password,nombre,apellidoP,apellidoM,fechaNacimient
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Evento`
 -- --------------------------------------------------------
-insert into Evento (nombre,fecha,lugar,descripcion,tipo)values ('Hackathon','2012-10-08',' biblioteca del Campus Monterrey','maraton hacking de 24 horas',1),
-('Top Tec Programmer','2013-01-28','virtual','competencia individual de programacion',0),
-('ICPC','2012-04-23','Centro Estudiantil','Competencia de programacion',1);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `EventoIndividual`
--- --------------------------------------------------------
-insert into EventoIndividual values (2);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `EventoEquipo`
--- --------------------------------------------------------
-insert into EventoEquipo values (1,4);
-insert into EventoEquipo values (3,5);
-
+insert into Evento (nombre,fecha,lugar,descripcion,integrantesPorEquipo)values ('Hackathon','2012-10-08',' biblioteca del Campus Monterrey','maraton hacking de 24 horas',4),
+('Top Tec Programmer','2013-01-28','virtual','competencia individual de programacion',1),
+('ICPC','2012-04-23','Centro Estudiantil','Competencia de programacion',4);
 
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Equipo`
 -- --------------------------------------------------------
-insert into Equipo(idEvento,nombre,puntaje) values (1,'The Algo Geeks',350),
-(1,'The Best Team',200),
-(1,'Byte',250),
-(3,'ANY Dream', 150),
-(3,'LOL', 380);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `UsuarioEventoIn`
--- --------------------------------------------------------
-insert into UsuarioEventoIn values (3,2,'activo',185);
-insert into UsuarioEventoIn values (6,2,'',50);
-insert into UsuarioEventoIn values (7,2,'activo',245);
-
-
--- --------------------------------------------------------
--- Insersion de datos en la tabla `UsuarioEventoEq`
--- --------------------------------------------------------
-insert into UsuarioEventoEq values (3,1);
-insert into UsuarioEventoEq values (4,2);
-insert into UsuarioEventoEq values (6,3);
-insert into UsuarioEventoEq values (7,3);
-insert into UsuarioEventoEq values (5,2);
-insert into UsuarioEventoEq values (8,1);
-insert into UsuarioEventoEq values (8,4);
-insert into UsuarioEventoEq values (5,5);
-insert into UsuarioEventoEq values (3,4);
-insert into UsuarioEventoEq values (6,4);
-
+insert into Equipo(idEvento, idUsuario, nombre, estado, puntaje) values (1,3,'The Algo Geeks','pagado',100),
+(1,4,'The Algo Geeks',100),
 
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Comentario`
 -- --------------------------------------------------------
-insert into Comentario (descripcion,fecha,idEvento,idUsuario)values 
+insert into Comentario(descripcion,fecha,idEvento,idUsuario) values 
 ('Es imposible resolver el problema 5','2012-11-25',1,3),
 ('Donde esta publicada la solucion?','2012-10-30',2,4),
 ('Quien ya tiene la solucion?','2013-01-18',2,8),

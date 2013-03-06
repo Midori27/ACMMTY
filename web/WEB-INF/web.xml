@@ -8,6 +8,10 @@
         <servlet-name>ServletUsuario</servlet-name>
         <servlet-class>Controlador.ServletUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletEvento</servlet-name>
+        <servlet-class>Controlador.ServletEvento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAdministrador</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/usuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEvento</servlet-name>
+        <url-pattern>/evento</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
