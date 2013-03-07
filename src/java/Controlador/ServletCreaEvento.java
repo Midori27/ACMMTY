@@ -4,24 +4,25 @@
  */
 package Controlador;
 
-import Modelo.Usuario;
+import Modelo.Evento;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author juanjo
  */
-public class ServletUsuario extends HttpServlet {
-    private static final String URL_REDIRECCION_USUARIO_CREADO = "index.jsp";
-    private static final String URL_REDIRECCION_MODIFICAR_USUARIO = "";
-    public static final String ATRIBUTO_USUARIO = "usuario";
+public class ServletCreaEvento extends HttpServlet {
+    public static final String URL_FORWARD_LISTA = "listaEventos.jsp";
+    public static final String URL_FORWARD_CREA_EVENTO = "/nuevoEvento.jsp";
+    public static final String ATRIBUTO_EVENTOS = "eventos";
+    public static final String ATRIBUTO_ERR = "mensaje";
+    public static final String ERR_CREACION_EVENTO = "Hubo un error en la creación del evento, intentelo otra vez.";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,14 +36,23 @@ public class ServletUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession s = request.getSession();
-        if(s==null || s.getAttribute(ServletLogin.ATRIBUTO_ID) == null){
-            creaUsuario(request);
-            response.sendRedirect(URL_REDIRECCION_USUARIO_CREADO);
+         
+        if(creaEvento(request)){
+           response.sendRedirect(URL_FORWARD_LISTA);
+        } else {
+            //Fallo la creacion del evento
+            //Se obtiene el despachador.
+            RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD_CREA_EVENTO);
+            //Agrega el mensaje de error
+            request.setAttribute(ATRIBUTO_ERR, ERR_CREACION_EVENTO);
+            //Forward de regreso a la lista de eventos.
+            despachador.forward(request, response);
+            return;
             
-        }else{
-            String modifica = request.getParameter("nombreUsuario");
         }
+        
+        
+                
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,37 +96,16 @@ public class ServletUsuario extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public void creaUsuario(HttpServletRequest request){
+    public boolean creaEvento(HttpServletRequest request){
+        boolean eventoCreado = false;
         ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
-        Usuario u = null;
-        String nombreUsuario = request.getParameter("nombreUsuario");
-        String password = request.getParameter("password");
-        String nombre = request.getParameter("nombre");
-        String apellidoP = request.getParameter("apellidoP");
-        String apellidoM = request.getParameter("apellidoM");
-        String email = request.getParameter("email");
-        String fechaNacimiento = request.getParameter("fechaNacimiento");
-        String telefono = request.getParameter("telefono");
-        String ciudad = request.getParameter("ciudad");
-        String estado = request.getParameter("estado");
-        String carrera = request.getParameter("carrera");
-        String matricula = request.getParameter("matricula");
-        String campus = request.getParameter("campus");
-        String universidad = request.getParameter("universidad");
-        Integer tipo = null;
-        
-        if(universidad.equals("ITESM")){
-            tipo = 1;
-        } else{
-            tipo = 2;
-        }
-        
-        u = new Usuario(nombreUsuario, password, nombre, apellidoP, apellidoM, email, new Date(), telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
-        cq.insertaUsuarioBD(u);  
-        
-    }
-    
-    public void modificaUsuario(){
-        
+        String nombreE = request.getParameter("nombre");
+        String fechaE = request.getParameter("fecha");
+        String lugarE = request.getParameter("lugar");
+        String descripcionE = request.getParameter("descripcion");
+        int maxIntegrantesEquipo = Integer.parseInt(request.getParameter("integrantesPorEquipo"));
+        Evento ev = new Evento(nombreE, new Date(), lugarE, descripcionE, maxIntegrantesEquipo);
+        eventoCreado = cq.insertaEventoBD(ev);
+        return eventoCreado;
     }
 }

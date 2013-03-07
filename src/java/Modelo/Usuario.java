@@ -141,7 +141,7 @@ public class Usuario {
     }
     
     public String getNombre() {
-        return password;
+        return nombre;
     }
 
     public void setNombre(String nombre) {

@@ -1,27 +1,24 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * and open the templato in the editor.
  */
 package Controlador;
 
-import Modelo.Usuario;
+import static Controlador.ServletCreaEvento.URL_FORWARD_LISTA;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author juanjo
  */
-public class ServletUsuario extends HttpServlet {
-    private static final String URL_REDIRECCION_USUARIO_CREADO = "index.jsp";
-    private static final String URL_REDIRECCION_MODIFICAR_USUARIO = "";
-    public static final String ATRIBUTO_USUARIO = "usuario";
+public class ServletBorraEvento extends HttpServlet {
+    private static String URL_FORWARD_EVENTO_BORRADO = "/listaEventos.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,14 +32,13 @@ public class ServletUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession s = request.getSession();
-        if(s==null || s.getAttribute(ServletLogin.ATRIBUTO_ID) == null){
-            creaUsuario(request);
-            response.sendRedirect(URL_REDIRECCION_USUARIO_CREADO);
-            
-        }else{
-            String modifica = request.getParameter("nombreUsuario");
+        if(borraEvento(request)){
+              //Se obtiene el despachador.
+            RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD_EVENTO_BORRADO);
+            //Forward de regreso a la lista de eventos.
+            despachador.forward(request, response);
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -86,37 +82,12 @@ public class ServletUsuario extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public void creaUsuario(HttpServletRequest request){
+    public boolean borraEvento(HttpServletRequest request){
         ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
-        Usuario u = null;
-        String nombreUsuario = request.getParameter("nombreUsuario");
-        String password = request.getParameter("password");
-        String nombre = request.getParameter("nombre");
-        String apellidoP = request.getParameter("apellidoP");
-        String apellidoM = request.getParameter("apellidoM");
-        String email = request.getParameter("email");
-        String fechaNacimiento = request.getParameter("fechaNacimiento");
-        String telefono = request.getParameter("telefono");
-        String ciudad = request.getParameter("ciudad");
-        String estado = request.getParameter("estado");
-        String carrera = request.getParameter("carrera");
-        String matricula = request.getParameter("matricula");
-        String campus = request.getParameter("campus");
-        String universidad = request.getParameter("universidad");
-        Integer tipo = null;
-        
-        if(universidad.equals("ITESM")){
-            tipo = 1;
-        } else{
-            tipo = 2;
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        if(id == null){
+            return false;
         }
-        
-        u = new Usuario(nombreUsuario, password, nombre, apellidoP, apellidoM, email, new Date(), telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
-        cq.insertaUsuarioBD(u);  
-        
-    }
-    
-    public void modificaUsuario(){
-        
+        return cq.borraEventoBD(id);
     }
 }

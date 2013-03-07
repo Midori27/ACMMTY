@@ -29,16 +29,7 @@
 		<!-- Logo ACM -->
 		<img src="images/logo.png" class="logo" alt="ACM MTY" />
 		
-		<!-- Navegación de página -->
-		<div id="navigation">
-		  <ul>
-			<li><a href="index.jsp" >Inicio</a></li>
-			<li><a href="eventos.html" title="Eventos">Eventos</a></li>
-			<li><a href="contact.html" title="Contacto">Contacto</a></li>
-			<li><a href="nosotros.html" title="Acerca">Acerca de Nosotros</a></li>
-		  </ul>
-		</div>
-		<!-- Final del menu de navegación -->
+		<%@include file="navegacion.jsp"%>
 	</div>
 	<!-- FINAL barra fija -->
 

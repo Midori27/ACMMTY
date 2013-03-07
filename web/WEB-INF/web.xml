@@ -10,7 +10,23 @@
     </servlet>
     <servlet>
         <servlet-name>ServletEvento</servlet-name>
-        <servlet-class>Controlador.ServletEvento</servlet-class>
+        <servlet-class>Controlador.ServletCreaEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletModificaCuenta</servlet-name>
+        <servlet-class>Controlador.ServletModificaCuenta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletBorraEvento</servlet-name>
+        <servlet-class>Controlador.ServletBorraEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletListaEventos</servlet-name>
+        <servlet-class>Controlador.ServletListaEventos</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletLogout</servlet-name>
+        <servlet-class>Controlador.ServletLogout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletAdministrador</servlet-name>
@@ -24,6 +40,22 @@
         <servlet-name>ServletEvento</servlet-name>
         <url-pattern>/evento</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletModificaCuenta</servlet-name>
+        <url-pattern>/modificaCuenta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletBorraEvento</servlet-name>
+        <url-pattern>/borraEvento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletListaEventos</servlet-name>
+        <url-pattern>/listaEventos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletLogout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -34,4 +66,26 @@
             Controlador.ControladorArranque
         </listener-class>
     </listener>
-</web-app>
+   <!-- 
+    <security-constraint>
+      <web-resource-collection>
+         <web-resource-name>PortalACM</web-resource-name>
+         <url-pattern>/login</url-pattern>
+      </web-resource-collection>
+      <user-data-constraint> 
+         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </user-data-constraint>
+   </security-constraint>
+
+   <filter>
+      <filter-name>filtro-seguridad</filter-name>
+      <filter-class>Controlador.ControladorFiltro</filter-class>
+   </filter>
+   <filter-mapping>
+      <filter-name>filtro-seguridad</filter-name>
+      <url-pattern>/*</url-pattern>
+   </filter-mapping>
+-->
+
+ /   
+    </web-app>

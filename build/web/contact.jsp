@@ -1,3 +1,10 @@
+<%-- 
+    Document   : contact
+    Created on : Mar 7, 2013, 8:37:07 AM
+    Author     : juanjo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -24,16 +31,7 @@
 		<!-- Logo ACM -->
 		<img src="images/logo.png" class="logo" alt="ACM MTY" />
 		
-		<!-- Navegación de página -->
-		<div id="navigation">
-		  <ul>
-			<li><a href="index.jsp" >Inicio</a></li>
-			<li><a href="eventos.html" title="Eventos">Eventos</a></li>
-			<li><a class="current" title="Contacto">Contacto</a></li>
-			<li><a href="nosotros.html" title="Acerca">Acerca de Nosotros</a></li>
-		  </ul>
-		</div>
-		<!-- Final del menu de navegación -->
+		<%@include file="navegacion.jsp"%>
 	</div>
 	<!-- FINAL barra fija -->
 
@@ -107,4 +105,5 @@
 	</div>
 </body>
 </html>
+
 

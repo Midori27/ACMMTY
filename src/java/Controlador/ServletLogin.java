@@ -46,30 +46,18 @@ public class ServletLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Se obtiene el controlador de consultas del contexto del servidor.
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
-        //Se obtiene el despachador.
-        RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD);
-        //Se obtiene el nombre y password de los parametros en el request.
-        String nombreUsuario = request.getParameter("nombreUsuario");
-        String password = request.getParameter("password");
-        //Se verifica el usuario y password.
-        Integer id = cq.existeUsuario(nombreUsuario, password);
-        cq.actualizaUsuarioBD(2, Usuario.COL_CAMPUS, "Alegria");
-        if(id != null){
-            //Se obtiene la sesión.
-            HttpSession sesion = request.getSession();
-            //Se guarda el id del usuario en la sesion.
-            sesion.setAttribute(ATRIBUTO_ID, id);
+        if (iniciaSesion(request)){
+            //Se hace la redirección.
+            response.sendRedirect(URL_REDIRECCION);
         }else{
             //Falló el login.
             request.setAttribute(ATRIBUTO_ERR, ERR_LOGIN);
+            //Se obtiene el despachador.
+            RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD);
             //Forward de regreso al login.
             despachador.forward(request, response);
             return;
         }
-        //Se hace la redirección.
-        response.sendRedirect(URL_REDIRECCION);
         
     }
 
@@ -113,4 +101,29 @@ public class ServletLogin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public boolean iniciaSesion(HttpServletRequest request){
+        //
+        boolean login = false;
+        //Se obtiene el controlador de consultas del contexto del servidor.
+        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        //Se obtiene el nombre y password de los parametros en el request.
+        String nombreUsuario = request.getParameter("nombreUsuario");
+        String password = request.getParameter("password");
+        if(nombreUsuario == null || password == null){
+            return false;
+        }
+        //Se verifica el usuario y password.
+        Integer id = cq.existeUsuario(nombreUsuario, password);
+        if(id != null){
+            //Se obtiene la sesión.
+            HttpSession sesion = request.getSession();
+            //Se guarda el id del usuario en la sesion.
+            sesion.setAttribute(ATRIBUTO_ID, id);
+            login = true;
+        }else{
+            login = false;
+        }
+        return login;
+    }
 }

@@ -56,17 +56,7 @@
 	<div id="topbar">
 		<!-- Logo ACM -->
 		<img src="images/logo.png" class="logo" alt="ACM MTY" />
-		
-		<!-- Navegación de página -->
-		<div id="navigation">
-		  <ul>
-			<li><a class="current">Inicio</a></li>
-			<li><a href="eventos.html" title="#">Eventos</a></li>
-			<li><a href="contact.html" title="#">Contacto</a></li>
-			<li><a href="nosotros.html" title="#">Acerca de Nosotros</a></li>
-		  </ul>
-		</div>
-		<!-- Final del menu de navegación -->
+		<%@include file="navegacion.jsp"%>
 	</div>
 	<!-- FINAL barra fija -->
 

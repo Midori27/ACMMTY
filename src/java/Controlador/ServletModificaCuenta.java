@@ -1,25 +1,23 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * and open the templato in the editor.
  */
 package Controlador;
 
-import Modelo.Evento;
 import java.io.IOException;
-import java.util.Date;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author juanjo
  */
-public class ServletEvento extends HttpServlet {
-    public static final String URL_FORWARD = "/listaEventos.jsp";
-    public static final String ATRIBUTO_EVENTOS = "eventos";
+public class ServletModificaCuenta extends HttpServlet {
+     private static final String URL_REDIRECCION_USUARIO_NO_AUTENTIFICADO = "login.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -33,15 +31,16 @@ public class ServletEvento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         //Se obtiene el despachador.
-        RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD);
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
-        creaEvento(cq, request);
-        Evento[] eventos = cq.getEventosBd();
-        request.setAttribute(ATRIBUTO_EVENTOS, eventos);
-        //Forward de regreso a la lista de eventos.
-        despachador.forward(request, response);
-        return;        
+        HttpSession s = request.getSession();
+        if(s==null || s.getAttribute(ServletLogin.ATRIBUTO_ID) == null){
+            response.sendRedirect(URL_REDIRECCION_USUARIO_NO_AUTENTIFICADO);
+            
+        }else{
+            if(request.getServletPath().equals("/cuenta")){
+                actualizaUsuario(request);
+            }
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,17 +84,7 @@ public class ServletEvento extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public void creaEvento(ControladorQuery cq, HttpServletRequest request){
-        String nombreE = request.getParameter("nombre");
-        String fechaE = request.getParameter("fecha");
-        String lugarE = request.getParameter("lugar");
-        String descripcionE = request.getParameter("descripcion");
-        int maxIntegrantesEquipo = Integer.parseInt(request.getParameter("integrantesPorEquipo"));
-        Evento ev = new Evento(nombreE, new Date(), lugarE, descripcionE, maxIntegrantesEquipo);
-        cq.insertaEventoBD(ev);
-    }
-    
-    public void getEventos(){
-        
+    public void actualizaUsuario(HttpServletRequest request){
+        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
     }
 }

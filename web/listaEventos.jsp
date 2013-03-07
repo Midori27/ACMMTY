@@ -4,10 +4,11 @@
     Author     : juanjo
 --%>
 
-<%@page import="Controlador.ServletEvento,Modelo.Evento"%>
+<%@page import="Controlador.ControladorQuery,Modelo.Evento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    Evento[] eventos = (Evento[]) request.getAttribute(ServletEvento.ATRIBUTO_EVENTOS);
+    ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+    Evento[] eventos = cq.getEventosBd();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -35,16 +36,7 @@
 		<!-- Logo ACM -->
 		<img src="images/logo.png" class="logo" alt="ACM MTY" />
 		
-		<!-- Navegación de página -->
-		<div id="navigation">
-		  <ul>
-			<li><a href="index.jsp" >Inicio</a></li>
-			<li><a href="eventos.html" title="Eventos">Eventos</a></li>
-			<li><a href="contacto.html" title="Contacto">Contacto</a></li>
-			<li><a href="nosotros.html" title="Acerca">Acerca de Nosotros</a></li>
-		  </ul>
-		</div>
-		<!-- Final del menu de navegación -->
+		<%@include file="navegacion.jsp"%>
 	</div>
 	<!-- FINAL barra fija -->
 
@@ -53,21 +45,7 @@
 		<!-- Barra Izquierda -->
 		<div id="sidebar">
 
-			<h2>Contacto</h2>
 			
-			<p>
-				Puedes encontrarnos en las redes sociales a través de:
-			</p>
-
-			<!-- Redes Sociales -->
-			<div id="socials">
-			  <ul>
-				<li class="twitter"><a href="#"></a></li>
-				<li class="facebook"><a href="#"></a></li>
-
-			  </ul>
-			</div>
-			<!--Final Redes Sociales-->
 			
 			<div class="clearer"></div>
 			
@@ -82,9 +60,7 @@
 	
 			<p>
 				Lista 
-			</p>
-			
-			AQUI PON EL EVENTO FUE AGREGADO
+                        </p>
 			
 			
 
@@ -94,11 +70,11 @@
 					<div id="fields">
 					<!--AQUI EMPIEZA EL FOR>-->
                                         <%  for(int i=0;i<eventos.length;i++){%>
-					<form name="listaEvento" action="evento">
+					<form name="listaEvento" action="borraEvento">
 						<label><%=eventos[i].getNombre()%></label><br />
 						<input type="submit" value="Borrar" onclick="" />
 						<input type="hidden" value="<%=eventos[i].getId()%>" name="id" id="id" /><br />
-					<form>
+					</form>
                                         <% } %>
 					<!--AQUI TERMINA EL FOR>-->
 
