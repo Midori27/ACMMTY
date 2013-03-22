@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS Usuario (
   nombre varchar(35) NOT NULL,
   apellidoP varchar(35) NOT NULL,
   apellidoM varchar(35),
-  fechaNacimiento DATE NOT NULL,
-  telefono varchar (35) ,
-  ciudad varchar(35) NOT NULL,
-  estado varchar(35) NOT NULL,
+  fechaNacimiento DATE,
+  telefono varchar (35),
+  ciudad varchar(35),
+  estado varchar(35),
   email varchar(255) NOT NULL,
   tipo int(1) NOT NULL,
   carrera varchar(255) NOT NULL,
@@ -86,6 +86,15 @@ CREATE TABLE IF NOT EXISTS Noticia (
   fecha DATE,
   titulo varchar(30) NOT NULL,
   descripcion varchar(200) NOT NULL, 
+  PRIMARY KEY (id)
+) ;
+
+-- --------------------------------------------------------
+-- Creacion de la tabla Estado
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Estado (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  estado varchar(30) NOT NULL,
   PRIMARY KEY (id)
 ) ;
 
