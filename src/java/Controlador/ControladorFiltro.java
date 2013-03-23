@@ -60,6 +60,17 @@ public class ControladorFiltro implements Filter {
                resp.sendRedirect("index.jsp");
            }
         }
+        // Permitir acceso al login.
+        if (servletPath.equals("/recuperaCuenta.jsp"))
+        {
+           if(idUsuario == null){
+            chain.doFilter(req, resp);
+            return;
+           }else{
+               //Ya esta autentificado
+               resp.sendRedirect("index.jsp");
+           }
+        }
          if (servletPath.equals("/eventos.html")) {
           chain.doFilter(req, resp);
           return;

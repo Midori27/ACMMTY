@@ -28,6 +28,10 @@
         <servlet-name>ServletLogout</servlet-name>
         <servlet-class>Controlador.ServletLogout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorRecuperacionCuenta</servlet-name>
+        <servlet-class>Controlador.ServletRecuperacionCuenta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAdministrador</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ServletLogout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletRecuperacionCuenta</servlet-name>
+        <url-pattern>/RecuperacionCuenta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

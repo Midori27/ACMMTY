@@ -181,6 +181,44 @@ public class ControladorQuery {
         return id;
     }
     
+        /**
+     * Toma como parametros dos Strings que representn el nombre de usuario y el password y 
+     * realiza una consulta a la base de datos que determina si existe un registro en la tabla
+     * de usuarios que concuerde con los dos parámetros.
+     * @param nombreUsuario El String que representa el nombre del usuario.
+     * @param password El String que representa el password del usuario.
+     * @return Integer El valor del id del usuario ó null si no existe.
+     */
+    public Integer existeUsuarioConEmail(String email){
+        Connection conexion = pool.getConexion();
+        PreparedStatement existeUsuarioConEmail = null;
+        ResultSet rs = null;
+        Integer id = null;
+        String query = "SELECT "+Usuario.COL_ID+" FROM "+Usuario.NOMBRE_TABLA+" WHERE "+Usuario.COL_EMAIL+" = ?";
+        
+        try{
+            existeUsuarioConEmail = conexion.prepareStatement(query);
+            existeUsuarioConEmail.setString(1,email);
+            rs = existeUsuarioConEmail.executeQuery();
+            
+            if(rs.next()){
+                id = rs.getInt(Usuario.COL_ID);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                existeUsuarioConEmail.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return id;
+    }
+    
        /**
      * Toma un objeto Evento e inserta sus campos en un registro de la base de datos.
      * @param e El objeto Evento cuyos datos se desean registrar en la base de datos.
