@@ -29,7 +29,7 @@
         <servlet-class>Controlador.ServletLogout</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ControladorRecuperacionCuenta</servlet-name>
+        <servlet-name>ServletRecuperacionCuenta</servlet-name>
         <servlet-class>Controlador.ServletRecuperacionCuenta</servlet-class>
     </servlet>
     <servlet-mapping>

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class ServletRecuperacionCuenta extends HttpServlet {
-
+ 
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,13 +42,14 @@ public class ServletRecuperacionCuenta extends HttpServlet {
             request.setAttribute("mensaje", mensaje);
             RequestDispatcher despachadur = getServletContext().getRequestDispatcher("/recuperaCuenta.jsp");
             despachadur.forward(request,response);
-        }
-        
-        if (campo.equals("usuario")){
-            recuperaUsuario(id);
-        } else{
-            if(campo.equals("password")){
-                recuperaPassword(id);
+        }else{
+            Usuario u = cq.getUsuarioBd(id);
+            if (campo.equals("usuario")){
+                recuperaUsuario(u);
+            } else{
+                if(campo.equals("password")){
+                    recuperaPassword(u);
+                }
             }
         }
             request.setAttribute("mensaje", mensaje);
@@ -99,11 +101,17 @@ public class ServletRecuperacionCuenta extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public Boolean recuperaUsuario(Integer id){
+    public void recuperaUsuario(Usuario u){
+        String de = "acm.monterrey@gmail.com";
+        String para = "juanjo.lenero@gmail.com"; //u.getEmail();
+        String asunto = "Recuperacion de cuenta ACM Monterrey.";
+        String contenido="Hola "+u.getNombre()+",\n Hemos recibido una solicitud de recuperación de usuario para la cuenta asignada a este correo en monterrey.acm.org.\n\nTu nombre de usuario es: "+u.getNombreUsuario();
         //envia mail con usuario
+        ControladorEmail ce = ControladorEmail.getInstanceControladorEmail();
+        ce.mandaMail(de, para, asunto, contenido);
     }
     
-    public Boolean recuperaPassword(Integer id){
+    public void recuperaPassword(Usuario u){
         //crea hash
         //crea timestamp limite
         //agrega registro a tabla recuperacion
