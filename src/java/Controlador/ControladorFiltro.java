@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author juanjo
  */
 public class ControladorFiltro implements Filter {
+    public static String URL = "localhost:8484";
 
     public void init(FilterConfig filterConfig){
         
@@ -60,8 +61,30 @@ public class ControladorFiltro implements Filter {
                resp.sendRedirect("index.jsp");
            }
         }
-        // Permitir acceso al login.
+        // Permitir acceso a recuperar cuenta
         if (servletPath.equals("/recuperaCuenta.jsp"))
+        {
+           if(idUsuario == null){
+            chain.doFilter(req, resp);
+            return;
+           }else{
+               //Ya esta autentificado
+               resp.sendRedirect("index.jsp");
+           }
+        }
+        // Permitir acceso a reestablecer contrasena
+        if (servletPath.equals("/reestableceContrasena.jsp"))
+        {
+           if(idUsuario == null){
+            chain.doFilter(req, resp);
+            return;
+           }else{
+               //Ya esta autentificado
+               resp.sendRedirect("index.jsp");
+           }
+        }
+        // Permitir accesso a mensaje de exito
+        if (servletPath.equals("/exito.jsp"))
         {
            if(idUsuario == null){
             chain.doFilter(req, resp);

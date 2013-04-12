@@ -89,3 +89,16 @@ CREATE TABLE IF NOT EXISTS Noticia (
   PRIMARY KEY (id)
 ) ;
 
+-- --------------------------------------------------------
+-- Creacion de la tabla RecuperacionCuenta
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS RecuperacionCuenta(
+  id int(11) NOT NULL AUTO_INCREMENT,
+  idUsuario int(11) NOT NULL,
+  fechaExpedicion TIMESTAMP NOT NULL,
+  fechaExpiracion TIMESTAMP NOT NULL,
+  uuid varchar(36) NOT NULL,
+  reclamo boolean NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
+) ;

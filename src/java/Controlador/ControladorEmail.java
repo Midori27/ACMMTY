@@ -53,7 +53,7 @@ public class ControladorEmail {
         return i;
     }
     
-    public void mandaMail(String de, String para, String asunto, String contenido){
+    public void enviaMail(String de, String para, String asunto, String contenido){
         try{
             Message mensaje = new MimeMessage(session);
             mensaje.setFrom(new InternetAddress(de));

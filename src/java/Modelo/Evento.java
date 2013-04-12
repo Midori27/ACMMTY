@@ -45,7 +45,7 @@ public class Evento {
         this.maxIntegrantesEquipo = maxIntegrantesEquipo;
     }
     
-        public Evento(ResultSet rs){
+    public Evento(ResultSet rs){
         try{
             this.id = rs.getInt(COL_ID);
             this.nombre = rs.getString(COL_NOMBRE);

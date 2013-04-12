@@ -32,7 +32,6 @@ insert into Comentario(descripcion,fecha,idEvento,idUsuario) values
 ('Mi codigo no funciona','2012-09-05',1,5),
 ('El juez en linea no acepta mi solucion','2012-08-17',1,6);
 
-
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Noticia`
 -- --------------------------------------------------------
@@ -41,5 +40,3 @@ insert into Noticia(fecha,titulo,descripcion) values
 ('2012-09-19','Junta Top Tec Programmer','El dia 20 de Septiembre habra junta para todo los concursantes en aulas 3-101, esperamos su asistencia.'),
 ('2012-12-05','Cierre del Top Tec Programmer','La ceremonia del cierre del concurso se queda para el dia 10 de Diciembre en Auditorio Luis Elizondo a las 12:00pm, donde se entregara diplomas y premios a los programadores destacados'),
 ('2013-01-20','Junta para el evento de Hackathon','Quieres conocer las tecnicas de hacking, participas en el evento de Hackathon.');
-
-

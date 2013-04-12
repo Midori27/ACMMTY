@@ -1,3 +1,17 @@
+<%-- 
+    Document   : reestableceContrasena
+    Created on : Apr 10, 2013, 2:14:06 PM
+    Author     : juanjo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String mensaje = (String) request.getAttribute("mensaje");
+    String uuid = (String) request.getParameter("uuid");
+    if(mensaje==null){
+        mensaje="";
+    }
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -24,46 +38,22 @@
 		<!-- Logo ACM -->
 		<img src="images/logo.png" class="logo" alt="ACM MTY" />
 		
-		<!-- Navegación de página -->
-		<div id="navigation">
-		  <ul>
-			<li><a href="index.jsp" >Inicio</a></li>
-			<li><a class="current" title="Eventos">Eventos</a></li>
-			<li><a href="contact.html" title="Contacto">Contacto</a></li>
-			<li><a href="nosotros.html" title="Acerca">Acerca de Nosotros</a></li>
-		  </ul>
-		</div>
-		<!-- Final del menu de navegación -->
+		<%@include file="navegacion.jsp"%>
 	</div>
 	
 	<div class="container">
-
-		<!--Inicio Barra izquierda -->
-		<div id="sidebar">
-		
-			<div id="slogan">
-				<h2>Acerca de ACM</h2>
-				<p>
-					"Agua pasa por mi casa cate de mi corazón"
-
-				</p>
-			</div>
-		</div>
-		<!-- Final Barra izquierda -->
-		
 		<!--Contenido -->
 		<div id="contentInside">	
-			<img src="images/ACM/ACM.jpg" class="detailImg" alt=""/>
-			
-			<h3>ACM MTY</h3>
-			
-			<p>
-				The Association for Computing Machinery was founded in 1947 as the society for computing and information processing.
-
-			</p>
-			
-
-		
+                    <h3>Restablece tu contrase&ntilde;a:</h3>
+                    <form action="ServletReestableceContrasena" method="post">
+                        <input id="campoPassword" type="password" name="password" />
+                        <label for="campoPassword">Contrase&ntilde;a</label><br></br>
+                        <input id="confirmaPassword" type="password" name="confirmaPassword" />
+                        <label for="confirmaPassword">Confirma contrase&ntilde;a</label><br></br>
+                        <h3 style="color:red;"><%=mensaje%></h3>
+                        <input type="hidden" value="<%=uuid%>" name="uuid" />
+                        <input type="submit" value="Aceptar"></input>
+                    </form>
 				<div id="footer">
 					<p>
 						ACM MTY 2013
@@ -77,4 +67,3 @@
 	<!-- END CONTAINER -->
 </body>
 </html>
-

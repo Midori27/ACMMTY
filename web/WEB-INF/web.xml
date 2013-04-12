@@ -32,6 +32,10 @@
         <servlet-name>ServletRecuperacionCuenta</servlet-name>
         <servlet-class>Controlador.ServletRecuperacionCuenta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletReestableceContrasena</servlet-name>
+        <servlet-class>Controlador.ServletReestableceContrasena</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAdministrador</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -64,6 +68,10 @@
         <servlet-name>ServletRecuperacionCuenta</servlet-name>
         <url-pattern>/RecuperacionCuenta</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletReestableceContrasena</servlet-name>
+        <url-pattern>/ServletReestableceContrasena</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -94,6 +102,5 @@
       <url-pattern>/*</url-pattern>
    </filter-mapping>
 -->
-
- /   
+  
     </web-app>

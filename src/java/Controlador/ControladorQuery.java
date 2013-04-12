@@ -5,11 +5,15 @@
 package Controlador;
 
 import Modelo.Evento;
+import Modelo.RecuperacionCuenta;
 import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Esta clase se encarga de manejar las consultas a la base de datos y la
@@ -366,4 +370,117 @@ public class ControladorQuery {
         return resultado;
     }
     
+      /**
+     * Toma un objeto RecuperacionCuenta e inserta sus campos en un registro de la base de datos.
+     * @param rc El objeto RecuperacionCuenta cuyos datos se desean registrar en la base de datos.
+     * @return true si se pudo insertar el registro, false en caso contrario
+     */
+    public boolean insertaRecuperacionCuentaBD(RecuperacionCuenta rc){
+        Connection conexion = pool.getConexion();
+        PreparedStatement insertaRecuperacionCuenta = null;
+        ResultSet rs = null;
+        boolean resultado = true;
+        Timestamp tsExpedicion = new Timestamp(rc.getFechaExpedicion().getTime());
+        Timestamp tsExpiracion = new Timestamp(rc.getFechaExpiracion().getTime());
+        String query = "INSERT INTO "+RecuperacionCuenta.NOMBRE_TABLA+" "+RecuperacionCuenta.CAMPOS_TABLA+" VALUES (?,?,?,?,?)";
+        
+        try{
+            insertaRecuperacionCuenta = conexion.prepareStatement(query);
+            insertaRecuperacionCuenta.setInt(1, rc.getIdUsuario());
+            insertaRecuperacionCuenta.setTimestamp(2, tsExpedicion);
+            insertaRecuperacionCuenta.setTimestamp(3, tsExpiracion);
+            insertaRecuperacionCuenta.setString(4, rc.getUuid().toString());
+            insertaRecuperacionCuenta.setBoolean(5, false);
+            insertaRecuperacionCuenta.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                insertaRecuperacionCuenta.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+     /**
+     * Crea un objeto RecuperacionCuenta con los datos extraidos del registro de la base
+     * de datos con el UUID provisto como parámetro.
+     * @param uuid  Un entero que representa el identificador unico universal generado para recuperar la cuenta.
+     * @return RecuperacionCuenta Un objeto usuario inicializado con los datos de la base.
+     * @see Modelo.RecuperacionCuenta
+     */ 
+    public RecuperacionCuenta getRecuperacionCuentaBD(UUID uuid){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectRecuperacionCuenta = null;
+        ResultSet rs = null;
+        RecuperacionCuenta rc = null;
+        String query = "SELECT * FROM "+RecuperacionCuenta.NOMBRE_TABLA+" WHERE "+RecuperacionCuenta.COL_UUID+" = ?";
+        
+        try{
+            selectRecuperacionCuenta = conexion.prepareStatement(query);
+            selectRecuperacionCuenta.setString(1,uuid.toString());
+            rs = selectRecuperacionCuenta.executeQuery();
+            
+            if(rs.next()){
+                rc = new RecuperacionCuenta(rs);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectRecuperacionCuenta.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return rc;
+    }
+    
+     /**
+     * Crea un objeto RecuperacionCuenta con los datos extraidos del registro de la base
+     * de datos con el UUID provisto como parámetro.
+     * @param uuid  Un entero que representa el identificador unico universal generado para recuperar la cuenta.
+     * @return RecuperacionCuenta Un objeto usuario inicializado con los datos de la base.
+     * @see Modelo.RecuperacionCuenta
+     */ 
+    public boolean ExisteRecuperacionCuentaActivoBD(int idUsuario){
+        Connection conexion = pool.getConexion();
+        PreparedStatement existeRecuperacionCuentaActivo = null;
+        ResultSet rs = null;
+        boolean existe = false;
+        String query = "SELECT * FROM "+RecuperacionCuenta.NOMBRE_TABLA+" WHERE "+RecuperacionCuenta.COL_IDUSUARIO+" = ? AND "
+                +RecuperacionCuenta.COL_RECLAMO+" = ? AND "+RecuperacionCuenta.COL_FECHA_EXPIRACION+" > ?";
+        Timestamp ts = new Timestamp(new Date().getTime());
+        try{
+            existeRecuperacionCuentaActivo = conexion.prepareStatement(query);
+            existeRecuperacionCuentaActivo.setInt(1,idUsuario);
+            existeRecuperacionCuentaActivo.setBoolean(2, false);
+            existeRecuperacionCuentaActivo.setTimestamp(3, ts);
+            rs = existeRecuperacionCuentaActivo.executeQuery();
+            
+            if(rs.next()){
+                existe = true;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                existeRecuperacionCuentaActivo.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return existe;
+    }
 }
