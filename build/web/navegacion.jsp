@@ -20,7 +20,7 @@
                         <li><a href="login.jsp" title="Ingresa">Login</a></li>
                         <li><a href="registro.jsp" title="Registro">Registrate</a></li>
                         <% }else {
-                             ControladorQuery coq = (ControladorQuery) getServletContext().getAttribute("query");
+                             ControladorQuery coq = new ControladorQuery();
                              Usuario us = coq.getUsuarioBd(idUsuario);
                              if(us.getTipo()==0){
                             %>

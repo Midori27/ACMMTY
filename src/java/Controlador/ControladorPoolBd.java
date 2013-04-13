@@ -24,6 +24,7 @@ public class ControladorPoolBd {
     
     private BoneCP connectionPool = null;
     private Connection connection = null;
+    private static ControladorPoolBd instancia;
     
     /**
      * Constructor vacio, configura el pool de conexiones.
@@ -69,6 +70,13 @@ public class ControladorPoolBd {
                 }
             }
         }
+    }
+    
+    public static ControladorPoolBd getInstancia(){
+        if (instancia == null){
+            instancia = new ControladorPoolBd();
+        }
+        return instancia;
     }
     
  

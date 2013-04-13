@@ -85,6 +85,6 @@ public class ServletModificaCuenta extends HttpServlet {
     }// </editor-fold>
 
     public void actualizaUsuario(HttpServletRequest request){
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        ControladorQuery cq = new ControladorQuery();
     }
 }

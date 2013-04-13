@@ -41,7 +41,7 @@ public class ServletReestableceContrasena extends HttpServlet {
         String textuuid = (String) request.getParameter("uuid");
         UUID uuid = UUID.fromString(textuuid);
         if(password.equals(confirmaPassword)){
-            ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+            ControladorQuery cq = new ControladorQuery();
             RecuperacionCuenta rc = cq.getRecuperacionCuentaBD(uuid);
             if(validaRecuperacionCuenta(rc)){
                 cq.actualizaUsuarioBD(rc.getIdUsuario(), Usuario.COL_PASSWORD, password);

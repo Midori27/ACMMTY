@@ -29,7 +29,7 @@ public class ControladorQuery {
      * @see Controlador.ControladorPoolBd
      */
     public ControladorQuery(){
-        pool = new ControladorPoolBd();
+        pool = ControladorPoolBd.getInstancia();
     }
     
     /**

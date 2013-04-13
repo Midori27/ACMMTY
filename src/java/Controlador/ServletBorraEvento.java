@@ -83,7 +83,7 @@ public class ServletBorraEvento extends HttpServlet {
     }// </editor-fold>
 
     public boolean borraEvento(HttpServletRequest request){
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        ControladorQuery cq = new ControladorQuery();
         Integer id = Integer.parseInt(request.getParameter("id"));
         if(id == null){
             return false;

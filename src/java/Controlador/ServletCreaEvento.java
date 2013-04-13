@@ -98,7 +98,7 @@ public class ServletCreaEvento extends HttpServlet {
 
     public boolean creaEvento(HttpServletRequest request){
         boolean eventoCreado = false;
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        ControladorQuery cq = new ControladorQuery();
         String nombreE = request.getParameter("nombre");
         String fechaE = request.getParameter("fecha");
         String lugarE = request.getParameter("lugar");

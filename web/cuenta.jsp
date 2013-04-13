@@ -8,7 +8,7 @@
 <%
      HttpSession s = request.getSession();        
      Integer id = (Integer) s.getAttribute(ServletLogin.ATRIBUTO_ID);
-     ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+     ControladorQuery cq = new ControladorQuery();
      Usuario u = cq.getUsuarioBd(id); 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">

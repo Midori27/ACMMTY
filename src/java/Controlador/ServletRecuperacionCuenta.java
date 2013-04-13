@@ -37,7 +37,7 @@ public class ServletRecuperacionCuenta extends HttpServlet {
         String campo = request.getParameter("campo");
         String email = request.getParameter("email");
         RequestDispatcher despachador = null;
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        ControladorQuery cq = new ControladorQuery();
         Integer id = cq.existeUsuarioConEmail(email);
         String mensaje="";
         if(id == null){
@@ -129,7 +129,7 @@ public class ServletRecuperacionCuenta extends HttpServlet {
     
     public boolean recuperaPassword(Usuario u){
         
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+       ControladorQuery cq = new ControladorQuery();
         if(cq.ExisteRecuperacionCuentaActivoBD(u.getId())){
             return false;
         }

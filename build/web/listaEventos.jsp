@@ -7,7 +7,7 @@
 <%@page import="Controlador.ControladorQuery,Modelo.Evento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+    ControladorQuery cq = new ControladorQuery();
     Evento[] eventos = cq.getEventosBd();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">

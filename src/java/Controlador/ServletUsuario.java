@@ -87,7 +87,7 @@ public class ServletUsuario extends HttpServlet {
     }// </editor-fold>
 
     public void creaUsuario(HttpServletRequest request){
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        ControladorQuery cq = new ControladorQuery();
         Usuario u = null;
         String nombreUsuario = request.getParameter("nombreUsuario");
         String password = request.getParameter("password");

@@ -25,9 +25,9 @@ public class ServletLogin extends HttpServlet {
     //Error a desplegar en caso de datos inválidos.
     private static final String ERR_LOGIN = "Nombre de usuario y/o contraseña inválidos.";
     //Url de la redirección en caso de login exitoso.
-    private static final String URL_REDIRECCION = "index.jsp";
+    private static final String URL_INDEX = "/index.jsp";
     //Url del forward en caso de login inválido.
-    private static final String URL_FORWARD = "/login.jsp";
+    private static final String URL_LOGIN = "/login.jsp";
     //Nombre del atributo con el que se guardara el id del usuario en la sesion.
     public static final String ATRIBUTO_ID = "idusuario";
     //Nombre del atributo que contiene el mensaje de error.
@@ -46,14 +46,16 @@ public class ServletLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher despachador;
         if (iniciaSesion(request)){
-            //Se hace la redirección.
-            response.sendRedirect(URL_REDIRECCION);
+            //Se hace forward al inicio.
+            despachador = getServletContext().getRequestDispatcher(URL_INDEX);
+            despachador.forward(request, response);
         }else{
             //Falló el login.
             request.setAttribute(ATRIBUTO_ERR, ERR_LOGIN);
             //Se obtiene el despachador.
-            RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD);
+            despachador = getServletContext().getRequestDispatcher(URL_LOGIN);
             //Forward de regreso al login.
             despachador.forward(request, response);
             return;
@@ -106,7 +108,7 @@ public class ServletLogin extends HttpServlet {
         //
         boolean login = false;
         //Se obtiene el controlador de consultas del contexto del servidor.
-        ControladorQuery cq = (ControladorQuery) getServletContext().getAttribute("query");
+        ControladorQuery cq = new ControladorQuery();
         //Se obtiene el nombre y password de los parametros en el request.
         String nombreUsuario = request.getParameter("nombreUsuario");
         String password = request.getParameter("password");
