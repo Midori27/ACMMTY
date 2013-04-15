@@ -1,84 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
-        <servlet-name>ServletAdministrador</servlet-name>
-        <servlet-class>Controlador.ServletAdministrador</servlet-class>
+        <servlet-name>Administrador</servlet-name>
+        <servlet-class>Servlet.Administrador</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletUsuario</servlet-name>
-        <servlet-class>Controlador.ServletUsuario</servlet-class>
+        <servlet-name>CreaUsuario</servlet-name>
+        <servlet-class>Servlet.CreaUsuario</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletEvento</servlet-name>
-        <servlet-class>Controlador.ServletCreaEvento</servlet-class>
+        <servlet-name>CreaEvento</servlet-name>
+        <servlet-class>Servlet.CreaEvento</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletModificaCuenta</servlet-name>
-        <servlet-class>Controlador.ServletModificaCuenta</servlet-class>
+        <servlet-name>ModificaCuenta</servlet-name>
+        <servlet-class>Servlet.ModificaCuenta</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletBorraEvento</servlet-name>
-        <servlet-class>Controlador.ServletBorraEvento</servlet-class>
+        <servlet-name>BorraEvento</servlet-name>
+        <servlet-class>Servlet.BorraEvento</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletListaEventos</servlet-name>
-        <servlet-class>Controlador.ServletListaEventos</servlet-class>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Servlet.Logout</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletLogout</servlet-name>
-        <servlet-class>Controlador.ServletLogout</servlet-class>
+        <servlet-name>CreaRecuperacionCuenta</servlet-name>
+        <servlet-class>Servlet.CreaRecuperacionCuenta</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletRecuperacionCuenta</servlet-name>
-        <servlet-class>Controlador.ServletRecuperacionCuenta</servlet-class>
+        <servlet-name>ReestableceContrasena</servlet-name>
+        <servlet-class>Servlet.ReestableceContrasena</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletReestableceContrasena</servlet-name>
-        <servlet-class>Controlador.ServletReestableceContrasena</servlet-class>
+        <servlet-name>Contacto</servlet-name>
+        <servlet-class>Servlet.Contacto</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletContacto</servlet-name>
-        <servlet-class>Controlador.ServletContacto</servlet-class>
+        <servlet-name>CreaNoticia</servlet-name>
+        <servlet-class>Servlet.CreaNoticia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorraNoticia</servlet-name>
+        <servlet-class>Servlet.BorraNoticia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaNoticia</servlet-name>
+        <servlet-class>Servlet.ActualizaNoticia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaEvento</servlet-name>
+        <servlet-class>Servlet.ActualizaEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaMiembroMesa</servlet-name>
+        <servlet-class>Servlet.ActualizaMiembroMesa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreaMiembroMesa</servlet-name>
+        <servlet-class>Servlet.CreaMiembroMesa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorraMiembroMesa</servlet-name>
+        <servlet-class>Servlet.BorraMiembroMesa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaUsuario</servlet-name>
+        <servlet-class>Servlet.ActualizaUsuario</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ServletAdministrador</servlet-name>
+        <servlet-name>Administrador</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletUsuario</servlet-name>
+        <servlet-name>Usuario</servlet-name>
         <url-pattern>/usuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletEvento</servlet-name>
+        <servlet-name>Evento</servlet-name>
         <url-pattern>/evento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletModificaCuenta</servlet-name>
+        <servlet-name>ModificaCuenta</servlet-name>
         <url-pattern>/modificaCuenta</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletBorraEvento</servlet-name>
+        <servlet-name>BorraEvento</servlet-name>
         <url-pattern>/borraEvento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletListaEventos</servlet-name>
-        <url-pattern>/listaEventos</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletLogout</servlet-name>
+        <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletRecuperacionCuenta</servlet-name>
-        <url-pattern>/RecuperacionCuenta</url-pattern>
+        <servlet-name>CreaRecuperacionCuenta</servlet-name>
+        <url-pattern>/CreaRecuperacionCuenta</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletReestableceContrasena</servlet-name>
+        <servlet-name>ReestableceContrasena</servlet-name>
         <url-pattern>/ServletReestableceContrasena</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletContacto</servlet-name>
+        <servlet-name>Contacto</servlet-name>
         <url-pattern>/Servletcontacto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaNoticia</servlet-name>
+        <url-pattern>/ServletCreaNoticia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorraNoticia</servlet-name>
+        <url-pattern>/ServletBorraNoticia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaNoticia</servlet-name>
+        <url-pattern>/ServletActualizaNoticia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaEvento</servlet-name>
+        <url-pattern>/ServletActualizaEvento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaMiembroMesa</servlet-name>
+        <url-pattern>/ServletActualizaMiembroMesa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaMiembroMesa</servlet-name>
+        <url-pattern>/ServletCreaMiembroMesa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorraMiembroMesa</servlet-name>
+        <url-pattern>/ServletBorraMiembroMesa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaUsuario</servlet-name>
+        <url-pattern>/ActualizaUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

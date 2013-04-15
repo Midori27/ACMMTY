@@ -102,3 +102,15 @@ CREATE TABLE IF NOT EXISTS RecuperacionCuenta(
   PRIMARY KEY (id),
   FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
 ) ;
+
+-- --------------------------------------------------------
+-- Creacion de la tabla MesaDirectiva
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS MesaDirectiva(
+  id int(11) NOT NULL AUTO_INCREMENT,
+  periodo varchar(60) NOT NULL,
+  foto varchar(60) NOT NULL,
+  nombre varchar(60) NOT NULL,
+  posicion varchar(60) NOT NULL,
+  PRIMARY KEY (id)
+) ;

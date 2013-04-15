@@ -54,8 +54,8 @@ public class RecuperacionCuenta {
         try{
             this.id = rs.getInt(COL_ID);;
             this.idUsuario = rs.getInt(COL_IDUSUARIO);;
-            this.fechaExpedicion = rs.getDate(COL_FECHA_EXPEDICION);
-            this.fechaExpiracion = rs.getDate(COL_FECHA_EXPIRACION);
+            this.fechaExpedicion = rs.getTimestamp(COL_FECHA_EXPEDICION);
+            this.fechaExpiracion = rs.getTimestamp(COL_FECHA_EXPIRACION);
             this.uuid = uuid.fromString(rs.getString(COL_UUID));
             this.reclamo = rs.getBoolean(COL_RECLAMO);
         } catch (SQLException e){

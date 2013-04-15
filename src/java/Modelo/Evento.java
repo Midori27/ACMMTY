@@ -6,6 +6,9 @@ package Modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -105,6 +108,49 @@ public class Evento {
     public void setMaxIntegrantesEquipo(int maxIntegrantesEquipo) {
         this.maxIntegrantesEquipo = maxIntegrantesEquipo;
     }
-   
-   
+    
+    public static boolean validaFecha(String fecha){
+        return fecha.matches("[2-9]\\d{3}-[0-1][1-9]-[0-3]\\d");
+    }
+    
+    public static boolean validaNombre(String nombre){
+        return nombre.matches("(\\w\\s{0,1})*") 
+                &&
+                nombre.length()<=35 
+                && 
+                !nombre.isEmpty();
+    }
+    
+    public static boolean validaLugar(String lugar){
+        return lugar.matches("(\\w\\s{0,1})*")
+                &&
+                lugar.length()<=35
+                &&
+                !lugar.isEmpty();
+    }
+    
+    public static boolean validaDescripcion(String descripcion){
+        return descripcion.length()<=6000
+                &&
+                !descripcion.isEmpty();
+    }
+    
+    public static boolean validaMaxIntegrantesEquipo(Integer maxIntegrantesEquipo){
+        return maxIntegrantesEquipo>=1;
+    }
+    
+    public static Date parseFecha(String fecha){
+         DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+         Date fechaEvento = null;
+        try{
+            fechaEvento = formatoFecha.parse(fecha);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        
+        return fechaEvento;
+    }
+    
+    
+    
 }

@@ -6,6 +6,7 @@
 
 package Controlador;
 
+import Servlet.Login;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -40,7 +41,7 @@ public class ControladorFiltro implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         String servletPath = req.getServletPath();
         HttpSession session = req.getSession();
-        Integer idUsuario = (Integer) session.getAttribute(ServletLogin.ATRIBUTO_ID);
+        Integer idUsuario = (Integer) session.getAttribute(Login.ATRIBUTO_ID);
         // Permitir acceso al login.
         if (servletPath.equals("/login.jsp"))
         {

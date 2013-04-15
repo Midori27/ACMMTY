@@ -71,6 +71,25 @@ public class Usuario {
         this.universidad = universidad;
     }
     
+    public Usuario(int id, String password, String nombre, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String telefono, String ciudad, String estado, int tipo, String carrera, String matricula, String campus, String universidad) {
+        this.id = id;
+        this.nombreUsuario = "";
+        this.password = password;
+        this.nombre = nombre;
+        this.apellidoP = apellidoP;
+        this.apellidoM = apellidoM;
+        this.email = email;
+        this.fechaNacimiento = fechaNacimiento;
+        this.telefono = telefono;
+        this.ciudad = ciudad;
+        this.estado = estado;
+        this.tipo = tipo;
+        this.carrera = carrera;
+        this.matricula = matricula;
+        this.campus = campus;
+        this.universidad = universidad;
+    }
+    
     public Usuario(String nombreUsuario, String password, String nombre, String apellidoP, String apellidoM, String email, Date fechaNacimiento, String telefono, String ciudad, String estado, int tipo, String carrera, String matricula, String campus, String universidad) {
         this.nombreUsuario = nombreUsuario;
         this.password = password;
