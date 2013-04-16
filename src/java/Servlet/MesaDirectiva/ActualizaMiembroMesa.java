@@ -1,13 +1,12 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * and open the templato in the editor.
  */
-package Servlet;
+package Servlet.MesaDirectiva;
 
 import Controlador.ControladorQuery;
-import Modelo.Usuario;
+import Modelo.MiembroMesa;
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,10 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class CreaUsuario extends HttpServlet {
-    private static final String URL_REDIRECCION_USUARIO_CREADO = "index.jsp";
-    private static final String URL_REDIRECCION_MODIFICAR_USUARIO = "";
-    public static final String ATRIBUTO_USUARIO = "usuario";
+public class ActualizaMiembroMesa extends HttpServlet {
+    public static final String URL_VISTA = "/WEB-INF/MesaDirectiva/actualizaMiembroMesa.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,32 +32,20 @@ public class CreaUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nombreUsuario = request.getParameter("nombreUsuario");
-        String password = request.getParameter("password");
-        String nombre = request.getParameter("nombre");
-        String apellidoP = request.getParameter("apellidoP");
-        String apellidoM = request.getParameter("apellidoM");
-        String email = request.getParameter("email");
-        String fechaNacimiento = request.getParameter("fechaNacimiento");
-        String telefono = request.getParameter("telefono");
-        String ciudad = request.getParameter("ciudad");
-        String estado = request.getParameter("estado");
-        String carrera = request.getParameter("carrera");
-        String matricula = request.getParameter("matricula");
-        String campus = request.getParameter("campus");
-        String universidad = request.getParameter("universidad");
-        Integer tipo = (universidad.equals("ITESM")) ? 1 : 2;
-        
-        
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        String periodo = (String) request.getParameter("periodo");
+        String foto = (String) request.getParameter("foto");
+        String nombre = (String) request.getParameter("nombre");
+        String posicion = (String) request.getParameter("posicion");
         ControladorQuery cq = new ControladorQuery();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
-        Usuario u = new Usuario(nombreUsuario, password, nombre, apellidoP, apellidoM, email, new Date(), telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
-        
-        if(cq.insertaUsuarioBD(u)){
-            request.setAttribute("mensaje", "Tu usuario ha sido creado exitosamente");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
+        MiembroMesa m = new MiembroMesa(id, periodo, foto, nombre, posicion);
+        request.setAttribute("miembro", m);
+        if(cq.actualizaMiembroMesaBD(m)){
+            request.setAttribute("mensaje", "El miembro de la mesa ha sido actualisado exitosamente.");
             rd.forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, tu usuario no puede ser creado en este momento.");
+            request.setAttribute("mensaje", "Lo sentimos, el miembro de la mesa no puede ser actualisado en este momento.");
             rd.forward(request, response);
         }
     }
@@ -78,7 +63,12 @@ public class CreaUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        ControladorQuery cq = new ControladorQuery();
+        MiembroMesa m = cq.getMiembroMesaBD(id);
+        request.setAttribute("miembro", m);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
+        
     }
 
     /**
@@ -105,5 +95,4 @@ public class CreaUsuario extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

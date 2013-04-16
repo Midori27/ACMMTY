@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the templato in the editor.
  */
-package Servlet;
+package Servlet.MesaDirectiva;
 
 import Controlador.ControladorQuery;
-import Modelo.MiembroMesa;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class ActualizaMiembroMesa extends HttpServlet {
-
+public class BorraMiembroMesa extends HttpServlet {
+    public static final String URL_VISTA = "/WEB-INF/MesaDirectiva/adminMesaDirectiva.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -33,19 +33,13 @@ public class ActualizaMiembroMesa extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
-        String periodo = (String) request.getParameter("periodo");
-        String foto = (String) request.getParameter("foto");
-        String nombre = (String) request.getParameter("nombre");
-        String posicion = (String) request.getParameter("posicion");
         ControladorQuery cq = new ControladorQuery();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminMesaDirectiva");
-        MiembroMesa m = new MiembroMesa(id, periodo, foto, nombre, posicion);
-        
-        if(cq.actualizaMiembroMesaBD(m)){
-            request.setAttribute("mensaje", "El miembro de la mesa ha sido actualisado exitosamente.");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
+        if(cq.borraMiembroMesaBD(id)){
+            request.setAttribute("mensaje", "El miembro de la mesa ha sido borrado exitosamente.");
             rd.forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, el miembro de la mesa no puede ser actualisado en este momento.");
+            request.setAttribute("mensaje", "Lo sentimos el miembro de la mesa no puede ser eliminado en este momento. Es probable que el miembro no existiera antes de intentar borrarlo o que haya problemas con la base de datos.");
             rd.forward(request, response);
         }
     }

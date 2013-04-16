@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the templato in the editor.
  */
-package Servlet;
+package Servlet.Noticia;
 
 import Controlador.ControladorQuery;
-import Modelo.MiembroMesa;
+import Modelo.Noticia;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class CreaMiembroMesa extends HttpServlet {
+public class CreaNoticia extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -32,22 +33,21 @@ public class CreaMiembroMesa extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String periodo = (String) request.getParameter("periodo");
-        String foto = (String) request.getParameter("foto");
-        String nombre = (String) request.getParameter("nombre");
-        String posicion = (String) request.getParameter("posicion");
+        String imagen = (String) request.getParameter("imagen");
+        String titulo = (String) request.getParameter("titulo");
+        String descripcion = (String) request.getParameter("descripcion");
+        Date fecha = new Date();
         ControladorQuery cq = new ControladorQuery();
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
-        MiembroMesa m = new MiembroMesa(periodo, foto, nombre, posicion);
+        Noticia n = new Noticia(imagen, titulo, descripcion, fecha);
         
-        if(cq.insertaMiembroMesaBD(m)){
-            request.setAttribute("mensaje", "El miembro de la mesa ha sido creada exitosamente.");
+        if(cq.insertaNoticiaBD(n)){
+            request.setAttribute("mensaje", "La noticia ha sido creada exitosamente.");
             rd.forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, el miembro de la mesa no puede ser creado en este momento.");
+            request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser creada en este momento.");
             rd.forward(request, response);
         }
-      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

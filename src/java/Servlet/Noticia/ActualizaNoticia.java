@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the templato in the editor.
  */
-package Servlet;
+package Servlet.Noticia;
 
 import Controlador.ControladorQuery;
+import Modelo.Noticia;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class BorraMiembroMesa extends HttpServlet {
+public class ActualizaNoticia extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -33,15 +33,22 @@ public class BorraMiembroMesa extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
+        String imagen = (String) request.getParameter("imagen");
+        String titulo = (String) request.getParameter("titulo");
+        String descripcion = (String) request.getParameter("descripcion");
         ControladorQuery cq = new ControladorQuery();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminMesaDirectiva");
-        if(cq.borraMiembroMesaBD(id)){
-            request.setAttribute("mensaje", "El miembro de la mesa ha sido borrado exitosamente.");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/actualizaNoticia");
+        Noticia n = new Noticia(id, imagen, titulo, descripcion);
+        
+        if(cq.actualizaNoticiaBD(n)){
+            request.setAttribute("mensaje", "La noticia ha sido actualisada exitosamente.");
             rd.forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos el miembro de la mesa no puede ser eliminado en este momento.");
+            request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser actualizada en este momento.");
             rd.forward(request, response);
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

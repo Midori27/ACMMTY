@@ -1,13 +1,11 @@
 /*
  * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * and open the templato in the editor.
  */
-package Servlet;
+package Servlet.Noticia;
 
 import Controlador.ControladorQuery;
-import Modelo.Evento;
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class CreaEvento extends HttpServlet {
-    public static final String URL_FORWARD_LISTA = "listaEventos.jsp";
-    public static final String URL_FORWARD_CREA_EVENTO = "/nuevoEvento.jsp";
-    public static final String ATRIBUTO_EVENTOS = "eventos";
-    public static final String ATRIBUTO_ERR = "mensaje";
-    public static final String ERR_CREACION_EVENTO = "Hubo un error en la creación del evento, intentelo otra vez.";
+public class BorraNoticia extends HttpServlet {
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -37,23 +31,16 @@ public class CreaEvento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         
-        if(creaEvento(request)){
-           response.sendRedirect(URL_FORWARD_LISTA);
-        } else {
-            //Fallo la creacion del evento
-            //Se obtiene el despachador.
-            RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD_CREA_EVENTO);
-            //Agrega el mensaje de error
-            request.setAttribute(ATRIBUTO_ERR, ERR_CREACION_EVENTO);
-            //Forward de regreso a la lista de eventos.
-            despachador.forward(request, response);
-            return;
-            
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        ControladorQuery cq = new ControladorQuery();
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
+        if(cq.borraNoticiaBD(id)){
+            request.setAttribute("mensaje", "La noticia ha sido borrada exitosamente.");
+            rd.forward(request, response);
+        }else{
+            request.setAttribute("mensaje", "Lo sentimos la noticia no puede ser eliminada en este momento.");
+            rd.forward(request, response);
         }
-        
-        
-                
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -96,17 +83,4 @@ public class CreaEvento extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    public boolean creaEvento(HttpServletRequest request){
-        boolean eventoCreado = false;
-        ControladorQuery cq = new ControladorQuery();
-        String nombreE = request.getParameter("nombre");
-        String fechaE = request.getParameter("fecha");
-        String lugarE = request.getParameter("lugar");
-        String descripcionE = request.getParameter("descripcion");
-        int maxIntegrantesEquipo = Integer.parseInt(request.getParameter("integrantesPorEquipo"));
-        Evento ev = new Evento(nombreE, new Date(), lugarE, descripcionE, maxIntegrantesEquipo);
-        eventoCreado = cq.insertaEventoBD(ev);
-        return eventoCreado;
-    }
 }

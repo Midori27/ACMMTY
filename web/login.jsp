@@ -4,7 +4,7 @@
     Author     : juanjo
 --%>
 
-<%@page import="Controlador.ServletLogin"%>
+<%@page import="Servlet.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String mensaje = (String) request.getAttribute(ServletLogin.ATRIBUTO_ERR);

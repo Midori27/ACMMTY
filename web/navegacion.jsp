@@ -4,7 +4,7 @@
     Author     : juanjo
 --%>
 
-<%@page import="Controlador.ServletLogin,Controlador.ControladorQuery,Modelo.Usuario"%>
+<%@page import="Servlet.Login,Controlador.ControladorQuery,Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="navigation">
 		  <ul>
@@ -14,7 +14,7 @@
 			<li><a href="nosotros.jsp" title="Acerca">Acerca de Nosotros</a></li>
                         <% 
                             HttpSession se = request.getSession();
-                            Integer idUsuario = (Integer) se.getAttribute(ServletLogin.ATRIBUTO_ID);
+                            Integer idUsuario = (Integer) se.getAttribute(Login.ATRIBUTO_ID);
                             if(idUsuario == null){
                          %>
                         <li><a href="login.jsp" title="Ingresa">Login</a></li>

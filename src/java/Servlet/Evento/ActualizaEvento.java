@@ -2,11 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the templato in the editor.
  */
-package Servlet;
+package Servlet.Evento;
 
 import Controlador.ControladorQuery;
-import Modelo.Noticia;
+import Modelo.Evento;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class CreaNoticia extends HttpServlet {
+public class ActualizaEvento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -33,21 +37,26 @@ public class CreaNoticia extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String imagen = (String) request.getParameter("imagen");
-        String titulo = (String) request.getParameter("titulo");
+        PrintWriter out = response.getWriter();
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        String nombre = (String) request.getParameter("nombre");
+        String fecha = (String) request.getParameter("fecha");
+        String lugar = (String) request.getParameter("lugar");
         String descripcion = (String) request.getParameter("descripcion");
-        Date fecha = new Date();
+        Integer maxIntegrantesxEquipo = Integer.parseInt("maxIntegrantesxEquipo");
+       
         ControladorQuery cq = new ControladorQuery();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
-        Noticia n = new Noticia(imagen, titulo, descripcion, fecha);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/actualizaEvento");
+        Evento ev = new Evento(id,nombre, Evento.parseFecha(fecha), lugar, descripcion, maxIntegrantesxEquipo);
         
-        if(cq.insertaNoticiaBD(n)){
-            request.setAttribute("mensaje", "La noticia ha sido creada exitosamente.");
+        if(cq.actualizaEventoBD(ev)){
+            request.setAttribute("mensaje", "El evento ha sido actualizado exitosamente.");
             rd.forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser creada en este momento.");
+            request.setAttribute("mensaje", "Lo sentimos, el evento no puede ser actualizado en este momento.");
             rd.forward(request, response);
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

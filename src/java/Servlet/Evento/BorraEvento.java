@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the templato in the editor.
  */
-package Servlet;
+package Servlet.Evento;
 
 import Controlador.ControladorQuery;
-import static Servlet.CreaEvento.URL_FORWARD_LISTA;
+import static Servlet.Evento.CreaEvento.URL_FORWARD_LISTA;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;

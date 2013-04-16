@@ -792,7 +792,9 @@ public class ControladorQuery {
         try{
             borraMiembroMesa = conexion.prepareStatement(query);
             borraMiembroMesa.setInt(1,id);
-            borraMiembroMesa.executeUpdate();
+            int registrosAfectados = borraMiembroMesa.executeUpdate();
+            if(registrosAfectados==0) resultado=false;
+            
         } catch (SQLException e){
             e.printStackTrace();
             resultado = false;
@@ -806,5 +808,85 @@ public class ControladorQuery {
         }
         
         return resultado;
+    }
+    
+    /**
+     * Obtiene el objeto MiembroMesa con el id provisto de la base de datos. 
+     * @param id El id entero del registro a instanciar.
+     * @return MiembroMesa El objeto MiembroMesa instanciado con los datos de la base de datos.
+     * @see Modelo.MiembroMesa
+     */ 
+    public MiembroMesa getMiembroMesaBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectMiembroMesa = null;
+        ResultSet rs = null;
+        MiembroMesa miembro = null;
+        String query = "SELECT * FROM "+MiembroMesa.NOMBRE_TABLA+" WHERE "+MiembroMesa.COL_ID+"=?";
+        try{
+            selectMiembroMesa = conexion.prepareStatement(query);
+            selectMiembroMesa.setInt(1, id);
+            rs = selectMiembroMesa.executeQuery();
+            if(rs.next()){
+                miembro = new MiembroMesa(rs);
+            }
+            
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectMiembroMesa.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return miembro;
+    }
+    
+     /**
+     * Obtiene todos los MiembroMesa guardados en la base de datos y los regresa en un arreglo de objetos MiembroMesa.
+     * @return MiembroMEsa[] Un arreglo que contiene los objetos MiembroMesa que se encuentran en la base.
+     * @see Modelo.MiembroMesa
+     */ 
+    public MiembroMesa[] getMiembrosMesaBD(){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectMiembrosMesa = null;
+        ResultSet rs = null;
+        MiembroMesa miembros[] = null;
+        String query = "SELECT * FROM "+MiembroMesa.NOMBRE_TABLA;
+        int numRegistros;
+        int i = 0;
+        try{
+            selectMiembrosMesa = conexion.prepareStatement(query);
+            rs = selectMiembrosMesa.executeQuery();
+            if(rs.first()){
+                rs.last();
+                numRegistros = rs.getRow();
+                miembros = new MiembroMesa[numRegistros];
+                rs.beforeFirst();
+                
+                while(rs.next()){
+                    miembros[i] = new MiembroMesa(rs);
+                    i++;
+                }
+            }
+            
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectMiembrosMesa.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return miembros;
     }
 }

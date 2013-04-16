@@ -6,11 +6,11 @@
     </servlet>
     <servlet>
         <servlet-name>CreaUsuario</servlet-name>
-        <servlet-class>Servlet.CreaUsuario</servlet-class>
+        <servlet-class>Servlet.Usuario.CreaUsuario</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreaEvento</servlet-name>
-        <servlet-class>Servlet.CreaEvento</servlet-class>
+        <servlet-class>Servlet.Evento.CreaEvento</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ModificaCuenta</servlet-name>
@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>BorraEvento</servlet-name>
-        <servlet-class>Servlet.BorraEvento</servlet-class>
+        <servlet-class>Servlet.Evento.BorraEvento</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
@@ -38,47 +38,43 @@
     </servlet>
     <servlet>
         <servlet-name>CreaNoticia</servlet-name>
-        <servlet-class>Servlet.CreaNoticia</servlet-class>
+        <servlet-class>Servlet.Noticia.CreaNoticia</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BorraNoticia</servlet-name>
-        <servlet-class>Servlet.BorraNoticia</servlet-class>
+        <servlet-class>Servlet.Noticia.BorraNoticia</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ActualizaNoticia</servlet-name>
-        <servlet-class>Servlet.ActualizaNoticia</servlet-class>
+        <servlet-class>Servlet.Noticia.ActualizaNoticia</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ActualizaEvento</servlet-name>
-        <servlet-class>Servlet.ActualizaEvento</servlet-class>
+        <servlet-class>Servlet.Evento.ActualizaEvento</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ActualizaMiembroMesa</servlet-name>
-        <servlet-class>Servlet.ActualizaMiembroMesa</servlet-class>
+        <servlet-class>Servlet.MesaDirectiva.ActualizaMiembroMesa</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreaMiembroMesa</servlet-name>
-        <servlet-class>Servlet.CreaMiembroMesa</servlet-class>
+        <servlet-class>Servlet.MesaDirectiva.CreaMiembroMesa</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BorraMiembroMesa</servlet-name>
-        <servlet-class>Servlet.BorraMiembroMesa</servlet-class>
+        <servlet-class>Servlet.MesaDirectiva.BorraMiembroMesa</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ActualizaUsuario</servlet-name>
-        <servlet-class>Servlet.ActualizaUsuario</servlet-class>
+        <servlet-class>Servlet.Usuario.ActualizaUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminMesaDirectiva</servlet-name>
+        <servlet-class>Servlet.MesaDirectiva.AdminMesaDirectiva</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Administrador</servlet-name>
         <url-pattern>/admin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Usuario</servlet-name>
-        <url-pattern>/usuario</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Evento</servlet-name>
-        <url-pattern>/evento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModificaCuenta</servlet-name>
@@ -98,43 +94,47 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReestableceContrasena</servlet-name>
-        <url-pattern>/ServletReestableceContrasena</url-pattern>
+        <url-pattern>/ReestableceContrasena</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Contacto</servlet-name>
-        <url-pattern>/Servletcontacto</url-pattern>
+        <url-pattern>/Contacto</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreaNoticia</servlet-name>
-        <url-pattern>/ServletCreaNoticia</url-pattern>
+        <url-pattern>/CreaNoticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorraNoticia</servlet-name>
-        <url-pattern>/ServletBorraNoticia</url-pattern>
+        <url-pattern>/BorraNoticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaNoticia</servlet-name>
-        <url-pattern>/ServletActualizaNoticia</url-pattern>
+        <url-pattern>/ActualizaNoticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaEvento</servlet-name>
-        <url-pattern>/ServletActualizaEvento</url-pattern>
+        <url-pattern>/ActualizaEvento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaMiembroMesa</servlet-name>
-        <url-pattern>/ServletActualizaMiembroMesa</url-pattern>
+        <url-pattern>/ActualizaMiembroMesa</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreaMiembroMesa</servlet-name>
-        <url-pattern>/ServletCreaMiembroMesa</url-pattern>
+        <url-pattern>/CreaMiembroMesa</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorraMiembroMesa</servlet-name>
-        <url-pattern>/ServletBorraMiembroMesa</url-pattern>
+        <url-pattern>/BorraMiembroMesa</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaUsuario</servlet-name>
         <url-pattern>/ActualizaUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminMesaDirectiva</servlet-name>
+        <url-pattern>/AdminMesaDirectiva</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
