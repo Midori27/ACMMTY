@@ -4,8 +4,8 @@
  */
 package Servlet;
 
-import Controlador.ControladorEmail;
-import Controlador.ControladorQuery;
+import Controlador.Email;
+import Controlador.Query;
 import Modelo.RecuperacionCuenta;
 import Modelo.Usuario;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class CreaRecuperacionCuenta extends HttpServlet {
         String campo = request.getParameter("campo");
         String email = request.getParameter("email");
         RequestDispatcher despachador = null;
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         Integer id = cq.existeUsuarioConEmail(email);
         String mensaje="";
         if(id == null){
@@ -48,7 +48,7 @@ public class CreaRecuperacionCuenta extends HttpServlet {
             despachador = getServletContext().getRequestDispatcher("/recuperaCuenta.jsp");
             despachador.forward(request,response);
         }else{
-            Usuario u = cq.getUsuarioBd(id);
+            Usuario u = cq.getUsuarioBD(id);
             if (campo.equals("usuario")){
                 recuperaUsuario(u);
                 mensaje="Se ha enviado un correo a tu cuenta con tu nombre de usuario.";
@@ -125,13 +125,13 @@ public class CreaRecuperacionCuenta extends HttpServlet {
         String asunto = "Recuperacion de cuenta ACM Monterrey.";
         String contenido="Hola "+u.getNombre()+",\n Hemos recibido una solicitud de recuperación de usuario para la cuenta asignada a este correo en monterrey.acm.org.\n\nTu nombre de usuario es: "+u.getNombreUsuario();
         //envia mail con usuario
-        ControladorEmail ce = ControladorEmail.getInstanceControladorEmail();
+        Email ce = Email.getInstanceControladorEmail();
         ce.enviaMail(de, para, asunto, contenido);
     }
     
     public boolean recuperaPassword(Usuario u){
         
-       ControladorQuery cq = new ControladorQuery();
+       Query cq = new Query();
         if(cq.ExisteRecuperacionCuentaActivoBD(u.getId())){
             return false;
         }
@@ -149,7 +149,7 @@ public class CreaRecuperacionCuenta extends HttpServlet {
                 +"Porfavor accede a la siguiente liga para reestablecer tu contraseña:\nhttp://localhost:8084"+urlRecuperacion;
         RecuperacionCuenta rc = new RecuperacionCuenta(u.getId(), fechaExpedicion, fechaExpiracion, uuid);
         cq.insertaRecuperacionCuentaBD(rc);
-        ControladorEmail ce = ControladorEmail.getInstanceControladorEmail();
+        Email ce = Email.getInstanceControladorEmail();
         ce.enviaMail(de, para, asunto, contenido);
         return true;
     }

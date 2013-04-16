@@ -4,7 +4,7 @@
  */
 package Servlet;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -109,7 +109,7 @@ public class Login extends HttpServlet {
         //
         boolean login = false;
         //Se obtiene el controlador de consultas del contexto del servidor.
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         //Se obtiene el nombre y password de los parametros en el request.
         String nombreUsuario = request.getParameter("nombreUsuario");
         String password = request.getParameter("password");

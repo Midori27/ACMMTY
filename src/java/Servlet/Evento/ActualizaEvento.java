@@ -4,7 +4,7 @@
  */
 package Servlet.Evento;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.Evento;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +45,7 @@ public class ActualizaEvento extends HttpServlet {
         String descripcion = (String) request.getParameter("descripcion");
         Integer maxIntegrantesxEquipo = Integer.parseInt("maxIntegrantesxEquipo");
        
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/actualizaEvento");
         Evento ev = new Evento(id,nombre, Evento.parseFecha(fecha), lugar, descripcion, maxIntegrantesxEquipo);
         

@@ -4,7 +4,7 @@
  */
 package Servlet.Evento;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.Evento;
 import java.io.IOException;
 import java.util.Date;
@@ -99,7 +99,7 @@ public class CreaEvento extends HttpServlet {
 
     public boolean creaEvento(HttpServletRequest request){
         boolean eventoCreado = false;
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         String nombreE = request.getParameter("nombre");
         String fechaE = request.getParameter("fecha");
         String lugarE = request.getParameter("lugar");

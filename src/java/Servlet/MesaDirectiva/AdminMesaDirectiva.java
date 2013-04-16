@@ -4,7 +4,7 @@
  */
 package Servlet.MesaDirectiva;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.MiembroMesa;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -31,7 +31,7 @@ public class AdminMesaDirectiva extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         MiembroMesa[] miembros = cq.getMiembrosMesaBD();
         String mensaje = null;
         request.setAttribute("miembros", miembros);

@@ -4,7 +4,7 @@
  */
 package Servlet.Noticia;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.Noticia;
 import java.io.IOException;
 import java.util.Date;
@@ -37,7 +37,7 @@ public class CreaNoticia extends HttpServlet {
         String titulo = (String) request.getParameter("titulo");
         String descripcion = (String) request.getParameter("descripcion");
         Date fecha = new Date();
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
         Noticia n = new Noticia(imagen, titulo, descripcion, fecha);
         

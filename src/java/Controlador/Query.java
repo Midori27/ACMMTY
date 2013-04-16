@@ -23,16 +23,16 @@ import java.util.UUID;
  * creación de modelos cuyos datos residen en la misma.
  * @author juanjo
  */
-public class ControladorQuery {
-    private ControladorPoolBd pool = null;
+public class Query {
+    private PoolBd pool = null;
     
     /**
      * Constructor vació, únicamente inicializa el controlador del
      * pool de conexiones.
      * @see Controlador.ControladorPoolBd
      */
-    public ControladorQuery(){
-        pool = ControladorPoolBd.getInstancia();
+    public Query(){
+        pool = PoolBd.getInstancia();
     }
     
     /**
@@ -42,7 +42,7 @@ public class ControladorQuery {
      * @return Usuario Un objeto usuario inicializado con los datos de la base.
      * @see Modelo.Usuario
      */ 
-    public Usuario getUsuarioBd(int id){
+    public Usuario getUsuarioBD(int id){
         Connection conexion = pool.getConexion();
         PreparedStatement selectUsuario = null;
         ResultSet rs = null;

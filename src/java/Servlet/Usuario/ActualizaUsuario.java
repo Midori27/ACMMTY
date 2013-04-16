@@ -4,7 +4,7 @@
  */
 package Servlet.Usuario;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class ActualizaUsuario extends HttpServlet {
-
+    public static final String URL_VISTA="/WEB-INF/Usuario/actualizaUsuario.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -48,16 +48,15 @@ public class ActualizaUsuario extends HttpServlet {
         String campus = request.getParameter("campus");
         String universidad = request.getParameter("universidad");
         Integer tipo = (universidad.equals("ITESM")) ? 1 : 2;
-        ControladorQuery cq = new ControladorQuery();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/actualizaNoticia");
+        Query cq = new Query();
         Usuario u = new Usuario(id, password, nombre, apellidoP, apellidoM, email, new Date(), telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
         
         if(cq.actualizaUsuarioBD(u)){
             request.setAttribute("mensaje", "Tu cuenta ha sido actualizada exitosamente.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
             request.setAttribute("mensaje", "Lo sentimos, tu cuenta no puede ser actualizada en este momento.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
     }
 
@@ -74,7 +73,11 @@ public class ActualizaUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Integer id = Integer.parseInt((String)request.getSession().getAttribute("id"));
+        Query q = new Query();
+        Usuario  u = q.getUsuarioBD(id);
+        request.setAttribute("usuario", u);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

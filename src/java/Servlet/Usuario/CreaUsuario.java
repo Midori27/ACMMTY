@@ -4,7 +4,7 @@
  */
 package Servlet.Usuario;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.util.Date;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class CreaUsuario extends HttpServlet {
-    private static final String URL_REDIRECCION_USUARIO_CREADO = "index.jsp";
-    private static final String URL_REDIRECCION_MODIFICAR_USUARIO = "";
+    private static final String URL_VISTA = "/WEB-INF/Usuario/creaUsuario.jsp";
+    private static final String URL_EXITO = "/WEB-INF/Especial/exito.jsp";
     public static final String ATRIBUTO_USUARIO = "usuario";
     /**
      * Processes requests for both HTTP
@@ -51,17 +51,17 @@ public class CreaUsuario extends HttpServlet {
         String universidad = request.getParameter("universidad");
         Integer tipo = (universidad.equals("ITESM")) ? 1 : 2;
         
-        
-        ControladorQuery cq = new ControladorQuery();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
         Usuario u = new Usuario(nombreUsuario, password, nombre, apellidoP, apellidoM, email, new Date(), telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
+        
+        Query cq = new Query();
         
         if(cq.insertaUsuarioBD(u)){
             request.setAttribute("mensaje", "Tu usuario ha sido creado exitosamente");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_EXITO).forward(request, response);
         }else{
+            request.setAttribute("usuario", u);
             request.setAttribute("mensaje", "Lo sentimos, tu usuario no puede ser creado en este momento.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
     }
 
@@ -78,7 +78,7 @@ public class CreaUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

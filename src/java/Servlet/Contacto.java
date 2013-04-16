@@ -4,7 +4,7 @@
  */
 package Servlet;
 
-import Controlador.ControladorEmail;
+import Controlador.Email;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,7 +36,7 @@ public class Contacto extends HttpServlet {
         String asunto = request.getParameter("asunto");
         String mensaje = request.getParameter("mensaje");
         
-        ControladorEmail ce = new ControladorEmail();
+        Email ce = new Email();
         ce.enviaMail(mail, "acm.monterrey+contacto@gmail.com", asunto, nombre + "\n" + mensaje);
         request.setAttribute("mensaje", "Gracias por comunicarte con nosotros, te atenderemos en la brevedad posible.");
         RequestDispatcher despachador = getServletContext().getRequestDispatcher("/exito.jsp");

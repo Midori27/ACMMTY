@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * Esta clase se encarga de crear un pool de conexiones a la base de datos.
  * @author Juan Jose Leñero
  */
-public class ControladorPoolBd {
+public class PoolBd {
     // constantes de configuracion
     private static final String URL_JDBC = "jdbc:mysql://localhost:3306/PortalACM";
     private static final String PW_BD = "";
@@ -24,12 +24,12 @@ public class ControladorPoolBd {
     
     private BoneCP connectionPool = null;
     private Connection connection = null;
-    private static ControladorPoolBd instancia;
+    private static PoolBd instancia;
     
     /**
      * Constructor vacio, configura el pool de conexiones.
      */
-    public ControladorPoolBd(){
+    public PoolBd(){
         //Carga el driver de jdbc para la conexion.
         try{
             Class.forName("com.mysql.jdbc.Driver"); 
@@ -72,9 +72,9 @@ public class ControladorPoolBd {
         }
     }
     
-    public static ControladorPoolBd getInstancia(){
+    public static PoolBd getInstancia(){
         if (instancia == null){
-            instancia = new ControladorPoolBd();
+            instancia = new PoolBd();
         }
         return instancia;
     }

@@ -4,7 +4,7 @@
  */
 package Servlet;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.RecuperacionCuenta;
 import Modelo.Usuario;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class ReestableceContrasena extends HttpServlet {
         String textuuid = (String) request.getParameter("uuid");
         UUID uuid = UUID.fromString(textuuid);
         if(password.equals(confirmaPassword)){
-            ControladorQuery cq = new ControladorQuery();
+            Query cq = new Query();
             RecuperacionCuenta rc = cq.getRecuperacionCuentaBD(uuid);
             if(validaRecuperacionCuenta(rc)){
                 cq.actualizaPasswordUsuarioBD(rc.getIdUsuario(), password);

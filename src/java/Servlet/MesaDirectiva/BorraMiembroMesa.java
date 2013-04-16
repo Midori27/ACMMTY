@@ -4,7 +4,7 @@
  */
 package Servlet.MesaDirectiva;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -33,7 +33,7 @@ public class BorraMiembroMesa extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
         if(cq.borraMiembroMesaBD(id)){
             request.setAttribute("mensaje", "El miembro de la mesa ha sido borrado exitosamente.");

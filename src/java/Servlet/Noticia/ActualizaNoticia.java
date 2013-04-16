@@ -4,7 +4,7 @@
  */
 package Servlet.Noticia;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.Noticia;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -36,7 +36,7 @@ public class ActualizaNoticia extends HttpServlet {
         String imagen = (String) request.getParameter("imagen");
         String titulo = (String) request.getParameter("titulo");
         String descripcion = (String) request.getParameter("descripcion");
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/actualizaNoticia");
         Noticia n = new Noticia(id, imagen, titulo, descripcion);
         

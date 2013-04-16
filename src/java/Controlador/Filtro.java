@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author juanjo
  */
-public class ControladorFiltro implements Filter {
+public class Filtro implements Filter {
     public static String URL = "localhost:8484";
 
     public void init(FilterConfig filterConfig){

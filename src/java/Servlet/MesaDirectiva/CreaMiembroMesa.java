@@ -4,7 +4,7 @@
  */
 package Servlet.MesaDirectiva;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import Modelo.MiembroMesa;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -37,7 +37,7 @@ public class CreaMiembroMesa extends HttpServlet {
         String foto = (String) request.getParameter("foto");
         String nombre = (String) request.getParameter("nombre");
         String posicion = (String) request.getParameter("posicion");
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
         MiembroMesa m = new MiembroMesa(periodo, foto, nombre, posicion);
         

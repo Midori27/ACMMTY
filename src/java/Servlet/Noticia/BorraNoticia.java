@@ -4,7 +4,7 @@
  */
 package Servlet.Noticia;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class BorraNoticia extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
         if(cq.borraNoticiaBD(id)){
             request.setAttribute("mensaje", "La noticia ha sido borrada exitosamente.");

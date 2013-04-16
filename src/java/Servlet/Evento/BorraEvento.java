@@ -4,7 +4,7 @@
  */
 package Servlet.Evento;
 
-import Controlador.ControladorQuery;
+import Controlador.Query;
 import static Servlet.Evento.CreaEvento.URL_FORWARD_LISTA;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,7 +34,7 @@ public class BorraEvento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
-        ControladorQuery cq = new ControladorQuery();
+        Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminEventos");
         if(cq.borraEventoBD(id)){
             request.setAttribute("mensaje", "El evento ha sido borrado exitosamente.");

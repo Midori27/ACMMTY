@@ -22,13 +22,13 @@ import javax.mail.internet.MimeMessage;
  *
  * @author juanjo
  */
-public class ControladorEmail {
+public class Email {
     private static final String USERNAME = "acm.monterrey@gmail.com";
     private static final String PASSWORD = "acmgmail2013";
-    private static ControladorEmail instance;
+    private static Email instance;
     private Session session;
     
-    public ControladorEmail(){
+    public Email(){
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -43,11 +43,11 @@ public class ControladorEmail {
                 });
     }
     
-    public static ControladorEmail getInstanceControladorEmail(){
-        ControladorEmail i = instance;
+    public static Email getInstanceControladorEmail(){
+        Email i = instance;
         
         if(i == null){
-            i = new ControladorEmail();
+            i = new Email();
         }
         
         return i;
