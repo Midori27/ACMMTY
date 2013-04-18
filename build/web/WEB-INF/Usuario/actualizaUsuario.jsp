@@ -60,7 +60,7 @@
             <input class="textbox" type="text" name="nombreUsuario"  id="nombreUsuario" value="<%=usuario.getNombreUsuario()%>"/><br /><br />
             <label>Email</label><input class="textbox" type="text" name="email"  id="email" value="<%=usuario.getEmail()%>"/><br />
             <label>password</label><input class="textbox" type="password" name="password"  id="password" value="<%=usuario.getPassword()%>"/><br />		
-            <input type="submit" value="Crear usuario">	
+            <input type="submit" value="Actualizar usuario">	
         </form>
     </body>
 </html>

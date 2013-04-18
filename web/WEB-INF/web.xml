@@ -72,9 +72,21 @@
         <servlet-name>AdminMesaDirectiva</servlet-name>
         <servlet-class>Servlet.MesaDirectiva.AdminMesaDirectiva</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminEventos</servlet-name>
+        <servlet-class>Servlet.Evento.AdminEventos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Administrador</servlet-name>
         <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaEvento</servlet-name>
+        <url-pattern>/CreaEvento</url-pattern>
+    </servlet-mapping>
+      <servlet-mapping>
+        <servlet-name>CreaUsuario</servlet-name>
+        <url-pattern>/CreaUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModificaCuenta</servlet-name>
@@ -82,7 +94,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorraEvento</servlet-name>
-        <url-pattern>/borraEvento</url-pattern>
+        <url-pattern>/BorraEvento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
@@ -135,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>AdminMesaDirectiva</servlet-name>
         <url-pattern>/AdminMesaDirectiva</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminEventos</servlet-name>
+        <url-pattern>/AdminEventos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

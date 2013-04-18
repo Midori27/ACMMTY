@@ -30,7 +30,7 @@
             <input type="text" name="nombre" value="<%=miembro.getNombre()%>"><br />
              <label for="posicion">Posicion</label>
             <input type="text" name="posicion" value="<%=miembro.getPosicion()%>"><br />
-            <input type="submit" value="enviar">
+            <input type="submit" value="Crea miembro">
         </form>
             <h3><%=mensaje%></h3>
     </body>

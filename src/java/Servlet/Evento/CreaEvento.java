@@ -19,11 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class CreaEvento extends HttpServlet {
-    public static final String URL_FORWARD_LISTA = "listaEventos.jsp";
-    public static final String URL_FORWARD_CREA_EVENTO = "/nuevoEvento.jsp";
-    public static final String ATRIBUTO_EVENTOS = "eventos";
-    public static final String ATRIBUTO_ERR = "mensaje";
-    public static final String ERR_CREACION_EVENTO = "Hubo un error en la creación del evento, intentelo otra vez.";
+    public static final String URL_VISTA = "/WEB-INF/Evento/creaEvento.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -37,20 +33,27 @@ public class CreaEvento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         
-        if(creaEvento(request)){
-           response.sendRedirect(URL_FORWARD_LISTA);
-        } else {
-            //Fallo la creacion del evento
-            //Se obtiene el despachador.
-            RequestDispatcher despachador = getServletContext().getRequestDispatcher(URL_FORWARD_CREA_EVENTO);
-            //Agrega el mensaje de error
-            request.setAttribute(ATRIBUTO_ERR, ERR_CREACION_EVENTO);
-            //Forward de regreso a la lista de eventos.
-            despachador.forward(request, response);
-            return;
-            
+        String nombreE = request.getParameter("nombre");
+        String fechaE = request.getParameter("fecha");
+        String lugarE = request.getParameter("lugar");
+        String descripcionE = request.getParameter("descripcion");
+        int maxIntegrantesEquipo = Integer.parseInt(request.getParameter("integrantesPorEquipo"));
+        
+        Evento ev = new Evento(nombreE, new Date(), lugarE, descripcionE, maxIntegrantesEquipo);
+        Query q = new Query();
+        String mensaje="";
+        
+        if(q.insertaEventoBD(ev)){    
+            mensaje="Evento creado exitosamente";
+            request.setAttribute("mensaje", mensaje);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+        }else{
+            mensaje="El evento no pudo ser creado.";
+            request.setAttribute("mensaje", mensaje);
+            request.setAttribute("evento", ev);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
+        
         
         
                 
@@ -69,7 +72,7 @@ public class CreaEvento extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+         request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**
@@ -96,17 +99,4 @@ public class CreaEvento extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    public boolean creaEvento(HttpServletRequest request){
-        boolean eventoCreado = false;
-        Query cq = new Query();
-        String nombreE = request.getParameter("nombre");
-        String fechaE = request.getParameter("fecha");
-        String lugarE = request.getParameter("lugar");
-        String descripcionE = request.getParameter("descripcion");
-        int maxIntegrantesEquipo = Integer.parseInt(request.getParameter("integrantesPorEquipo"));
-        Evento ev = new Evento(nombreE, new Date(), lugarE, descripcionE, maxIntegrantesEquipo);
-        eventoCreado = cq.insertaEventoBD(ev);
-        return eventoCreado;
-    }
 }

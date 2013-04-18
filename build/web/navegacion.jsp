@@ -4,7 +4,7 @@
     Author     : juanjo
 --%>
 
-<%@page import="Servlet.Login,Controlador.ControladorQuery,Modelo.Usuario"%>
+<%@page import="Servlet.Login,Controlador.Query,Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="navigation">
 		  <ul>
@@ -20,8 +20,8 @@
                         <li><a href="login.jsp" title="Ingresa">Login</a></li>
                         <li><a href="registro.jsp" title="Registro">Registrate</a></li>
                         <% }else {
-                             ControladorQuery coq = new ControladorQuery();
-                             Usuario us = coq.getUsuarioBd(idUsuario);
+                             Query oq = new Query();
+                             Usuario us = oq.getUsuarioBD(idUsuario);
                              if(us.getTipo()==0){
                             %>
                         <li><a href="cuenta.jsp" title="Cuenta"><%=us.getNombreUsuario()%></a></li>
