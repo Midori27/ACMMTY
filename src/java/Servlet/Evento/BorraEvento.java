@@ -5,7 +5,6 @@
 package Servlet.Evento;
 
 import Controlador.Query;
-import static Servlet.Evento.CreaEvento.URL_FORWARD_LISTA;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class BorraEvento extends HttpServlet {
-    private static String URL_FORWARD_EVENTO_BORRADO = "/listaEventos.jsp";
+    private static String URL_VISTA = "/AdminEventos";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -34,14 +33,13 @@ public class BorraEvento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
-        Query cq = new Query();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminEventos");
-        if(cq.borraEventoBD(id)){
+        Query q = new Query();
+        if(q.borraEventoBD(id)){
             request.setAttribute("mensaje", "El evento ha sido borrado exitosamente.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos el evento no puede ser eliminado en este momento.");
-            rd.forward(request, response);
+            request.setAttribute("mensaje", "Lo sentimos, el evento no pudo ser borrado. ");
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
         
     }

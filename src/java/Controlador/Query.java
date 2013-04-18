@@ -320,8 +320,8 @@ public class Query {
         PreparedStatement actualizaEvento = null;
         boolean resultado = true;
         String query = "UPDATE "+Evento.NOMBRE_TABLA+" SET "+Evento.COL_NOMBRE+"=?, "+Evento.COL_FECHA+"=?"
-                +", "+Evento.COL_LUGAR+"=? "+Evento.COL_DESCRIPCION+"=?,"
-                +Evento.COL_MAX_INTEGRANTES_POR_EQUIPO+"=? WHERE "+Noticia.COL_ID+"=?";
+                +", "+Evento.COL_LUGAR+"=?, "+Evento.COL_DESCRIPCION+"=?, "
+                +Evento.COL_MAX_INTEGRANTES_POR_EQUIPO+"=? WHERE "+Evento.COL_ID+"=?";
         java.sql.Date fecha = java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(ev.getFecha()));
        
         try{
@@ -331,6 +331,7 @@ public class Query {
             actualizaEvento.setString(3, ev.getLugar());
             actualizaEvento.setString(4, ev.getDescripcion());
             actualizaEvento.setInt(5, ev.getMaxIntegrantesEquipo());
+            actualizaEvento.setInt(6, ev.getId());
             actualizaEvento.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
@@ -354,7 +355,7 @@ public class Query {
      * @return Usuario Un objeto usuario inicializado con los datos de la base.
      * @see Modelo.Usuario
      */ 
-    public Evento getEventoBd(int id){
+    public Evento getEventoBD(int id){
         Connection conexion = pool.getConexion();
         PreparedStatement selectEvento = null;
         ResultSet rs = null;
@@ -390,7 +391,7 @@ public class Query {
      * @return Evento[] Un arreglo que contiene los objetos evento que se encuentran en la base.
      * @see Modelo.Evento
      */ 
-    public Evento[] getEventosBd(){
+    public Evento[] getEventosBD(){
         Connection conexion = pool.getConexion();
         PreparedStatement selectEventos = null;
         ResultSet rs = null;

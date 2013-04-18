@@ -7,12 +7,6 @@ package Servlet.Evento;
 import Controlador.Query;
 import Modelo.Evento;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class ActualizaEvento extends HttpServlet {
-    public static final String URL_VISTA = "/WEB-INF/Evento/actualizaEvento.jsp";
+public class AdminEventos extends HttpServlet {
+    public static final String URL_VISTA = "/WEB-INF/Evento/adminEventos.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -37,25 +31,15 @@ public class ActualizaEvento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        String nombre = (String) request.getParameter("nombre");
-        String fecha = (String) request.getParameter("fecha");
-        String lugar = (String) request.getParameter("lugar");
-        String descripcion = (String) request.getParameter("descripcion");
-        Integer maxIntegrantesxEquipo = Integer.parseInt((String) request.getParameter("maxIntegrantesEquipo"));
-       
-        Query cq = new Query();
-        Evento ev = new Evento(id,nombre, Evento.parseFecha(fecha), lugar, descripcion, maxIntegrantesxEquipo);
-        request.setAttribute("evento", ev);
-        if(cq.actualizaEventoBD(ev)){
-            request.setAttribute("mensaje", "El evento ha sido actualizado exitosamente.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
-        }else{
-            request.setAttribute("mensaje", "Lo sentimos, el evento no puede ser actualizado en este momento.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
-        }
+        Query q = new Query();
+        Evento[] eventos = q.getEventosBD();
+        String mensaje = null;
+        request.setAttribute("eventos", eventos);
         
+        if(eventos==null)mensaje="Actualmente no existen eventos en la base de datos.";
+        request.setAttribute("mensaje", mensaje);
+        
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,12 +55,7 @@ public class ActualizaEvento extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        Query q = new Query();
-        Evento ev = q.getEventoBD(id);
-        request.setAttribute("evento", ev);
-        request.getRequestDispatcher(URL_VISTA).forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**

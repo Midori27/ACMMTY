@@ -61,6 +61,16 @@ public class Evento {
         }
     }
 
+    public Evento() {
+        this.id=-1;
+        this.nombre="";
+        this.fecha=null;
+        this.lugar="";
+        this.descripcion="";
+    }
+    
+    
+
     public int getId() {
         return id;
     }
