@@ -5,8 +5,8 @@
 package Servlet.Noticia;
 
 import Controlador.Query;
+import Modelo.Noticia;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class BorraNoticia extends HttpServlet {
-    public static final String URL_VISTA = "/AdminNoticias";
-
+public class AdminNoticias extends HttpServlet {
+    public static final String URL_VISTA = "/WEB-INF/Noticia/adminNoticias.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -32,15 +31,14 @@ public class BorraNoticia extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        Query cq = new Query();
-        if(cq.borraNoticiaBD(id)){
-            request.setAttribute("mensaje", "La noticia ha sido borrada exitosamente.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
-        }else{
-            request.setAttribute("mensaje", "Lo sentimos la noticia no puede ser eliminada en este momento.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
-        }
+        Query q = new Query();
+        Noticia noticias[] = q.getNoticiasBD();
+        String mensaje = null;
+        request.setAttribute("noticias", noticias);
+        
+        if(noticias==null)mensaje="Actualmente no existen noticias en la base de datos.";
+        request.setAttribute("mensaje", mensaje);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class CreaNoticia extends HttpServlet {
-
+    public static final String URL_VISTA="/WEB-INF/Noticia/creaNoticia.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -38,15 +38,15 @@ public class CreaNoticia extends HttpServlet {
         String descripcion = (String) request.getParameter("descripcion");
         Date fecha = new Date();
         Query cq = new Query();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminNoticias");
         Noticia n = new Noticia(imagen, titulo, descripcion, fecha);
         
         if(cq.insertaNoticiaBD(n)){
             request.setAttribute("mensaje", "La noticia ha sido creada exitosamente.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
             request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser creada en este momento.");
-            rd.forward(request, response);
+            request.setAttribute("noticia", n);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
     }
 
@@ -63,7 +63,7 @@ public class CreaNoticia extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class ActualizaNoticia extends HttpServlet {
-
+    public static final String URL_VISTA = "/WEB-INF/Noticia/actualizaNoticia.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -36,16 +36,15 @@ public class ActualizaNoticia extends HttpServlet {
         String imagen = (String) request.getParameter("imagen");
         String titulo = (String) request.getParameter("titulo");
         String descripcion = (String) request.getParameter("descripcion");
-        Query cq = new Query();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/actualizaNoticia");
+        Query q = new Query();
         Noticia n = new Noticia(id, imagen, titulo, descripcion);
-        
-        if(cq.actualizaNoticiaBD(n)){
+        request.setAttribute("noticia", n);
+        if(q.actualizaNoticiaBD(n)){
             request.setAttribute("mensaje", "La noticia ha sido actualisada exitosamente.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
             request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser actualizada en este momento.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
         
         
@@ -64,7 +63,11 @@ public class ActualizaNoticia extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        Query q = new Query();
+        Noticia n = q.getNoticiaBd(id);
+        request.setAttribute("noticia", n);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

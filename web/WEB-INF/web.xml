@@ -76,6 +76,10 @@
         <servlet-name>AdminEventos</servlet-name>
         <servlet-class>Servlet.Evento.AdminEventos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminNoticias</servlet-name>
+        <servlet-class>Servlet.Noticia.AdminNoticias</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Administrador</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -84,7 +88,7 @@
         <servlet-name>CreaEvento</servlet-name>
         <url-pattern>/CreaEvento</url-pattern>
     </servlet-mapping>
-      <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CreaUsuario</servlet-name>
         <url-pattern>/CreaUsuario</url-pattern>
     </servlet-mapping>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>AdminEventos</servlet-name>
         <url-pattern>/AdminEventos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminNoticias</servlet-name>
+        <url-pattern>/AdminNoticias</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

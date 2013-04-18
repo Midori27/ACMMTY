@@ -710,6 +710,51 @@ public class Query {
         return resultado;
     }
     
+    /**
+     * Obtiene todas las noticias guardadas en la base de datos y las regresa en un arreglo de objetos Noticia.
+     * de datos con el id provisto como parámetro.
+     * @return Noticia[] Un arreglo que contiene los objetos noticia que se encuentran en la base.
+     * @see Modelo.Noticia
+     */ 
+    public Noticia[] getNoticiasBD(){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectNoticias = null;
+        ResultSet rs = null;
+        Noticia noticias[] = null;
+        String query = "SELECT * FROM "+Noticia.NOMBRE_TABLA;
+        int numRegistros;
+        int i = 0;
+        try{
+            selectNoticias = conexion.prepareStatement(query);
+            rs = selectNoticias.executeQuery();
+            if(rs.first()){
+                rs.last();
+                numRegistros = rs.getRow();
+                noticias = new Noticia[numRegistros];
+                rs.beforeFirst();
+                
+                while(rs.next()){
+                    noticias[i] = new Noticia(rs);
+                    i++;
+                }
+            }
+            
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectNoticias.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return noticias;
+    }
+    
       /**
      * Toma un objeto MiembroMesa e inserta sus campos en un registro de la base de datos.
      * @param m El objeto MiembroMesa cuyos datos se desean registrar en la base de datos.
