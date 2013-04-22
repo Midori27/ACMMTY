@@ -9,11 +9,13 @@ import Controlador.Query;
 import Modelo.Noticia;
 import java.io.IOException;
 import java.util.HashMap;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.Validator;
 
 /**
  *
@@ -45,6 +47,15 @@ public class ActualizaNoticia extends HttpServlet {
         Query q = new Query();
         Noticia n = new Noticia(id, imagen, titulo, descripcion);
         request.setAttribute("noticia", n);
+        
+        Validator validator = new Validator();
+        List<ConstraintViolation> violation = validator.validate(n);
+        if(violation.size()>0){
+            request.setAttribute("mensaje", "Porfavor corrija los errores.");
+            request.setAttribute("errores", violation);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
+        }
         if(q.actualizaNoticiaBD(n)){
             request.setAttribute("mensaje", "La noticia ha sido actualisada exitosamente.");
             request.getRequestDispatcher(URL_VISTA).forward(request, response);

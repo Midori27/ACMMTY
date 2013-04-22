@@ -9,11 +9,14 @@ import Controlador.Query;
 import Modelo.MiembroMesa;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.Validator;
 
 /**
  *
@@ -38,11 +41,24 @@ public class CreaMiembroMesa extends HttpServlet {
         HashMap<String,String> parametros = ParseaParametros.parsea(request, this.getServletConfig().getServletContext());
         String periodo = parametros.get(MiembroMesa.COL_PERIODO);
         String foto = parametros.get(MiembroMesa.COL_FOTO);
+        if(foto.isEmpty()){
+            foto = parametros.get("fotoSubida");
+        }
         String nombre = parametros.get(MiembroMesa.COL_NOMBRE);
         String posicion = parametros.get(MiembroMesa.COL_POSICION);
         Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
         MiembroMesa m = new MiembroMesa(periodo, foto, nombre, posicion);
+        
+        Validator validator = new Validator();
+        List<ConstraintViolation> violation = validator.validate(m);
+        if(violation.size()>0){
+            request.setAttribute("mensaje", "Porfavor corrija los errores.");
+            request.setAttribute("errores", violation);
+            request.setAttribute("miembro", m);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
+        }
         
         if(cq.insertaMiembroMesaBD(m)){
             request.setAttribute("mensaje", "El miembro de la mesa ha sido creado exitosamente.");

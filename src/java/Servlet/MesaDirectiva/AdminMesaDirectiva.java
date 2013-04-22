@@ -38,7 +38,6 @@ public class AdminMesaDirectiva extends HttpServlet {
         
         if(miembros==null)mensaje="Actualmente no existen miembros en la base de datos.";
         request.setAttribute("mensaje", mensaje);
-        
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 

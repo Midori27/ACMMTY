@@ -10,10 +10,13 @@ import Modelo.Noticia;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.Validator;
 
 /**
  *
@@ -36,11 +39,24 @@ public class CreaNoticia extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
         String imagen = parametros.get(Noticia.COL_IMAGEN);
+        if(imagen.isEmpty()){
+            imagen = parametros.get("imagenSubida");
+        }
         String titulo = parametros.get(Noticia.COL_TITULO);
         String descripcion = parametros.get(Noticia.COL_DESCRIPCION);
         Date fecha = new Date();
         Query cq = new Query();
         Noticia n = new Noticia(imagen, titulo, descripcion, fecha);
+        
+        Validator validator = new Validator();
+        List<ConstraintViolation> violation = validator.validate(n);
+        if(violation.size()>0){
+            request.setAttribute("mensaje", "Porfavor corrija los errores.");
+            request.setAttribute("errores", violation);
+            request.setAttribute("noticia", n);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
+        }
         
         if(cq.insertaNoticiaBD(n)){
             request.setAttribute("mensaje", "La noticia ha sido creada exitosamente.");

@@ -33,8 +33,8 @@ public class BorraNoticia extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
-        Query cq = new Query();
-        if(cq.borraNoticiaBD(id)){
+        Query q = new Query();
+        if(q.borraNoticiaBD(id)){
             request.setAttribute("mensaje", "La noticia ha sido borrada exitosamente.");
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
