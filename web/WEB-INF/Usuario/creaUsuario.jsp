@@ -24,7 +24,7 @@
             <label>Apellido Paterno</label><input class="textbox" type="text" name="apellidoP"  id="apellidoP" value="<%=usuario.getApellidoP()%>"/><br />
             <label>Apellido Materno</label><input class="textbox" type="text" name="apellidoM"  id="apellidoM" value="<%=usuario.getApellidoM()%>"/><br />
             <label>Fecha de Nacimiento</label>
-            <input type="date" class="textbox" name="fechaNacimiento" id="fechaNacimiento" value="mm-dd-aaaa"><br /><br />
+            <input type="date" class="textbox" name="fechaNacimiento" id="fechaNacimiento" value="aaaa-mm-dd"><br /><br />
             <label>Telefono</label><input class="textbox" type="text" name="telefono"  id="telefono" value="<%=usuario.getTelefono()%>"/><br />
             <label>Ciudad</label><select class="textbox" type="text" name="ciudad"  id="ciudad" />
               <option value="nada">Selecciona</option>
