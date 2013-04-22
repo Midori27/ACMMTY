@@ -4,6 +4,7 @@
  */
 package Servlet.Evento;
 
+import Controlador.ParseaParametros;
 import Controlador.Query;
 import Modelo.Evento;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,16 +39,20 @@ public class ActualizaEvento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        String nombre = (String) request.getParameter("nombre");
-        String fecha = (String) request.getParameter("fecha");
-        String lugar = (String) request.getParameter("lugar");
-        String descripcion = (String) request.getParameter("descripcion");
-        Integer maxIntegrantesxEquipo = Integer.parseInt((String) request.getParameter("maxIntegrantesEquipo"));
+        HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
+        Integer id = Integer.parseInt(parametros.get(Evento.COL_ID));
+        String imagen = parametros.get(Evento.COL_IMAGEN);
+        if(imagen.isEmpty()){
+            imagen = parametros.get("imagenSubida");
+        }
+        String nombre = parametros.get(Evento.COL_NOMBRE);
+        String fecha = parametros.get(Evento.COL_FECHA);
+        String lugar = parametros.get(Evento.COL_LUGAR);
+        String descripcion = parametros.get(Evento.COL_DESCRIPCION);
+        Integer maxIntegrantesEquipo = Integer.parseInt(parametros.get(Evento.COL_MAX_INTEGRANTES_POR_EQUIPO));
        
         Query cq = new Query();
-        Evento ev = new Evento(id,nombre, Evento.parseFecha(fecha), lugar, descripcion, maxIntegrantesxEquipo);
+        Evento ev = new Evento(id,imagen,nombre, Evento.parseFecha(fecha), lugar, descripcion, maxIntegrantesEquipo);
         request.setAttribute("evento", ev);
         if(cq.actualizaEventoBD(ev)){
             request.setAttribute("mensaje", "El evento ha sido actualizado exitosamente.");

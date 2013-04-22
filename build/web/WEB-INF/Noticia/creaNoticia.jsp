@@ -19,10 +19,10 @@
     </head>
     <body>
         <h1>creaNoticia</h1>
-        <form action="CreaNoticia" method="post">
+        <form action="CreaNoticia" method="post" enctype="multipart/form-data">
             <label for="titulo">Titulo</label><input type="text" name="titulo" value="<%=noticia.getTitulo()%>"><br />
             <label for="descripcion">Descripcion</label><textarea name="descripcion"><%=noticia.getDescripcion()%></textarea><br />
-            <label for="imagen">Imagen</label><input type="text" name="imagen" value="<%=noticia.getImagen()%>"><br />
+            <label for="imagen">Imagen</label><input type="file" name="imagen"><br />
             <input type="submit" value="Crea noticia">
         </form>
         <h3><%=mensaje%></h3>

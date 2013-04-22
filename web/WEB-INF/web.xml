@@ -80,6 +80,10 @@
         <servlet-name>AdminNoticias</servlet-name>
         <servlet-class>Servlet.Noticia.AdminNoticias</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubeImagen</servlet-name>
+        <servlet-class>Servlet.SubeImagen</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Administrador</servlet-name>
         <url-pattern>/admin</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>AdminNoticias</servlet-name>
         <url-pattern>/AdminNoticias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubeImagen</servlet-name>
+        <url-pattern>/SubeImagen</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

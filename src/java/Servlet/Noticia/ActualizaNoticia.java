@@ -4,9 +4,11 @@
  */
 package Servlet.Noticia;
 
+import Controlador.ParseaParametros;
 import Controlador.Query;
 import Modelo.Noticia;
 import java.io.IOException;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,10 +34,14 @@ public class ActualizaNoticia extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        String imagen = (String) request.getParameter("imagen");
-        String titulo = (String) request.getParameter("titulo");
-        String descripcion = (String) request.getParameter("descripcion");
+        HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
+        Integer id = Integer.parseInt(parametros.get(Noticia.COL_ID));
+        String imagen = parametros.get(Noticia.COL_IMAGEN);
+        if(imagen.isEmpty()){
+            imagen = parametros.get("imagenSubida");
+        }
+        String titulo = parametros.get(Noticia.COL_TITULO);
+        String descripcion = parametros.get(Noticia.COL_DESCRIPCION);
         Query q = new Query();
         Noticia n = new Noticia(id, imagen, titulo, descripcion);
         request.setAttribute("noticia", n);

@@ -8,10 +8,8 @@
 <%
     String mensaje = (String) request.getAttribute("mensaje");
     if(mensaje==null) mensaje="";
-    Integer id = Integer.parseInt((String) request.getParameter("id"));
     MiembroMesa miembro = (MiembroMesa) request.getAttribute("miembro");
-    if(id==null) id = (miembro==null) ? -1 : miembro.getId();
-    if(miembro==null) miembro = new MiembroMesa();
+    if(miembro==null) response.sendRedirect("/AdminMesaDirectiva");
 %>
 <!DOCTYPE html>
 <html>
@@ -20,17 +18,18 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <form action="ActualizaMiembroMesa" method="POST">
-            <input type="hidden" name="id" value="<%=id%>">
+        <h1>Actualiza Miembro Mesa</h1>
+        <form action="ActualizaMiembroMesa" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<%=miembro.getId()%>">
             <label for="periodo">Periodo</label>
             <input type="text" name="periodo" value="<%=miembro.getPeriodo()%>"><br />
-             <label for="foto">Foto</label>
-            <input type="text" name="foto" value="<%=miembro.getFoto()%>"><br />
              <label for="nombre">Nombre</label>
             <input type="text" name="nombre" value="<%=miembro.getNombre()%>"><br />
              <label for="posicion">Posicion</label>
             <input type="text" name="posicion" value="<%=miembro.getPosicion()%>"><br />
+            <label for="foto">Foto</label><input type="file" name="foto"><br />
+            <img src="ImagenServidor/<%=miembro.getFoto()%>" height="100" width="100">
+            <input type="hidden" name="fotoSubida" value="<%=miembro.getFoto()%>">
             <input type="submit" value="Actualizar">
         </form>
             <h3><%=mensaje%></h3>

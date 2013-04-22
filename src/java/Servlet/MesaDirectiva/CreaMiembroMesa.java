@@ -4,9 +4,11 @@
  */
 package Servlet.MesaDirectiva;
 
+import Controlador.ParseaParametros;
 import Controlador.Query;
 import Modelo.MiembroMesa;
 import java.io.IOException;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,10 +35,11 @@ public class CreaMiembroMesa extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String periodo = (String) request.getParameter("periodo");
-        String foto = (String) request.getParameter("foto");
-        String nombre = (String) request.getParameter("nombre");
-        String posicion = (String) request.getParameter("posicion");
+        HashMap<String,String> parametros = ParseaParametros.parsea(request, this.getServletConfig().getServletContext());
+        String periodo = parametros.get(MiembroMesa.COL_PERIODO);
+        String foto = parametros.get(MiembroMesa.COL_FOTO);
+        String nombre = parametros.get(MiembroMesa.COL_NOMBRE);
+        String posicion = parametros.get(MiembroMesa.COL_POSICION);
         Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
         MiembroMesa m = new MiembroMesa(periodo, foto, nombre, posicion);

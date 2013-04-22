@@ -19,8 +19,7 @@
     </head>
     <body>
         <h3><%=mensaje%></h3>
-        <form action="CreaEvento"  method="post">
-            <fieldset class="info_fieldset">
+        <form action="CreaEvento"  method="post" enctype="multipart/form-data">
                 <label>Nombre Evento</label><input class="textbox" type="text" name="nombre"  id="nombre" value="<%=evento.getNombre()%>"/><br />
                 <label>Fecha del Evento</label>
                 <input type="date" class="textbox" name="fechaNacimiento" id="fecha" value="mm-dd-aaaa"><br /><br />
@@ -29,6 +28,7 @@
                 <br /><br />
                 <label>Integrantes por Equipo</label><input class="textbox"  type="text" name="integrantesPorEquipo"  id="integrantesPorEquipo" value="<%=evento.getMaxIntegrantesEquipo()%>"/>
                 <br />
+                <label for="imagen">Imagen</label><input type="file" name="imagen"><br />
                 <input type="submit" value="Crea evento">
         </form>
     </body>

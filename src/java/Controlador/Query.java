@@ -285,15 +285,16 @@ public class Query {
         PreparedStatement insertaEvento = null;
         ResultSet rs = null;
         boolean resultado = true;
-        String query = "INSERT INTO "+Evento.NOMBRE_TABLA+" "+Evento.CAMPOS_TABLA+" VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO "+Evento.NOMBRE_TABLA+" "+Evento.CAMPOS_TABLA+" VALUES (?,?,?,?,?,?)";
         
         try{
             insertaEvento = conexion.prepareStatement(query);
-            insertaEvento.setString(1, ev.getNombre());
-            insertaEvento.setDate(2, java.sql.Date.valueOf("1990-11-27"));
-            insertaEvento.setString(3,ev.getLugar());
-            insertaEvento.setString(4,ev.getDescripcion());
-            insertaEvento.setInt(5,ev.getMaxIntegrantesEquipo());
+            insertaEvento.setString(1, ev.getImagen());
+            insertaEvento.setString(2, ev.getNombre());
+            insertaEvento.setDate(3, java.sql.Date.valueOf("1990-11-27"));
+            insertaEvento.setString(4,ev.getLugar());
+            insertaEvento.setString(5,ev.getDescripcion());
+            insertaEvento.setInt(6,ev.getMaxIntegrantesEquipo());
             insertaEvento.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
@@ -319,19 +320,20 @@ public class Query {
         Connection conexion = pool.getConexion();
         PreparedStatement actualizaEvento = null;
         boolean resultado = true;
-        String query = "UPDATE "+Evento.NOMBRE_TABLA+" SET "+Evento.COL_NOMBRE+"=?, "+Evento.COL_FECHA+"=?"
+        String query = "UPDATE "+Evento.NOMBRE_TABLA+" SET "+Evento.COL_IMAGEN+"=?, "+Evento.COL_NOMBRE+"=?, "+Evento.COL_FECHA+"=?"
                 +", "+Evento.COL_LUGAR+"=?, "+Evento.COL_DESCRIPCION+"=?, "
                 +Evento.COL_MAX_INTEGRANTES_POR_EQUIPO+"=? WHERE "+Evento.COL_ID+"=?";
         java.sql.Date fecha = java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(ev.getFecha()));
        
         try{
             actualizaEvento = conexion.prepareStatement(query);
-            actualizaEvento.setString(1, ev.getNombre());
-            actualizaEvento.setDate(2, fecha);
-            actualizaEvento.setString(3, ev.getLugar());
-            actualizaEvento.setString(4, ev.getDescripcion());
-            actualizaEvento.setInt(5, ev.getMaxIntegrantesEquipo());
-            actualizaEvento.setInt(6, ev.getId());
+            actualizaEvento.setString(1, ev.getImagen());
+            actualizaEvento.setString(2, ev.getNombre());
+            actualizaEvento.setDate(3, fecha);
+            actualizaEvento.setString(4, ev.getLugar());
+            actualizaEvento.setString(5, ev.getDescripcion());
+            actualizaEvento.setInt(6, ev.getMaxIntegrantesEquipo());
+            actualizaEvento.setInt(7, ev.getId());
             actualizaEvento.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();

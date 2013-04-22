@@ -4,10 +4,12 @@
  */
 package Servlet.Evento;
 
+import Controlador.ParseaParametros;
 import Controlador.Query;
 import Modelo.Evento;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,13 +35,15 @@ public class CreaEvento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nombreE = request.getParameter("nombre");
-        String fechaE = request.getParameter("fecha");
-        String lugarE = request.getParameter("lugar");
-        String descripcionE = request.getParameter("descripcion");
-        int maxIntegrantesEquipo = Integer.parseInt(request.getParameter("integrantesPorEquipo"));
+        HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
+        String imagen = parametros.get(Evento.COL_IMAGEN);
+        String nombre = parametros.get(Evento.COL_NOMBRE);
+        String fecha = parametros.get(Evento.COL_FECHA);
+        String lugar = parametros.get(Evento.COL_LUGAR);
+        String descripcion = parametros.get(Evento.COL_DESCRIPCION);
+        int maxIntegrantesEquipo = Integer.parseInt(parametros.get(Evento.COL_MAX_INTEGRANTES_POR_EQUIPO));
         
-        Evento ev = new Evento(nombreE, new Date(), lugarE, descripcionE, maxIntegrantesEquipo);
+        Evento ev = new Evento(imagen,nombre, new Date(), lugar, descripcion, maxIntegrantesEquipo);
         Query q = new Query();
         String mensaje="";
         

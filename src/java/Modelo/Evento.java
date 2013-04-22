@@ -18,21 +18,24 @@ import java.util.Date;
 public class Evento {
     public static final String NOMBRE_TABLA = "Evento";
     public static final String COL_ID = "id";
+    public static final String COL_IMAGEN = "imagen";
     public static final String COL_NOMBRE = "nombre";
     public static final String COL_FECHA = "fecha";
     public static final String COL_LUGAR = "lugar";
     public static final String COL_DESCRIPCION = "descripcion";
     public static final String COL_MAX_INTEGRANTES_POR_EQUIPO = "integrantesPorEquipo";
-    public static final String CAMPOS_TABLA = String.format("(%s,%s,%s,%s,%s)", COL_NOMBRE, COL_FECHA, COL_LUGAR, COL_DESCRIPCION, COL_MAX_INTEGRANTES_POR_EQUIPO);
+    public static final String CAMPOS_TABLA = String.format("(%s,%s,%s,%s,%s,%s)", COL_IMAGEN, COL_NOMBRE, COL_FECHA, COL_LUGAR, COL_DESCRIPCION, COL_MAX_INTEGRANTES_POR_EQUIPO);
     private int id;
+    private String imagen;
     private String nombre;
     private Date fecha;
     private String lugar;
     private String descripcion;
     private int maxIntegrantesEquipo;
 
-    public Evento(int id, String nombre, Date fecha, String lugar, String descripcion, int maxIntegrantesEquipo) {
+    public Evento(int id, String imagen, String nombre, Date fecha, String lugar, String descripcion, int maxIntegrantesEquipo) {
         this.id = id;
+        this.imagen = imagen;
         this.nombre = nombre;
         this.fecha = fecha;
         this.lugar = lugar;
@@ -40,7 +43,8 @@ public class Evento {
         this.maxIntegrantesEquipo = maxIntegrantesEquipo;
     }
 
-    public Evento(String nombre, Date fecha, String lugar, String descripcion, int maxIntegrantesEquipo) {
+    public Evento(String imagen, String nombre, Date fecha, String lugar, String descripcion, int maxIntegrantesEquipo) {
+        this.imagen = imagen;
         this.nombre = nombre;
         this.fecha = fecha;
         this.lugar = lugar;
@@ -51,6 +55,7 @@ public class Evento {
     public Evento(ResultSet rs){
         try{
             this.id = rs.getInt(COL_ID);
+            this.imagen = rs.getString(COL_IMAGEN);
             this.nombre = rs.getString(COL_NOMBRE);
             this.fecha = rs.getDate(COL_FECHA);
             this.lugar = rs.getString(COL_LUGAR);
@@ -63,6 +68,7 @@ public class Evento {
 
     public Evento() {
         this.id=-1;
+        this.imagen="";
         this.nombre="";
         this.fecha=null;
         this.lugar="";
@@ -78,7 +84,14 @@ public class Evento {
     public void setId(int id) {
         this.id = id;
     }
+    
+    public String getImagen() {
+        return imagen;
+    }
 
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
     public String getNombre() {
         return nombre;
     }

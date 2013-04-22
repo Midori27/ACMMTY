@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS Evento (
   id int(11) NOT NULL AUTO_INCREMENT,
+  imagen varchar(90) NOT NULL,
   nombre varchar(30) NOT NULL,
   fecha DATE NOT NULL,
   lugar varchar(50) NOT NULL,
@@ -83,6 +84,7 @@ CREATE TABLE IF NOT EXISTS Comentario (
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS Noticia (
   id int(11) NOT NULL AUTO_INCREMENT,
+  imagen varchar(90) NOT NULL,
   fecha DATE,
   titulo varchar(30) NOT NULL,
   descripcion varchar(200) NOT NULL, 

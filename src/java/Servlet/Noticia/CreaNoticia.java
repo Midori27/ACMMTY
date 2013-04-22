@@ -5,10 +5,11 @@
 package Servlet.Noticia;
 
 import Controlador.Query;
+import Controlador.ParseaParametros;
 import Modelo.Noticia;
 import java.io.IOException;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +34,10 @@ public class CreaNoticia extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String imagen = (String) request.getParameter("imagen");
-        String titulo = (String) request.getParameter("titulo");
-        String descripcion = (String) request.getParameter("descripcion");
+        HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
+        String imagen = parametros.get(Noticia.COL_IMAGEN);
+        String titulo = parametros.get(Noticia.COL_TITULO);
+        String descripcion = parametros.get(Noticia.COL_DESCRIPCION);
         Date fecha = new Date();
         Query cq = new Query();
         Noticia n = new Noticia(imagen, titulo, descripcion, fecha);

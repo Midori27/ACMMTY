@@ -20,17 +20,19 @@
     </head>
     <body>
         <h3><%=mensaje%></h3>
-        <form action="ActualizaEvento"  method="post">
-            <fieldset class="info_fieldset">
+        <form action="ActualizaEvento"  method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<%=evento.getId()%>"
-                <label>Nombre Evento</label><input class="textbox" type="text" name="nombre"  id="nombre" value="<%=evento.getNombre()%>"/><br />
-                <label>Fecha del Evento</label>
-                <input type="date" class="textbox" name="fecha" id="fecha" value="mm-dd-aaaa"><br /><br />
-                <label>Lugar</label><input class="textbox"  type="text" name="lugar"  id="lugar" value="<%=evento.getLugar()%>"/><br />
-                <label>Descripción del Evento</label><input class="textbox"  type="text" name="descripcion"  id="descripcion" value="<%=evento.getDescripcion()%>"/>
+                <label for="nombre">Nombre Evento</label><input type="text" name="nombre" value="<%=evento.getNombre()%>"/><br />
+                <label for="fecha">Fecha del Evento</label>
+                <input type="date" name="fecha" value="mm-dd-aaaa"><br /><br />
+                <label>Lugar</label><input type="text" name="lugar" value="<%=evento.getLugar()%>"/><br />
+                <label for="descripcion">Descripción del Evento</label><input class="textbox"  type="text" name="descripcion"  id="descripcion" value="<%=evento.getDescripcion()%>"/>
                 <br /><br />
-                <label>Integrantes por Equipo</label><input class="textbox"  type="text" name="maxIntegrantesEquipo"  id="maxIntegrantesEquipo" value="<%=evento.getMaxIntegrantesEquipo()%>"/>
+                <label for="maxIntegranesEquipo">Integrantes por Equipo</label><input type="text" name="integrantesPorEquipo" value="<%=evento.getMaxIntegrantesEquipo()%>"/>
                 <br />
+                <label for="imagen">Imagen</label><input type="file" name="imagen"><br />
+                <img src="<%="ImagenServidor/"+evento.getImagen()%>" height="100" width="100">
+                <input type="hidden" name="imagenSubida" value="<%=evento.getImagen()%>">
                 <input type="submit" value="Actualiza evento">
         </form>
     </body>

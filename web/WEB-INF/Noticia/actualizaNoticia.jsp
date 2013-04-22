@@ -19,11 +19,13 @@
     </head>
     <body>
         <h1>actualizaNoticia</h1>
-        <form action="ActualizaNoticia" method="post">
+        <form action="ActualizaNoticia" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<%=noticia.getId()%>">
             <label for="titulo">Titulo</label><input type="text" name="titulo" value="<%=noticia.getTitulo()%>"><br />
             <label for="descripcion">Descripcion</label><textarea name="descripcion"><%=noticia.getDescripcion()%></textarea><br />
-            <label for="imagen">Imagen</label><input type="text" name="imagen" value="<%=noticia.getImagen()%>"><br />
+            <label for="imagen">Imagen</label><input type="file" name="imagen"><br />
+            <img src="<%="ImagenServidor/"+noticia.getImagen()%>" height="100" width="100">
+            <input type="hidden" name="imagenSubida" value="<%=noticia.getImagen()%>">
             <input type="submit" value="Actualiza noticia">
         </form>
         <h3><%=mensaje%></h3>
