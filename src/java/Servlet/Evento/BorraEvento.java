@@ -6,7 +6,6 @@ package Servlet.Evento;
 
 import Controlador.Query;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class BorraEvento extends HttpServlet {
     private static String URL_VISTA = "/AdminEventos";
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,7 +41,6 @@ public class BorraEvento extends HttpServlet {
             request.setAttribute("mensaje", "Lo sentimos, el evento no pudo ser borrado. ");
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

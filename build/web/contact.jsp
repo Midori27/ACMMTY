@@ -31,7 +31,7 @@
 		<!-- Logo ACM -->
 		<img src="images/logo.png" class="logo" alt="ACM MTY" />
 		
-		<%@include file="navegacion.jsp"%>
+		<%@include file="/WEB-INF/Includes/navegacion.jsp"%>
 	</div>
 	<!-- FINAL barra fija -->
 

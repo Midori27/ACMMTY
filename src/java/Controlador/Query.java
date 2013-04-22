@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Helper.Fecha;
 import Modelo.Evento;
 import Modelo.MiembroMesa;
 import Modelo.Noticia;
@@ -286,12 +287,12 @@ public class Query {
         ResultSet rs = null;
         boolean resultado = true;
         String query = "INSERT INTO "+Evento.NOMBRE_TABLA+" "+Evento.CAMPOS_TABLA+" VALUES (?,?,?,?,?,?)";
-        
+        java.sql.Date fecha = Fecha.aFechaSql(ev.getFecha());
         try{
             insertaEvento = conexion.prepareStatement(query);
             insertaEvento.setString(1, ev.getImagen());
             insertaEvento.setString(2, ev.getNombre());
-            insertaEvento.setDate(3, java.sql.Date.valueOf("1990-11-27"));
+            insertaEvento.setDate(3,fecha);
             insertaEvento.setString(4,ev.getLugar());
             insertaEvento.setString(5,ev.getDescripcion());
             insertaEvento.setInt(6,ev.getMaxIntegrantesEquipo());
@@ -323,7 +324,7 @@ public class Query {
         String query = "UPDATE "+Evento.NOMBRE_TABLA+" SET "+Evento.COL_IMAGEN+"=?, "+Evento.COL_NOMBRE+"=?, "+Evento.COL_FECHA+"=?"
                 +", "+Evento.COL_LUGAR+"=?, "+Evento.COL_DESCRIPCION+"=?, "
                 +Evento.COL_MAX_INTEGRANTES_POR_EQUIPO+"=? WHERE "+Evento.COL_ID+"=?";
-        java.sql.Date fecha = java.sql.Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(ev.getFecha()));
+        java.sql.Date fecha = Fecha.aFechaSql(ev.getFecha());
        
         try{
             actualizaEvento = conexion.prepareStatement(query);

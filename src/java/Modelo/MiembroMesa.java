@@ -8,25 +8,40 @@ package Modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import net.sf.oval.constraint.MaxLength;
+import net.sf.oval.constraint.NotBlank;
+import net.sf.oval.constraint.NotNull;
+import Helper.Error;
 
 /**
  *
  * @author juanjo
  */
 public class MiembroMesa {
-    public static String NOMBRE_TABLA = "MesaDirectiva";
-    public static String COL_ID = "id";
-    public static String COL_PERIODO = "periodo";
-    public static String COL_FOTO = "foto";
-    public static String COL_NOMBRE = "nombre";
-    public static String COL_POSICION = "posicion";
+    public static final String NOMBRE_TABLA = "MesaDirectiva";
+    public static final String COL_ID = "id";
+    public static final String COL_PERIODO = "periodo";
+    public static final String COL_FOTO = "foto";
+    public static final String COL_NOMBRE = "nombre";
+    public static final String COL_POSICION = "posicion";
     public static final String CAMPOS_TABLA = String.format("(%s,%s,%s,%s)",COL_PERIODO, COL_FOTO, COL_NOMBRE, COL_POSICION);
     
     
     private int id;
+    @NotNull(message=COL_PERIODO+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_PERIODO+": "+Error.EN_BLANCO)
+    @MaxLength(value=60, message=COL_PERIODO+": "+Error.TAM_MAX+": 60")
     private String periodo;
+    @NotNull(message=COL_FOTO+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_FOTO+": "+Error.EN_BLANCO)
     private String foto;
+    @NotNull(message=COL_NOMBRE+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_NOMBRE+": "+Error.EN_BLANCO)
+    @MaxLength(value=60, message=COL_NOMBRE+": "+Error.TAM_MAX+": 60")
     private String nombre;
+    @NotNull(message=COL_POSICION+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_POSICION+": "+Error.EN_BLANCO)
+    @MaxLength(value=60, message=COL_POSICION+": "+Error.TAM_MAX+": 60")
     private String posicion;
 
     

@@ -6,6 +6,7 @@
 
 package Helper;
 
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,5 +33,10 @@ public class Fecha {
     
     public static java.util.Date aFechaJava(java.sql.Date fechaSql){
         return new java.util.Date(fechaSql.getTime());
+    }
+    
+    public static String aString(java.util.Date fecha){
+        Format formato = new SimpleDateFormat("yyyy-MM-dd");
+        return formato.format(fecha);
     }
 }

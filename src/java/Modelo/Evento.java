@@ -10,7 +10,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import Helper.Error;
+import Helper.Fecha;
+import net.sf.oval.constraint.Future;
+import net.sf.oval.constraint.Max;
+import net.sf.oval.constraint.MaxLength;
+import net.sf.oval.constraint.Min;
+import net.sf.oval.constraint.NotBlank;
+import net.sf.oval.constraint.NotNull;
 /**
  *
  * @author juanjo
@@ -25,14 +32,31 @@ public class Evento {
     public static final String COL_DESCRIPCION = "descripcion";
     public static final String COL_MAX_INTEGRANTES_POR_EQUIPO = "integrantesPorEquipo";
     public static final String CAMPOS_TABLA = String.format("(%s,%s,%s,%s,%s,%s)", COL_IMAGEN, COL_NOMBRE, COL_FECHA, COL_LUGAR, COL_DESCRIPCION, COL_MAX_INTEGRANTES_POR_EQUIPO);
+    @NotNull
+    @Min(value=0)
     private int id;
+    @NotBlank(message=COL_IMAGEN+": "+Error.EN_BLANCO)
     private String imagen;
+    @NotNull(message=COL_NOMBRE+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_NOMBRE+": "+Error.EN_BLANCO)
+    @MaxLength(value=32, message=COL_NOMBRE+": "+Error.TAM_MAX+" 32")
     private String nombre;
+    @NotNull(message=COL_FECHA+": "+Error.EN_BLANCO)
+    @Future(message=COL_FECHA+": "+Error.FUTURO)
     private Date fecha;
+    @NotNull(message=COL_LUGAR+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_LUGAR+": "+Error.EN_BLANCO)
+    @MaxLength(value=32, message=COL_LUGAR+": "+Error.TAM_MAX+" 32")
     private String lugar;
+    @NotNull(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
+    @MaxLength(value=2000, message=COL_DESCRIPCION+": "+Error.TAM_MAX+": 2000")
     private String descripcion;
+    @Max(value=20, message=COL_MAX_INTEGRANTES_POR_EQUIPO+": "+Error.MAX+" 20")
+    @Min(value=1, message=COL_MAX_INTEGRANTES_POR_EQUIPO+": "+Error.MIN+" 1")
+    @NotNull(message=COL_MAX_INTEGRANTES_POR_EQUIPO+": "+Error.EN_BLANCO)
     private int maxIntegrantesEquipo;
-
+    
     public Evento(int id, String imagen, String nombre, Date fecha, String lugar, String descripcion, int maxIntegrantesEquipo) {
         this.id = id;
         this.imagen = imagen;
@@ -57,7 +81,7 @@ public class Evento {
             this.id = rs.getInt(COL_ID);
             this.imagen = rs.getString(COL_IMAGEN);
             this.nombre = rs.getString(COL_NOMBRE);
-            this.fecha = rs.getDate(COL_FECHA);
+            this.fecha = Fecha.aFechaJava(rs.getDate(COL_FECHA));
             this.lugar = rs.getString(COL_LUGAR);
             this.descripcion = rs.getString(COL_DESCRIPCION);
             this.maxIntegrantesEquipo = rs.getInt(COL_MAX_INTEGRANTES_POR_EQUIPO);
@@ -70,7 +94,7 @@ public class Evento {
         this.id=-1;
         this.imagen="";
         this.nombre="";
-        this.fecha=null;
+        this.fecha= new Date();
         this.lugar="";
         this.descripcion="";
     }
@@ -132,48 +156,8 @@ public class Evento {
         this.maxIntegrantesEquipo = maxIntegrantesEquipo;
     }
     
-    public static boolean validaFecha(String fecha){
-        return fecha.matches("[2-9]\\d{3}-[0-1][1-9]-[0-3]\\d");
-    }
-    
-    public static boolean validaNombre(String nombre){
-        return nombre.matches("(\\w\\s{0,1})*") 
-                &&
-                nombre.length()<=35 
-                && 
-                !nombre.isEmpty();
-    }
-    
-    public static boolean validaLugar(String lugar){
-        return lugar.matches("(\\w\\s{0,1})*")
-                &&
-                lugar.length()<=35
-                &&
-                !lugar.isEmpty();
-    }
-    
-    public static boolean validaDescripcion(String descripcion){
-        return descripcion.length()<=6000
-                &&
-                !descripcion.isEmpty();
-    }
-    
-    public static boolean validaMaxIntegrantesEquipo(Integer maxIntegrantesEquipo){
-        return maxIntegrantesEquipo>=1;
-    }
-    
-    public static Date parseFecha(String fecha){
-         DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-         Date fechaEvento = null;
-        try{
-            fechaEvento = formatoFecha.parse(fecha);
-        }catch(ParseException e){
-            e.printStackTrace();
-        }
-        
-        return fechaEvento;
-    }
-    
-    
+    public String getFechaString(){
+        return Fecha.aString(fecha);
+    }   
     
 }

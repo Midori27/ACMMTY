@@ -6,28 +6,40 @@
 
 package Modelo;
 
+import Helper.Error;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import net.sf.oval.constraint.MaxLength;
+import net.sf.oval.constraint.NotBlank;
+import net.sf.oval.constraint.NotNull;
 
 /**
  *
  * @author juanjo
  */
 public class Noticia {
-    public static String NOMBRE_TABLA = "Noticia";
-    public static String COL_ID = "id";
-    public static String COL_IMAGEN = "imagen";
-    public static String COL_TITULO = "titulo";
-    public static String COL_DESCRIPCION = "descripcion";
-    public static String COL_FECHA = "fecha";
+    public static final String NOMBRE_TABLA = "Noticia";
+    public static final String COL_ID = "id";
+    public static final String COL_IMAGEN = "imagen";
+    public static final String COL_TITULO = "titulo";
+    public static final String COL_DESCRIPCION = "descripcion";
+    public static final String COL_FECHA = "fecha";
     public static final String CAMPOS_TABLA = String.format("(%s,%s,%s, %s)", COL_IMAGEN, COL_TITULO, COL_DESCRIPCION, COL_FECHA);
 
-    int id;
-    String imagen;
-    String titulo;
-    String descripcion;
-    Date fecha;
+    private int id;
+    @NotNull(message=COL_IMAGEN+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_IMAGEN+": "+Error.EN_BLANCO)
+    private String imagen;
+    @NotNull(message=COL_TITULO+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_TITULO+": "+Error.EN_BLANCO)
+    @MaxLength(value=60, message=COL_TITULO+": "+Error.TAM_MAX+": 60")
+    private String titulo;
+    @NotNull(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
+    @MaxLength(value=60, message=COL_DESCRIPCION+": "+Error.TAM_MAX+": 60")
+    private String descripcion;
+    private Date fecha;
     
     
     public Noticia(int id, String imagen, String titulo, String descripcion, Date fecha) {

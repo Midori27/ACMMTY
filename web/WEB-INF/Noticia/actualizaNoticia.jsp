@@ -8,8 +8,6 @@
 <%
     Noticia noticia = (Noticia) request.getAttribute("noticia");
     if(noticia==null) response.sendRedirect("/AdminNoticias");
-    String mensaje = (String) request.getAttribute("mensaje");
-    if(mensaje==null)mensaje="";
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +16,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>actualizaNoticia</h1>
+        <h1>Actualiza Noticia</h1>
+        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
         <form action="ActualizaNoticia" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<%=noticia.getId()%>">
             <label for="titulo">Titulo</label><input type="text" name="titulo" value="<%=noticia.getTitulo()%>"><br />
@@ -28,6 +27,5 @@
             <input type="hidden" name="imagenSubida" value="<%=noticia.getImagen()%>">
             <input type="submit" value="Actualiza noticia">
         </form>
-        <h3><%=mensaje%></h3>
     </body>
 </html>

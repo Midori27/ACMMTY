@@ -6,7 +6,6 @@ package Servlet.MesaDirectiva;
 
 import Controlador.Query;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class BorraMiembroMesa extends HttpServlet {
-    public static final String URL_VISTA = "/WEB-INF/MesaDirectiva/adminMesaDirectiva.jsp";
+    public static final String URL_VISTA = "/AdminMesaDirectiva";
+    
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -33,14 +33,13 @@ public class BorraMiembroMesa extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
-        Query cq = new Query();
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
-        if(cq.borraMiembroMesaBD(id)){
+        Query q = new Query();
+        if(q.borraMiembroMesaBD(id)){
             request.setAttribute("mensaje", "El miembro de la mesa ha sido borrado exitosamente.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
             request.setAttribute("mensaje", "Lo sentimos el miembro de la mesa no puede ser eliminado en este momento. Es probable que el miembro no existiera antes de intentar borrarlo o que haya problemas con la base de datos.");
-            rd.forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
     }
 

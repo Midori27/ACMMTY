@@ -6,8 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.MiembroMesa" %>
 <%
-    String mensaje = (String) request.getAttribute("mensaje");
-    if(mensaje==null) mensaje="";
     MiembroMesa miembro = (MiembroMesa) request.getAttribute("miembro");
     if(miembro==null) response.sendRedirect("/AdminMesaDirectiva");
 %>
@@ -19,6 +17,7 @@
     </head>
     <body>
         <h1>Actualiza Miembro Mesa</h1>
+        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
         <form action="ActualizaMiembroMesa" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<%=miembro.getId()%>">
             <label for="periodo">Periodo</label>
@@ -32,7 +31,5 @@
             <input type="hidden" name="fotoSubida" value="<%=miembro.getFoto()%>">
             <input type="submit" value="Actualizar">
         </form>
-            <h3><%=mensaje%></h3>
-            
     </body>
 </html>

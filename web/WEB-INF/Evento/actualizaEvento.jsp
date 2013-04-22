@@ -4,13 +4,10 @@
     Author     : juanjo
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Evento, Servlet.Evento.AdminEventos" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Evento, Servlet.Evento.AdminEventos, net.sf.oval.ConstraintViolation, java.util.List, java.util.ArrayList" %>
 <%
     Evento evento = (Evento) request.getAttribute("evento");
     if(evento==null) response.sendRedirect("/AdminEventos");
-    String mensaje = (String) request.getAttribute("mensaje");
-    if(mensaje==null)mensaje="";
-    
 %>
 <!DOCTYPE html>
 <html>
@@ -19,12 +16,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3><%=mensaje%></h3>
+        <h1>Actualiza Evento</h1>
+        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
         <form action="ActualizaEvento"  method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<%=evento.getId()%>"
                 <label for="nombre">Nombre Evento</label><input type="text" name="nombre" value="<%=evento.getNombre()%>"/><br />
                 <label for="fecha">Fecha del Evento</label>
-                <input type="date" name="fecha" value="mm-dd-aaaa"><br /><br />
+                <input type="date" name="fecha" value="<%=evento.getFechaString()%>"><br /><br />
                 <label>Lugar</label><input type="text" name="lugar" value="<%=evento.getLugar()%>"/><br />
                 <label for="descripcion">Descripción del Evento</label><input class="textbox"  type="text" name="descripcion"  id="descripcion" value="<%=evento.getDescripcion()%>"/>
                 <br /><br />

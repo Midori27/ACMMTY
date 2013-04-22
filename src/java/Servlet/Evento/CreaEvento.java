@@ -6,15 +6,18 @@ package Servlet.Evento;
 
 import Controlador.ParseaParametros;
 import Controlador.Query;
+import Helper.Fecha;
 import Modelo.Evento;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.oval.Validator;
+import net.sf.oval.ConstraintViolation;
 
 /**
  *
@@ -37,15 +40,30 @@ public class CreaEvento extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
         String imagen = parametros.get(Evento.COL_IMAGEN);
+        if(imagen.isEmpty()){
+            imagen=parametros.get("imagenSubida");
+        }
         String nombre = parametros.get(Evento.COL_NOMBRE);
-        String fecha = parametros.get(Evento.COL_FECHA);
+        Date fecha = Fecha.parseFechaAnoMesDia(parametros.get(Evento.COL_FECHA));
         String lugar = parametros.get(Evento.COL_LUGAR);
         String descripcion = parametros.get(Evento.COL_DESCRIPCION);
         int maxIntegrantesEquipo = Integer.parseInt(parametros.get(Evento.COL_MAX_INTEGRANTES_POR_EQUIPO));
         
-        Evento ev = new Evento(imagen,nombre, new Date(), lugar, descripcion, maxIntegrantesEquipo);
+        Evento ev = new Evento(imagen,nombre, fecha, lugar, descripcion, maxIntegrantesEquipo);
+        
         Query q = new Query();
         String mensaje="";
+        
+        Validator validator = new Validator();
+        List<ConstraintViolation> violation = validator.validate(ev);
+        if(violation.size()>0){
+            mensaje="Porfavor corrija los errores.";
+            request.setAttribute("mensaje", mensaje);
+            request.setAttribute("errores", violation);
+            request.setAttribute("evento", ev);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
+        }
         
         if(q.insertaEventoBD(ev)){    
             mensaje="Evento creado exitosamente";
