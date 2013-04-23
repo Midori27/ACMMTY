@@ -1,35 +1,119 @@
-<%-- 
-    Document   : actualizaMiembroMesa
-    Created on : Apr 15, 2013, 11:58:11 PM
-    Author     : juanjo
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.MiembroMesa" %>
 <%
     MiembroMesa miembro = (MiembroMesa) request.getAttribute("miembro");
     if(miembro==null) response.sendRedirect("/AdminMesaDirectiva");
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Actualiza Miembro Mesa</h1>
-        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="ActualizaMiembroMesa" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="<%=miembro.getId()%>">
-            <label for="periodo">Periodo</label>
-            <input type="text" name="periodo" value="<%=miembro.getPeriodo()%>"><br />
-             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" value="<%=miembro.getNombre()%>"><br />
-             <label for="posicion">Posicion</label>
-            <input type="text" name="posicion" value="<%=miembro.getPosicion()%>"><br />
-            <label for="foto">Foto</label><input type="file" name="foto"><br />
-            <img src="ImagenServidor/<%=miembro.getFoto()%>" height="100" width="100">
-            <input type="hidden" name="fotoSubida" value="<%=miembro.getFoto()%>">
-            <input type="submit" value="Actualizar">
-        </form>
-    </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!-- Fonts de google -->
+	<link href='http://fonts.googleapis.com/css?family=Numans' rel='stylesheet' type='text/css'/>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="../../css/style.css" />
+	<title>ACM MTY</title>
+	<meta name="Description" content="ACMMTY"
+	<script type="text/javascript" src="../../js/jquery.js"></script> 
+	<script type="text/javascript" src="../../js/validacionEvento.js"></script>
+
+	
+</head>
+
+<body>
+
+	<!-- Barra fija -->
+	<div id="topbar">
+		<!-- Logo ACM -->
+		<img src="images/logo.png" class="logo" alt="ACM MTY" />
+		
+		<!-- Navegación de página -->
+		<div id="navigation">
+		  <ul>
+			<li><a href="index.html" >Inicio</a></li>
+			<li><a href="detail.html" title="Eventos">Eventos</a></li>
+			<li><a href="contact.html" title="Contacto">Contacto</a></li>
+			<li><a href="detail2.html" title="Acerca">Acerca de Nosotros</a></li>
+		  </ul>
+		</div>
+		<!-- Final del menu de navegación -->
+	</div>
+	<!-- FINAL barra fija -->
+
+	<div class="container">
+
+		<!-- Barra Izquierda -->
+		<div id="sidebar">
+
+			<h2>Contacto</h2>
+			
+			<p>
+				Puedes encontrarnos en las redes sociales a través de:
+			</p>
+
+			<!-- Redes Sociales -->
+			<div id="socials">
+			  <ul>
+				<li class="twitter"><a href="https://twitter.com/acmmonterrey"></a></li>
+				<li class="facebook"><a href="http://www.facebook.com/acmmonterrey?fref=ts"></a></li>
+
+			  </ul>
+			</div>
+			<!--Final Redes Sociales-->
+			
+			<div class="clearer"></div>
+			
+	
+		</div>
+		<!--Final barra izquierda-->
+		
+		<!-- Contenido -->
+		<div id="contentInside">
+		
+			<h3>Actualizar Miembro de la mesa</h3>
+
+			<p>
+				Favor de propocionar dato a modificar.
+			</p>
+			
+			<!-- forma de envio -->
+			<div id="form">
+				<%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
+				<form action="ActualizaMiembroMesa" method="POST" enctype="multipart/form-data">
+		            <input type="hidden" name="id" value="<%=miembro.getId()%>">
+		            <label for="periodo">Período</label>
+		            <input type="text" name="periodo" value="<%=miembro.getPeriodo()%>">
+		            <br><br>
+		            <label for="nombre">Nombre</label>
+		            <input type="text" name="nombre" value="<%=miembro.getNombre()%>">
+		            <br><br>
+		            <label for="posicion">Posición</label>
+		            <input type="text" name="posicion" value="<%=miembro.getPosicion()%>">
+		            <br><br>
+		            <label for="foto">Foto</label><input type="file" name="foto">
+		            <br><br>
+		            <img src="ImagenServidor/<%=miembro.getFoto()%>" height="100" width="100">
+		            <br><br>
+		            <input type="hidden" name="fotoSubida" value="<%=miembro.getFoto()%>">
+	                <label>&nbsp;</label><input class="button" type="image" src="images/send.png" id="submit" value="Actualizar" />	
+                </form>
+
+
+					
+			</div>
+			<!-- final forma de envio -->
+			
+					
+				<div id="footer">
+					<p>
+						ACM MTY 2013
+					</p>
+				</div>
+			</div>
+		</div>
+		<div id="clearer"></div>
+
+	</div>
+</body>
 </html>
+
