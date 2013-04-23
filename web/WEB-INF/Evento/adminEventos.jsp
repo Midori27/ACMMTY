@@ -14,11 +14,11 @@
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link type="text/css" rel="stylesheet" href="../../css/style.css" />
 	<title>ACM MTY</title>
 	<meta name="Description" content="ACMMTY"
-	<script type="text/javascript" src="js/jquery.js"></script> 
-	<script type="text/javascript" src="js/validacionEvento.js"></script>
+	<script type="text/javascript" src="../../js/jquery.js"></script> 
+	<script type="text/javascript" src="../../js/validacionEvento.js"></script>
 
 	
 </head>
@@ -28,7 +28,7 @@
 	<!-- Barra fija -->
 	<div id="topbar">
 		<!-- Logo ACM -->
-		<img src="images/logo.png" class="logo" alt="ACM MTY" />
+		<img src="../../images/logo.png" class="logo" alt="ACM MTY" />
 		
 		<!-- Navegación de página -->
 		<div id="navigation">
