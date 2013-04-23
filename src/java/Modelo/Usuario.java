@@ -4,10 +4,18 @@
  */
 package Modelo;
 
+import Helper.Error;
+import Helper.Fecha;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.Date;
+import net.sf.oval.constraint.DateRange;
+import net.sf.oval.constraint.Email;
+import net.sf.oval.constraint.MatchPattern;
+import net.sf.oval.constraint.MaxLength;
+import net.sf.oval.constraint.MinLength;
+import net.sf.oval.constraint.NotBlank;
+import net.sf.oval.constraint.NotNull;
 
 /**
  *
@@ -36,18 +44,43 @@ public class Usuario {
             COL_TELEFONO, COL_CIUDAD, COL_ESTADO, COL_TIPO, COL_CARRERA, COL_MATRICULA, COL_CAMPUS, COL_UNIVERSIDAD); 
     
     private int id;
+    @NotNull(message=COL_NOMBRE_USUARIO+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_NOMBRE_USUARIO+": "+Error.EN_BLANCO)
+    @MaxLength(value=32, message=COL_NOMBRE_USUARIO+": "+Error.TAM_MIN+": 32")
+    @MinLength(value=4, message=COL_NOMBRE_USUARIO+": "+Error.TAM_MIN+": 4")
     private String nombreUsuario;
+    @NotNull(message=COL_PASSWORD+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_PASSWORD+": "+Error.EN_BLANCO)
+    @MaxLength(value=32, message=COL_PASSWORD+": "+Error.TAM_MAX+": 32")
+    @MinLength(value=6, message=COL_PASSWORD+": "+Error.TAM_MIN+": 6")
     private String password;
+    @NotNull(message=COL_NOMBRE+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_NOMBRE+": "+Error.EN_BLANCO)
+    @MaxLength(value=32, message=COL_NOMBRE+": "+Error.TAM_MAX+": 32")
     private String nombre;
+    @NotNull(message=COL_APELLIDO_P+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_APELLIDO_P+": "+Error.EN_BLANCO)
+    @MaxLength(value=32, message=COL_APELLIDO_P+": "+Error.TAM_MAX+": 32")
     private String apellidoP;
+    @NotNull(message=COL_APELLIDO_M+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_APELLIDO_M+": "+Error.EN_BLANCO)
+    @MaxLength(value=32, message=COL_APELLIDO_M+": "+Error.TAM_MAX+": 32")
     private String apellidoM;
+    @NotNull(message=COL_EMAIL+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_EMAIL+": "+Error.EN_BLANCO)
+    @Email(message=COL_EMAIL+": "+Error.EMAIL)
+    @MaxLength(value=64, message=COL_EMAIL+": "+Error.TAM_MAX+": 64")
     private String email;
+    @NotNull(message=COL_FECHA_NACIMIENTO+": "+Error.EN_BLANCO)
+    @NotBlank(message=COL_FECHA_NACIMIENTO+": "+Error.EN_BLANCO)
+    @DateRange(max=Fecha.MAX_NACIMIENTO, min=Fecha.MIN_NACIMIENTO, format=Fecha.FORMATO, message=COL_FECHA_NACIMIENTO+": "+Error.RANGO_FECHA_NACIMIENTO+Fecha.MIN_NACIMIENTO+" y "+ Fecha.MAX_NACIMIENTO+".")
     private Date fechaNacimiento;
     private String telefono;
     private String ciudad;
     private String estado;
     private int tipo;
     private String carrera;
+    @MatchPattern(pattern="A\\d{8}", message=COL_MATRICULA+": "+Error.FORMATO_MATRICULA)
     private String matricula;
     private String campus;
     private String universidad;
@@ -132,6 +165,22 @@ public class Usuario {
     }
 
     public Usuario() {
+            this.id = -1;
+            this.nombreUsuario = "";
+            this.password = "";
+            this.nombre = "";
+            this.apellidoP = "";
+            this.apellidoM = "";
+            this.email = "";
+            this.fechaNacimiento = new Date();
+            this.telefono = "";
+            this.ciudad = "";
+            this.estado = "";
+            this.tipo = -1;
+            this.carrera = "";
+            this.matricula = "";
+            this.campus = "";
+            this.universidad = "";
     }
 
     public int getId() {

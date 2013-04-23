@@ -10,12 +10,19 @@ import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
  * @author juanjo
  */
 public class Fecha {
+    
+    public static final String PATRON = "";
+    public static final String FORMATO = "yyyy-MM-dd";
+    public static final String MAX_NACIMIENTO = "2012-01-01";
+    public static final String MIN_NACIMIENTO = "1900-01-01";
+    
     public static Date parseFechaAnoMesDia(String fecha){
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         Date fechaParseada = null;

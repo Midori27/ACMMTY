@@ -12,8 +12,6 @@
         Query q = new Query();
         usuario = q.getUsuarioBD(id);
     }
-    String mensaje = (String) request.getAttribute("mensaje");
-    if(mensaje==null)mensaje = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +20,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3><%=mensaje%></h3>
+        <h1>Actualiza Usuario</h1>
+        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
         <form action="ActualizaUsuario" method="post">
             <label>Nombre</label><input class="textbox" type="text" name="nombre"  id="nombre" value="<%=usuario.getNombre()%>"/><br />
             <label>Apellido Paterno</label><input class="textbox" type="text" name="apellidoP"  id="apellidoP" value="<%=usuario.getApellidoP()%>"/><br />

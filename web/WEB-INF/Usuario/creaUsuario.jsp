@@ -8,8 +8,6 @@
 <%
     Usuario usuario = (Usuario) request.getAttribute("usuario");
     if(usuario==null)usuario = new Usuario();
-    String mensaje = (String) request.getAttribute("mensaje");
-    if(mensaje==null)mensaje = "";
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +16,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3><%=mensaje%></h3>
+        <h1>Crea Usuario</h1>
+        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
         <form action="CreaUsuario" method="post">
             <label>Nombre</label><input class="textbox" type="text" name="nombre"  id="nombre" value="<%=usuario.getNombre()%>"/><br />
             <label>Apellido Paterno</label><input class="textbox" type="text" name="apellidoP"  id="apellidoP" value="<%=usuario.getApellidoP()%>"/><br />
