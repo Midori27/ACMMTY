@@ -18,7 +18,7 @@
     <body>
         <h1>Actualiza Noticia</h1>
         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="ActualizaNoticia" method="post" enctype="multipart/form-data">
+        <form action="Admin/ActualizaNoticia" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<%=noticia.getId()%>">
             <label for="titulo">Titulo</label><input type="text" name="titulo" value="<%=noticia.getTitulo()%>"><br />
             <label for="descripcion">Descripcion</label><textarea name="descripcion"><%=noticia.getDescripcion()%></textarea><br />

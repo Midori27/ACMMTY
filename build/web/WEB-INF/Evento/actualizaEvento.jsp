@@ -18,7 +18,7 @@
     <body>
         <h1>Actualiza Evento</h1>
         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="ActualizaEvento"  method="post" enctype="multipart/form-data">
+        <form action="Admin/ActualizaEvento"  method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<%=evento.getId()%>"
                 <label for="nombre">Nombre Evento</label><input type="text" name="nombre" value="<%=evento.getNombre()%>"/><br />
                 <label for="fecha">Fecha del Evento</label>

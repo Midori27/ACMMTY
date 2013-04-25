@@ -7,7 +7,7 @@
 <%@page import="Servlet.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    String mensaje = (String) request.getAttribute(ServletLogin.ATRIBUTO_ERR);
+    String mensaje = (String) request.getAttribute(Login.ATRIBUTO_ERR);
     if (mensaje == null){
         mensaje = "";
     }
@@ -79,11 +79,11 @@
 			<!-- forma de envio -->
                         <h3 style="color:red"><%=mensaje%></h3>
 			<div id="form">
-			<form id="form" action="login" onsubmit="return validateLogin(this)" method="post">
+			<form id="form" action="login" onsubmit="return validateLogin(this)" method="post" enctype="multipart/form-data">
 					<fieldset class="info_fieldset">
 						<div id="note"></div>
 						<div id="fields">
-							<label>Nombre Usuario</label><input class="textbox" type="text" name="nombreUsuario"  id="nombreUsuario"/><br />
+							<label>Nombre Usuario</label><input class="textbox" type="text" name="username"  id="nombreUsuario"/><br />
 							<label>Contraseña</label><input class="textbox" type="password" name="password"  id="password"/><br />
 
 							<br />

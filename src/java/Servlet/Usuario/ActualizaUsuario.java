@@ -5,14 +5,18 @@
 package Servlet.Usuario;
 
 import Controlador.Query;
+import Helper.Fecha;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.Validator;
 
 /**
  *
@@ -39,7 +43,7 @@ public class ActualizaUsuario extends HttpServlet {
         String apellidoP = request.getParameter("apellidoP");
         String apellidoM = request.getParameter("apellidoM");
         String email = request.getParameter("email");
-        String fechaNacimiento = request.getParameter("fechaNacimiento");
+        Date fechaNacimiento = Fecha.parseFechaAnoMesDia((String) request.getParameter("fechaNacimiento"));
         String telefono = request.getParameter("telefono");
         String ciudad = request.getParameter("ciudad");
         String estado = request.getParameter("estado");
@@ -49,7 +53,18 @@ public class ActualizaUsuario extends HttpServlet {
         String universidad = request.getParameter("universidad");
         Integer tipo = (universidad.equals("ITESM")) ? 1 : 2;
         Query cq = new Query();
-        Usuario u = new Usuario(id, password, nombre, apellidoP, apellidoM, email, new Date(), telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
+        
+        Usuario u = new Usuario(id, password, nombre, apellidoP, apellidoM, email, fechaNacimiento, telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
+        
+        Validator validator = new Validator();
+        List<ConstraintViolation> violation = validator.validate(u);
+        if(violation.size()>0){
+            request.setAttribute("mensaje", "Porfavor corrija los errores.");
+            request.setAttribute("errores", violation);
+            request.setAttribute("usuario", u);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
+        }
         
         if(cq.actualizaUsuarioBD(u)){
             request.setAttribute("mensaje", "Tu cuenta ha sido actualizada exitosamente.");
@@ -73,9 +88,7 @@ public class ActualizaUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer id = Integer.parseInt((String)request.getSession().getAttribute("id"));
-        Query q = new Query();
-        Usuario  u = q.getUsuarioBD(id);
+        Usuario u = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
         request.setAttribute("usuario", u);
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }

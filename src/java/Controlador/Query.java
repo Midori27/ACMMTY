@@ -73,6 +73,46 @@ public class Query {
         return u;
     }
     
+      /**
+     * Crea un objeto Usuario con los datos extraidos del registro de la base
+     * de datos con el nombre de usuario y password provistos como parámetros.
+     * @param nombreUsuario  Un String que representa el nombreUsuario del registro que se desea obtener de la base de datos.
+     * @param password Un String que representa el password del registro que se deasea obtener de la base de datos.
+     * @return Usuario Un objeto usuario inicializado con los datos de la base.
+     * @see Modelo.Usuario
+     */ 
+    public Usuario getUsuarioBD(String nombreUsuario, String password){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectUsuario = null;
+        ResultSet rs = null;
+        Usuario u = null;
+        String query = "SELECT * FROM "+Usuario.NOMBRE_TABLA+" WHERE "+Usuario.COL_NOMBRE_USUARIO+" = ? AND "
+                +Usuario.COL_PASSWORD+" = ?";
+        
+        try{
+            selectUsuario = conexion.prepareStatement(query);
+            selectUsuario.setString(1,nombreUsuario);
+            selectUsuario.setString(2,password);
+            rs = selectUsuario.executeQuery();
+            
+            if(rs.next()){
+                u = new Usuario(rs);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectUsuario.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return u;
+    }
+    
     /**
      * Toma un objeto Usuario u e inserta sus campos en un registro de la base de datos.
      * @param u El objeto Usuario cuyos datos se desean registrar en la base de datos.
@@ -199,44 +239,7 @@ public class Query {
         return resultado;
     }
     
-    /**
-     * Toma como parametros dos Strings que representn el nombre de usuario y el password y 
-     * realiza una consulta a la base de datos que determina si existe un registro en la tabla
-     * de usuarios que concuerde con los dos parámetros.
-     * @param nombreUsuario El String que representa el nombre del usuario.
-     * @param password El String que representa el password del usuario.
-     * @return Integer El valor del id del usuario ó null si no existe.
-     */
-    public Integer existeUsuario(String nombreUsuario, String password){
-        Connection conexion = pool.getConexion();
-        PreparedStatement existeUsuario = null;
-        ResultSet rs = null;
-        Integer id = null;
-        String query = "SELECT * FROM "+Usuario.NOMBRE_TABLA+" WHERE "+Usuario.COL_NOMBRE_USUARIO+" = ? AND "+Usuario.COL_PASSWORD+" = ?";
-        
-        try{
-            existeUsuario = conexion.prepareStatement(query);
-            existeUsuario.setString(1,nombreUsuario);
-            existeUsuario.setString(2,password);
-            rs = existeUsuario.executeQuery();
-            
-            if(rs.next()){
-                id = rs.getInt(Usuario.COL_ID);
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally {
-            pool.cierraConexion(conexion);
-            try{
-                existeUsuario.close();
-                rs.close();
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-        
-        return id;
-    }
+   
     
         /**
      * Toma como parametros dos Strings que representn el nombre de usuario y el password y 

@@ -7,11 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Usuario,Controlador.Query"%>
 <%
     Usuario usuario = (Usuario) request.getAttribute("usuario");
-    if(usuario==null){
-        Integer id = Integer.parseInt((String)request.getSession().getAttribute("id"));
-        Query q = new Query();
-        usuario = q.getUsuarioBD(id);
-    }
 %>
 <!DOCTYPE html>
 <html>

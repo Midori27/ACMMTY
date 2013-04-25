@@ -90,23 +90,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreaEvento</servlet-name>
-        <url-pattern>/CreaEvento</url-pattern>
+        <url-pattern>/Admin/CreaEvento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreaUsuario</servlet-name>
-        <url-pattern>/CreaUsuario</url-pattern>
+        <url-pattern>/Admin/CreaUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModificaCuenta</servlet-name>
-        <url-pattern>/modificaCuenta</url-pattern>
+        <url-pattern>/Usuario/modificaCuenta</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorraEvento</servlet-name>
-        <url-pattern>/BorraEvento</url-pattern>
+        <url-pattern>/Admin/BorraEvento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>/Usuario/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreaRecuperacionCuenta</servlet-name>
@@ -122,47 +122,47 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreaNoticia</servlet-name>
-        <url-pattern>/CreaNoticia</url-pattern>
+        <url-pattern>/Admin/CreaNoticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorraNoticia</servlet-name>
-        <url-pattern>/BorraNoticia</url-pattern>
+        <url-pattern>/Admin/BorraNoticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaNoticia</servlet-name>
-        <url-pattern>/ActualizaNoticia</url-pattern>
+        <url-pattern>/Admin/ActualizaNoticia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaEvento</servlet-name>
-        <url-pattern>/ActualizaEvento</url-pattern>
+        <url-pattern>/Admin/ActualizaEvento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaMiembroMesa</servlet-name>
-        <url-pattern>/ActualizaMiembroMesa</url-pattern>
+        <url-pattern>/Admin/ActualizaMiembroMesa</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreaMiembroMesa</servlet-name>
-        <url-pattern>/CreaMiembroMesa</url-pattern>
+        <url-pattern>/Admin/CreaMiembroMesa</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorraMiembroMesa</servlet-name>
-        <url-pattern>/BorraMiembroMesa</url-pattern>
+        <url-pattern>/Admin/BorraMiembroMesa</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaUsuario</servlet-name>
-        <url-pattern>/ActualizaUsuario</url-pattern>
+        <url-pattern>/Usuario/ActualizaUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminMesaDirectiva</servlet-name>
-        <url-pattern>/AdminMesaDirectiva</url-pattern>
+        <url-pattern>/Admin/AdminMesaDirectiva</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminEventos</servlet-name>
-        <url-pattern>/AdminEventos</url-pattern>
+        <url-pattern>/Admin/AdminEventos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminNoticias</servlet-name>
-        <url-pattern>/AdminNoticias</url-pattern>
+        <url-pattern>/Admin/AdminNoticias</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SubeImagen</servlet-name>
@@ -183,14 +183,24 @@
          <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </user-data-constraint>
    </security-constraint>
-
-   <filter>
-      <filter-name>filtro-seguridad</filter-name>
-      <filter-class>Controlador.ControladorFiltro</filter-class>
-   </filter>
-   <filter-mapping>
-      <filter-name>filtro-seguridad</filter-name>
-      <url-pattern>/*</url-pattern>
-   </filter-mapping>
 -->
+    <filter>
+        <filter-name>filtro-usuario</filter-name>
+        <filter-class>Filtro.FiltroUsuario</filter-class>
+    </filter><filter>
+        <filter-name>filtro-administrador</filter-name>
+        <filter-class>Filtro.FiltroAdmin</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filtro-usuario</filter-name>
+        <url-pattern>/Usuario/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>filtro-administrador</filter-name>
+        <url-pattern>/Admin/*</url-pattern>
+    </filter-mapping>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/accesoNegado.html</location>
+    </error-page>
 </web-app>

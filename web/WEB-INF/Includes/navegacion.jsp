@@ -14,22 +14,20 @@
 			<li><a href="nosotros.jsp" title="Acerca">Acerca de Nosotros</a></li>
                         <% 
                             HttpSession se = request.getSession();
-                            Integer idUsuario = (Integer) se.getAttribute(Login.ATRIBUTO_ID);
-                            if(idUsuario == null){
+                            Usuario u = (Usuario) se.getAttribute(Usuario.NOMBRE_TABLA);
+                            if(u == null){
                          %>
                         <li><a href="login.jsp" title="Ingresa">Login</a></li>
                         <li><a href="registro.jsp" title="Registro">Registrate</a></li>
                         <% }else {
-                             Query oq = new Query();
-                             Usuario us = oq.getUsuarioBD(idUsuario);
-                             if(us.getTipo()==0){
+                             if(u.getTipo()==0){
                             %>
-                        <li><a href="cuenta.jsp" title="Cuenta"><%=us.getNombreUsuario()%></a></li>
+                        <li><a href="cuenta.jsp" title="Cuenta"><%=u.getNombreUsuario()%></a></li>
                         <li><form id="form" action="logout" method="post" style="display:inline;"><input type="submit" value="Logout" style="display:inline;"></form></li>
                         <li><a href="listaEventos.jsp" title="listaEventos">Listado eventos</a></li>
                         <li><a href="nuevoEvento.jsp" title="nuevoEvento">Nuevo evento</a></li>
                         <%}else{%>
-                        <li><a href="cuenta.jsp" title="Cuenta"><%=us.getNombreUsuario()%></a></li>
+                        <li><a href="cuenta.jsp" title="Cuenta"><%=u.getNombreUsuario()%></a></li>
                         <li><form id="form" action="logout" method="post" style="display:inline;"><input type="submit" value="Logout" style="display:inline;"></form></li>
                         <%}}%>
                   </ul>
