@@ -18,7 +18,7 @@
     <body>
         <h1>Actualiza Miembro Mesa</h1>
         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="Admin/ActualizaMiembroMesa" method="POST" enctype="multipart/form-data">
+        <form action="ActualizaMiembroMesa" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<%=miembro.getId()%>">
             <label for="periodo">Periodo</label>
             <input type="text" name="periodo" value="<%=miembro.getPeriodo()%>"><br />

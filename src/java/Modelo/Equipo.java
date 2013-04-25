@@ -4,33 +4,81 @@
  */
 package Modelo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  *
  * @author juanjo
  */
 public class Equipo {
+    public static final String NOMBRE_TABLA = "Equipo";
+    public static final String COL_ID = "id";
+    public static final String COL_ID_EVENTO = "idEvento";
+    public static final String COL_ID_USUARIOS = "idUsuario";
+    public static final String COL_NOMBRE = "nombre";
+    public static final String COL_ESTADO = "estado";
+    public static final String COL_PUNTAJE = "puntaje";
+    public static final String COL_CLAVE = "clave";
+    public static final String COL_MAX_INTEGRANTES = "maxIntegrantes";
+    public static final String CAMPOS_TABLA = String.format("(%s,%s,%s,%s,%s,%s,%s)",COL_ID_EVENTO,COL_ID_USUARIOS,COL_NOMBRE,COL_ESTADO,COL_PUNTAJE,COL_CLAVE,COL_MAX_INTEGRANTES);
+    
     private int id;
-    private Evento evento;
-    private Usuario[] usuario;
+    private int idEvento;
+    private ArrayList<Integer> idUsuarios;
     private String nombre;
     private String estado;
     private int puntaje;
+    private String clave;
+    private int maxIntegrantes;
 
-    public Equipo(int id, Evento evento, Usuario[] usuario, String nombre, String estado, int puntaje) {
+    public Equipo(int id, int idEvento, ArrayList<Integer> idUsuarios, String nombre, String estado, int puntaje, String clave, int maxIntegrantes) {
         this.id = id;
-        this.evento = evento;
-        this.usuario = usuario;
+        this.idEvento = idEvento;
+        this.idUsuarios = idUsuarios;
         this.nombre = nombre;
         this.estado = estado;
         this.puntaje = puntaje;
+        this.clave = clave;
+        this.maxIntegrantes = maxIntegrantes;
     }
 
-    public Equipo(Evento evento, Usuario[] usuario, String nombre, String estado, int puntaje) {
-        this.evento = evento;
-        this.usuario = usuario;
+    public Equipo(int idEvento, ArrayList<Integer> idUsuarios, String nombre, String estado, int puntaje, String clave, int maxIntegrantes) {
+        this.idEvento = idEvento;
+        this.idUsuarios = idUsuarios;
         this.nombre = nombre;
         this.estado = estado;
         this.puntaje = puntaje;
+        this.clave = clave;
+        this.maxIntegrantes = maxIntegrantes;
+    }
+    
+      public Equipo(ResultSet rs){
+        try{
+            id = rs.getInt(COL_ID);
+            idEvento = rs.getInt(COL_ID_EVENTO);
+            nombre = rs.getString(COL_NOMBRE);
+            estado = rs.getString(COL_ESTADO);
+            puntaje = rs.getInt(COL_PUNTAJE);
+            clave = rs.getString(COL_CLAVE);
+            maxIntegrantes = rs.getInt(COL_MAX_INTEGRANTES);
+            idUsuarios = new ArrayList<Integer>();
+            do{
+                idUsuarios.add(rs.getInt(COL_ID_USUARIOS));
+            }while(rs.next());
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public int getMaxIntegrantes() {
+        return maxIntegrantes;
+    }
+
+    public void setMaxIntegrantes(int maxIntegrantes) {
+        this.maxIntegrantes = maxIntegrantes;
     }
 
     public int getId() {
@@ -41,20 +89,20 @@ public class Equipo {
         this.id = id;
     }
 
-    public Evento getEvento() {
-        return evento;
+    public int getIdEvento() {
+        return idEvento;
     }
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
     }
 
-    public Usuario[] getUsuario() {
-        return usuario;
+    public ArrayList<Integer> getIdUsuarios() {
+        return idUsuarios;
     }
 
-    public void setUsuario(Usuario[] usuario) {
-        this.usuario = usuario;
+    public void setIdUsuarios(ArrayList<Integer> idUsuarios) {
+        this.idUsuarios = idUsuarios;
     }
 
     public String getNombre() {
@@ -81,7 +129,16 @@ public class Equipo {
         this.puntaje = puntaje;
     }
     
+    public String getClave(){
+        return clave;
+    }
     
+    public void setClave(String clave){
+        this.clave = clave;
+    }
     
-    
+    public boolean estaCompleto(){
+        return idUsuarios.size() >= maxIntegrantes;
+    }
+      
 }

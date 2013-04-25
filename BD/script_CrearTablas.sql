@@ -57,8 +57,10 @@ CREATE TABLE IF NOT EXISTS Equipo (
   idEvento int(11) NOT NULL,
   idUsuario int(11) NOT NULL,
   nombre varchar(35) NOT NULL,
-  estado varchar(35) NOT NULL,
-  puntaje int (9) NOT NULL,
+  estado varchar(35) NULL,
+  puntaje int (9) NULL,
+  clave varchar(35) NOT NULL,
+  maxIntegrantes int (2) NOT NULL,
   PRIMARY KEY (id, idEvento, idUsuario),
   FOREIGN KEY (idEvento) REFERENCES Evento(id),
   FOREIGN KEY (idUsuario) REFERENCES Usuario(id)

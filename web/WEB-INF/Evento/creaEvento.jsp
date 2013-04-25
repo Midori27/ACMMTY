@@ -18,7 +18,7 @@
     <body>
         <h1>Crea Evento</h1>
         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="Admin/CreaEvento"  method="post" enctype="multipart/form-data">
+        <form action="CreaEvento"  method="post" enctype="multipart/form-data">
                 <label>Nombre Evento</label><input class="textbox" type="text" name="nombre"  id="nombre" value="<%=evento.getNombre()%>"/><br />
                 <label>Fecha del Evento</label>
                 <input type="date" class="textbox" name="fecha" id="fecha" value="<%=evento.getFechaString()%>"><br /><br />

@@ -18,7 +18,7 @@
     <body>
         <h1>Crea Noticia</h1>
         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="Admin/CreaNoticia" method="post" enctype="multipart/form-data">
+        <form action="CreaNoticia" method="post" enctype="multipart/form-data">
             <label for="titulo">Titulo</label><input type="text" name="titulo" value="<%=noticia.getTitulo()%>"><br />
             <label for="descripcion">Descripcion</label><textarea name="descripcion"><%=noticia.getDescripcion()%></textarea><br />
             <label for="imagen">Imagen</label><input type="file" name="imagen"><br />

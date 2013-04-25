@@ -5,6 +5,7 @@
 package Controlador;
 
 import Helper.Fecha;
+import Modelo.Equipo;
 import Modelo.Evento;
 import Modelo.MiembroMesa;
 import Modelo.Noticia;
@@ -15,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -940,5 +940,78 @@ public class Query {
         }
         
         return miembros;
+    }
+    
+         /**
+     * Crea un objeto Equipo con los datos extraidos del registro de la base
+     * de datos con el id provisto como parámetro.
+     * @param id  Un entero que representa el id del registro que se desea obtener de la base de datos.
+     * @return Equipo Un objeto equipo inicializado con los datos de la base.
+     * @see Modelo.Equipo
+     */ 
+    public Equipo getEquipoBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectEquipo = null;
+        ResultSet rs = null;
+        Equipo eq = null;
+        String query = "SELECT * FROM "+Equipo.NOMBRE_TABLA+" WHERE "+Equipo.COL_ID+" = ?";
+        
+        try{
+            selectEquipo = conexion.prepareStatement(query);
+            selectEquipo.setInt(1,id);
+            rs = selectEquipo.executeQuery();
+            
+            if(rs.next()){
+                eq = new Equipo(rs);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectEquipo.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return eq;
+    }
+    
+     /**
+     * Toma un objeto Equipo e inserta sus campos en un registro de la base de datos.
+     * @param eq El objeto Equipo cuyos datos se desean registrar en la base de datos.
+     * @return true si se pudo insertar el registro, false en caso contrario
+     */
+    public boolean insertaEquipoBD(Equipo eq){
+        Connection conexion = pool.getConexion();
+        PreparedStatement insertaEquipo = null;
+        boolean resultado = true;
+        String query = "INSERT INTO "+Equipo.NOMBRE_TABLA+" "+Equipo.CAMPOS_TABLA+" VALUES (?,?,?,?,?,?,?)";
+
+        try{
+            insertaEquipo = conexion.prepareStatement(query);
+            insertaEquipo.setInt(1, eq.getIdEvento());
+            insertaEquipo.setInt(2,eq.getIdUsuarios().get(0));
+            insertaEquipo.setString(3,eq.getNombre());
+            insertaEquipo.setString(4,eq.getEstado());
+            insertaEquipo.setInt(5,eq.getPuntaje());
+            insertaEquipo.setString(6,eq.getClave());
+            insertaEquipo.setInt(7,eq.getMaxIntegrantes());
+            insertaEquipo.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                insertaEquipo.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
     }
 }
