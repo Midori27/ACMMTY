@@ -39,6 +39,7 @@ public class AdminEventos extends HttpServlet {
         if(eventos==null)mensaje="Actualmente no existen eventos en la base de datos.";
         request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
+        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

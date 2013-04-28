@@ -216,7 +216,7 @@ public class Query {
         Connection conexion = pool.getConexion();
         PreparedStatement actualizaPasswordUsuario = null;
         boolean resultado = true;
-        String query = "UPDATE "+Usuario.NOMBRE_TABLA+" SET "+Usuario.COL_PASSWORD+"=?,"
+        String query = "UPDATE "+Usuario.NOMBRE_TABLA+" SET "+Usuario.COL_PASSWORD+"=?"
                 +"WHERE "+Usuario.COL_ID+"=?";
         
         try{
@@ -578,6 +578,38 @@ public class Query {
         }
         
         return existe;
+    }
+    
+     /**
+     * Actualiza el valor booleano de la columna de reclamo de un objeto RecuperacionCuenta a verdadore
+     * @param id Entero id del objeto RecuperacionCuenta cuya columna se va a actualizar.
+     * @return true si se pudo actualizar el registro, false en caso contrario
+     */
+    public boolean reclamaRecuperacionCuentaBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement reclamaRecuperacionCuenta = null;
+        boolean resultado = true;
+        String query = "UPDATE "+RecuperacionCuenta.NOMBRE_TABLA+" SET "+RecuperacionCuenta.COL_RECLAMO+"=?"
+                +" WHERE "+RecuperacionCuenta.COL_ID+"=?";
+        
+        try{
+            reclamaRecuperacionCuenta = conexion.prepareStatement(query);
+            reclamaRecuperacionCuenta.setBoolean(1, true);
+            reclamaRecuperacionCuenta.setInt(2, id);
+            reclamaRecuperacionCuenta.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                reclamaRecuperacionCuenta.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
     }
     
         /**

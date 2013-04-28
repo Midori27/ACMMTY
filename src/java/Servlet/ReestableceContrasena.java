@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class ReestableceContrasena extends HttpServlet {
-
+    public static final String URL_VISTA = "/WEB-INF/Public/reestableceContrasena.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -45,22 +45,25 @@ public class ReestableceContrasena extends HttpServlet {
             Query cq = new Query();
             RecuperacionCuenta rc = cq.getRecuperacionCuentaBD(uuid);
             if(validaRecuperacionCuenta(rc)){
-                cq.actualizaPasswordUsuarioBD(rc.getIdUsuario(), password);
-                mensaje = "Tu contraseña ha sido actualizada exitosamente.";
-                request.setAttribute("mensaje", mensaje);
-                rd = getServletContext().getRequestDispatcher("/exito.jsp");
-                rd.forward(request, response);
+                if(cq.actualizaPasswordUsuarioBD(rc.getIdUsuario(), password)){
+                    cq.reclamaRecuperacionCuentaBD(rc.getId());
+                    request.setAttribute("mensaje", "Tu contraseña ha sido actualizada exitosamente.");
+                    request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                    return;
+                }else{
+                    request.setAttribute("mensaje", "Lo sentimos, hubo un problema con la base de datos.");
+                    request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                    return;
+                }
             }else{
-                mensaje ="Lo sentimos la petición de recuperación de cuenta ha caducado o ya fue efectuada.";
-                request.setAttribute("mensaje", mensaje);
-                rd = getServletContext().getRequestDispatcher("/exito.jsp");
-                rd.forward(request, response);
+                request.setAttribute("mensaje", "Lo sentimos la petición de recuperación de cuenta ha caducado o ya fue efectuada.");
+                request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                return;
             }
            
         }else{
-            mensaje = "Las contraseñas no coinciden.";
-            request.setAttribute("mensaje", mensaje);
-            rd = getServletContext().getRequestDispatcher("/reestableceContrasena.jsp");
+            request.setAttribute("mensaje", "Las contraseñas no coinciden.");
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
     }
 
@@ -77,7 +80,9 @@ public class ReestableceContrasena extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String uuid = (String) request.getAttribute("UUID");
+        request.setAttribute("UUID", uuid);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

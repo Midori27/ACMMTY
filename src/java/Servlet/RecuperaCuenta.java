@@ -5,11 +5,13 @@
 package Servlet;
 
 import Controlador.Email;
+import Controlador.ParseaParametros;
 import Controlador.Query;
 import Modelo.RecuperacionCuenta;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author juanjo
  */
-public class CreaRecuperacionCuenta extends HttpServlet {
+public class RecuperaCuenta extends HttpServlet {
+    public static final String URL_VISTA = "/WEB-INF/Public/recuperaCuenta.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,47 +38,38 @@ public class CreaRecuperacionCuenta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
+        String campo = parametros.get("campo");
+        String email = parametros.get("email");
         
-        String campo = request.getParameter("campo");
-        String email = request.getParameter("email");
-        RequestDispatcher despachador = null;
         Query cq = new Query();
         Integer id = cq.existeUsuarioConEmail(email);
-        String mensaje="";
         if(id == null){
-            mensaje="La dirección de correo no existe en nuestra base de datos.";
-            request.setAttribute("mensaje", mensaje);
-            despachador = getServletContext().getRequestDispatcher("/recuperaCuenta.jsp");
-            despachador.forward(request,response);
+            request.setAttribute("mensaje", "La direccion no existe en nuestra base de datos.");
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
         }else{
             Usuario u = cq.getUsuarioBD(id);
             if (campo.equals("usuario")){
                 recuperaUsuario(u);
-                mensaje="Se ha enviado un correo a tu cuenta con tu nombre de usuario.";
-                request.setAttribute("mensaje", mensaje);
-                despachador.forward(request, response);
+                request.setAttribute("mensaje", "Se ha enviado un correo a tu cuenta con tu nombre de usuario.");
+                request.getRequestDispatcher(URL_VISTA).forward(request, response);
+                return;
             } else{
                 if(campo.equals("password")){
                     if(recuperaPassword(u)){
-                        mensaje="Se ha enviado un correo a tu cuenta con más información para recuperar tu cuenta.";
-                        request.setAttribute("mensaje", mensaje);
-                        despachador = getServletContext().getRequestDispatcher("/exito.jsp");
-                        despachador.forward(request, response);
+                        request.setAttribute("mensaje", "Se ha enviado un correo a tu cuenta con más información para recuperar tu cuenta.");
+                        request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                        return;
                     }else{
-                        mensaje="Lo sentimos, ya existe una peticion de recuperación de cuenta activa.";
-                        request.setAttribute("mensaje", mensaje);
-                        despachador = getServletContext().getRequestDispatcher("/exito.jsp");
-                        despachador.forward(request, response);
+                        request.setAttribute("mensaje", "Lo sentimos, ya existe una peticion de recuperación de cuenta activa.");
+                        request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                        return;
                     }
                 }
             }
         }
-            request.setAttribute("mensaje", mensaje);
-            //Se obtiene el despachador.
-            despachador = getServletContext().getRequestDispatcher("/exito.jsp");
-            //Forward de regreso al login.
-            despachador.forward(request, response);
-            return;
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,7 +85,7 @@ public class CreaRecuperacionCuenta extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

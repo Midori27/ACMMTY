@@ -18,6 +18,8 @@ public class FiltroAdmin extends FiltroAuth {
     @Override
     protected boolean isAuth(HttpServletRequest req) {
         Usuario u = (Usuario) req.getSession().getAttribute(Usuario.NOMBRE_TABLA);
+        if(u==null) return false;
+        
         if(u.getTipo()==0){
             return true;
         }else{

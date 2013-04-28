@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author juanjo
  */
-@WebServlet(name = "ServletLogin", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
+    private static final String URL_VISTA = "/WEB-INF/Public/login.jsp";
     //Error a desplegar en caso de datos inválidos.
     private static final String ERR_LOGIN = "Nombre de usuario y/o contraseña inválidos.";
     //Url de la redirección en caso de login exitoso.
@@ -74,7 +74,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

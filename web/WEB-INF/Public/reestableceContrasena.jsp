@@ -8,9 +8,8 @@
 <%
     String mensaje = (String) request.getAttribute("mensaje");
     String uuid = (String) request.getParameter("uuid");
-    if(mensaje==null){
-        mensaje="";
-    }
+    if(mensaje==null) mensaje="";
+    if(uuid==null)uuid="";
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -45,7 +44,7 @@
 		<!--Contenido -->
 		<div id="contentInside">	
                     <h3>Restablece tu contrase&ntilde;a:</h3>
-                    <form action="ServletReestableceContrasena" method="post">
+                    <form action="ReestableceContrasena" method="post">
                         <input id="campoPassword" type="password" name="password" />
                         <label for="campoPassword">Contrase&ntilde;a</label><br></br>
                         <input id="confirmaPassword" type="password" name="confirmaPassword" />

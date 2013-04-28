@@ -46,6 +46,7 @@ public abstract class FiltroAuth implements Filter {
         
         if(!isAuth(req)){
             resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
         chain.doFilter(request, response);
     }

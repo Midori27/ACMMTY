@@ -79,7 +79,7 @@
 			<!-- forma de envio -->
                         <h3 style="color:red"><%=mensaje%></h3>
 			<div id="form">
-			<form id="form" action="login" onsubmit="return validateLogin(this)" method="post" enctype="multipart/form-data">
+			<form id="form" action="Login" onsubmit="return validateLogin(this)" method="post" enctype="multipart/form-data">
 					<fieldset class="info_fieldset">
 						<div id="note"></div>
 						<div id="fields">

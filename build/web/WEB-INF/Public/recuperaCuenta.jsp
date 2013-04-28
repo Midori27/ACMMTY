@@ -44,7 +44,7 @@
 		<!--Contenido -->
 		<div id="contentInside">	
                     <h3>Recuperaci&oacute;n de cuenta.</h3>
-                    <form action="RecuperacionCuenta" method="post">
+                    <form action="RecuperaCuenta" method="post" enctype="multipart/form-data">
                         <h4>¿Qu&eacute; olvidaste?</h4>
                         <input id="campoPassword" type="radio" name="campo" value="password" checked="checked" />
                         <label for="campoPassword">Contrase&ntilde;a</label><br></br>

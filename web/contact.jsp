@@ -77,7 +77,7 @@
 			</p>
 			
 			<!-- forma de envio -->
-			<div id="form" action="" onsubmit="return validateForm()" method="post">
+			<div id="form" action="Contacto" method="post">
 					<fieldset class="info_fieldset">
 						<div id="note"></div>
 						<div id="fields">

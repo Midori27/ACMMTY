@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class Contacto extends HttpServlet {
+    public static String URL_VISTA="/contact.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -57,7 +58,7 @@ public class Contacto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 
     /**

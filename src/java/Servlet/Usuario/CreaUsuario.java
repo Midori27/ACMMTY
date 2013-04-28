@@ -22,7 +22,7 @@ import net.sf.oval.Validator;
  * @author juanjo
  */
 public class CreaUsuario extends HttpServlet {
-    private static final String URL_VISTA = "/WEB-INF/Usuario/creaUsuario.jsp";
+    private static final String URL_VISTA = "/WEB-INF/Public/creaUsuario.jsp";
     private static final String URL_EXITO = "/WEB-INF/Especial/exito.jsp";
     public static final String ATRIBUTO_USUARIO = "usuario";
     /**
