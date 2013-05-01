@@ -88,6 +88,10 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Servlet.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreaEquipo</servlet-name>
+        <servlet-class>Servlet.Equipo.CreaEquipo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -176,6 +180,10 @@
         <servlet-name>SubeImagen</servlet-name>
         <url-pattern>/SubeImagen</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaEquipo</servlet-name>
+        <url-pattern>/CreaEquipo</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -223,7 +231,7 @@
         <url-pattern>/ActualizaNoticia</url-pattern>
         <url-pattern>/ActualizaEvento</url-pattern>
     </filter-mapping>
-     <filter-mapping>
+    <filter-mapping>
         <filter-name>filtro-sinauth</filter-name>
         <url-pattern>/CreaUsuario</url-pattern>
         <url-pattern>/Login</url-pattern>

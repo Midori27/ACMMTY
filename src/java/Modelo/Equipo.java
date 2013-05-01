@@ -43,6 +43,16 @@ public class Equipo {
         this.clave = clave;
         this.maxIntegrantes = maxIntegrantes;
     }
+    public Equipo(){
+        id=-1;
+        idEvento=-1;
+        idUsuarios= new ArrayList<Integer>();
+        nombre="";
+        estado="";
+        puntaje=0;
+        clave="";
+        maxIntegrantes=0;
+    }
 
     public Equipo(int idEvento, ArrayList<Integer> idUsuarios, String nombre, String estado, int puntaje, String clave, int maxIntegrantes) {
         this.idEvento = idEvento;
@@ -139,6 +149,19 @@ public class Equipo {
     
     public boolean estaCompleto(){
         return idUsuarios.size() >= maxIntegrantes;
+    }
+    
+    public boolean agregaMiembro(Integer idUsuario){
+        if(idUsuarios.size()<maxIntegrantes){
+            idUsuarios.add(idUsuario);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public boolean quitaMiembro(Integer idUsuario){
+        return idUsuarios.remove(idUsuario);
     }
       
 }
