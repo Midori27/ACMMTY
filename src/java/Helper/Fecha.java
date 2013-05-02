@@ -34,6 +34,11 @@ public class Fecha {
         return fechaParseada;
     }
     
+    public static String parseFechaDateTime(Date fecha){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(fecha);
+    }
+    
     public static java.sql.Date aFechaSql(java.util.Date fechaJava){
         return new java.sql.Date(fechaJava.getTime());
     }

@@ -24,7 +24,7 @@ insert into Equipo(idEvento, idUsuario, nombre, estado, puntaje) values (1,3,'Th
 -- --------------------------------------------------------
 -- Insersion de datos en la tabla `Comentario`
 -- --------------------------------------------------------
-insert into Comentario(descripcion,fecha,idEvento,idUsuario) values 
+insert into ComentarioEvento(descripcion,fecha,idEvento,idUsuario) values 
 ('Es imposible resolver el problema 5','2012-11-25',1,3),
 ('Donde esta publicada la solucion?','2012-10-30',2,4),
 ('Quien ya tiene la solucion?','2013-01-18',2,8),

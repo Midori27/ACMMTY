@@ -67,21 +67,6 @@ CREATE TABLE IF NOT EXISTS Equipo (
 ) ;
 
 -- --------------------------------------------------------
--- Creacion de la tabla Comentario
--- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS Comentario (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  descripcion varchar(150) NOT NULL,
-  fecha DATE NOT NULL, 
-  idEvento int(11) NOT NULL,
-  idUsuario int(11) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (idEvento) REFERENCES Evento(id),
-  FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
-) ;
-
-
--- --------------------------------------------------------
 -- Creacion de la tabla Noticia
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS Noticia (
@@ -91,6 +76,36 @@ CREATE TABLE IF NOT EXISTS Noticia (
   titulo varchar(30) NOT NULL,
   descripcion varchar(200) NOT NULL, 
   PRIMARY KEY (id)
+) ;
+
+-- --------------------------------------------------------
+-- Creacion de la tabla ComentarioNoticia
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS ComentarioNoticia (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  descripcion varchar(150) NOT NULL,
+  fecha DATE NOT NULL, 
+  idNoticia int(11) NOT NULL,
+  idUsuario int(11) NOT NULL,
+  nombreUsuario varchar(35) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idNoticia) REFERENCES Noticia(id),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
+) ;
+
+-- --------------------------------------------------------
+-- Creacion de la tabla ComentarioEvento
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS ComentarioEvento (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  descripcion varchar(150) NOT NULL,
+  fecha DATE NOT NULL, 
+  idEvento int(11) NOT NULL,
+  idUsuario int(11) NOT NULL,
+  nombreUsuario varchar(35) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (idEvento) REFERENCES Evento(id),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
 ) ;
 
 -- --------------------------------------------------------

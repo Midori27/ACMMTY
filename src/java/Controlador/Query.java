@@ -5,6 +5,7 @@
 package Controlador;
 
 import Helper.Fecha;
+import Modelo.Comentario;
 import Modelo.Equipo;
 import Modelo.Evento;
 import Modelo.MiembroMesa;
@@ -1039,6 +1040,245 @@ public class Query {
             pool.cierraConexion(conexion);
             try{
                 insertaEquipo.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+       /**
+     * Crea un objeto Comentario con los datos extraidos del registro de la base
+     * de datos con el id provisto como parámetro.
+     * @param id  Un entero que representa el id del registro que se desea obtener de la base de datos.
+     * @return Comentario Un objeto Comentario inicializado con los datos de la base.
+     * @see Modelo.Comentario
+     */ 
+    public Comentario getComentarioNoticiaBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectComentario = null;
+        ResultSet rs = null;
+        Comentario c = null;
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_NOTICIA+" WHERE "+Comentario.COL_ID+" = ?";
+        
+        try{
+            selectComentario = conexion.prepareStatement(query);
+            selectComentario.setInt(1,id);
+            rs = selectComentario.executeQuery();
+            
+            if(rs.next()){
+                c = new Comentario(rs);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectComentario.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return c;
+    }
+    
+           /**
+     * Crea un arreglo de objetos Comentario con los datos extraidos del registro de la base
+     * de datos con el id provisto como parámetro.
+     * @param id  Un entero que representa el id de los registros que se desean obtener de la base de datos.
+     * @return Comentario[] Un arreglo de objetos Comentario inicializado con los datos de la base.
+     * @see Modelo.Comentario
+     */ 
+    public Comentario[] getComentariosNoticiaBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectComentarios = null;
+        ResultSet rs = null;
+        Comentario[] comentarios = null;
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_NOTICIA+" WHERE "+Comentario.COL_ID_NOTICIA+" = ?";
+        int numRegistros;
+        int i = 0;
+        try{
+            selectComentarios = conexion.prepareStatement(query);
+            selectComentarios.setInt(1,id);
+            rs = selectComentarios.executeQuery();
+            if(rs.first()){
+                rs.last();
+                numRegistros = rs.getRow();
+                comentarios = new Comentario[numRegistros];
+                rs.beforeFirst();
+                
+                while(rs.next()){
+                    comentarios[i] = new Comentario(rs);
+                    i++;
+                }
+            }
+           
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectComentarios.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return comentarios;
+    }
+    
+     /**
+     * Toma un objeto Comentario e inserta sus campos en un registro de la base de datos.
+     * @param c El objeto Comentario cuyos datos se desean registrar en la base de datos.
+     * @return true si se pudo insertar el registro, false en caso contrario
+     */
+    public boolean insertaComentarioNoticiaBD(Comentario c){
+        Connection conexion = pool.getConexion();
+        PreparedStatement insertaComentario = null;
+        boolean resultado = true;
+        String query = "INSERT INTO "+Comentario.NOMBRE_TABLA_NOTICIA+" "+Comentario.CAMPOS_TABLA_NOTICIA+" VALUES (?,?,?,?,?)";
+        String fechaDateTime = Fecha.parseFechaDateTime(c.getFecha());
+        
+        java.sql.Date fecha = new java.sql.Date(c.getFecha().getTime());
+        
+        try{
+            insertaComentario = conexion.prepareStatement(query);
+            insertaComentario.setString(1, c.getDescripcion());
+            insertaComentario.setDate(2, fecha);
+            insertaComentario.setInt(3,c.getIdPadre());
+            insertaComentario.setInt(4,c.getIdUsuario());
+            insertaComentario.setString(5,c.getNombreUsuario());
+            insertaComentario.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                insertaComentario.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+      /**
+     * Crea un objeto Comentario con los datos extraidos del registro de la base
+     * de datos con el id provisto como parámetro.
+     * @param id  Un entero que representa el id del registro que se desea obtener de la base de datos.
+     * @return Comentario Un objeto Comentario inicializado con los datos de la base.
+     * @see Modelo.Comentario
+     */ 
+    public Comentario getComentarioEventoBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectComentario = null;
+        ResultSet rs = null;
+        Comentario c = null;
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_EVENTO+" WHERE "+Comentario.COL_ID+" = ?";
+        
+        try{
+            selectComentario = conexion.prepareStatement(query);
+            selectComentario.setInt(1,id);
+            rs = selectComentario.executeQuery();
+            
+            if(rs.next()){
+                c = new Comentario(rs);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectComentario.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return c;
+    }
+    
+        /**
+     * Crea un arreglo de objetos Comentario con los datos extraidos del registro de la base
+     * de datos con el id provisto como parámetro.
+     * @param id  Un entero que representa el id de los registros que se desean obtener de la base de datos.
+     * @return Comentario[] Un arreglo de objetos Comentario inicializado con los datos de la base.
+     * @see Modelo.Comentario
+     */ 
+    public Comentario[] getComentariosEventoBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectComentarios = null;
+        ResultSet rs = null;
+        Comentario[] comentarios = null;
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_EVENTO+" WHERE "+Comentario.COL_ID_EVENTO+" = ?";
+        int numRegistros;
+        int i = 0;
+        try{
+            selectComentarios = conexion.prepareStatement(query);
+            selectComentarios.setInt(1,id);
+            rs = selectComentarios.executeQuery();
+            if(rs.first()){
+                rs.last();
+                numRegistros = rs.getRow();
+                comentarios = new Comentario[numRegistros];
+                rs.beforeFirst();
+                
+                while(rs.next()){
+                    comentarios[i] = new Comentario(rs);
+                    i++;
+                }
+            }
+           
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectComentarios.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return comentarios;
+    }
+    
+     /**
+     * Toma un objeto Comentario e inserta sus campos en un registro de la base de datos.
+     * @param c El objeto Comentario cuyos datos se desean registrar en la base de datos.
+     * @return true si se pudo insertar el registro, false en caso contrario
+     */
+    public boolean insertaComentarioEventoBD(Comentario c){
+        Connection conexion = pool.getConexion();
+        PreparedStatement insertaComentario = null;
+        boolean resultado = true;
+        String query = "INSERT INTO "+Comentario.NOMBRE_TABLA_EVENTO+" "+Comentario.CAMPOS_TABLA_EVENTO+" VALUES (?,?,?,?,?)";
+        
+        java.sql.Date fecha = new java.sql.Date(c.getFecha().getTime());
+        
+        try{
+            insertaComentario = conexion.prepareStatement(query);
+            insertaComentario.setString(1, c.getDescripcion());
+            insertaComentario.setDate(2, fecha);
+            insertaComentario.setInt(3,c.getIdPadre());
+            insertaComentario.setInt(4,c.getIdUsuario());
+            insertaComentario.setString(5,c.getNombreUsuario());
+            insertaComentario.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                insertaComentario.close();
             } catch (SQLException e){
                 e.printStackTrace();
             }

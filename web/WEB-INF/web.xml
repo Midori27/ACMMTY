@@ -92,6 +92,22 @@
         <servlet-name>CreaEquipo</servlet-name>
         <servlet-class>Servlet.Equipo.CreaEquipo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreaComentarioEvento</servlet-name>
+        <servlet-class>Servlet.Comentario.CreaComentarioEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreaComentarioNoticia</servlet-name>
+        <servlet-class>Servlet.Comentario.CreaComentarioNoticia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerNoticia</servlet-name>
+        <servlet-class>Servlet.Noticia.VerNoticia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerEvento</servlet-name>
+        <servlet-class>Servlet.Evento.VerEvento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -183,6 +199,22 @@
     <servlet-mapping>
         <servlet-name>CreaEquipo</servlet-name>
         <url-pattern>/CreaEquipo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaComentarioEvento</servlet-name>
+        <url-pattern>/CreaComentarioEvento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaComentarioNoticia</servlet-name>
+        <url-pattern>/CreaComentarioNoticia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerNoticia</servlet-name>
+        <url-pattern>/VerNoticia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerEvento</servlet-name>
+        <url-pattern>/VerEvento</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
