@@ -5,6 +5,7 @@
 package Servlet;
 
 import Controlador.Email;
+import Modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class Contacto extends HttpServlet {
-    public static String URL_VISTA="/contact.jsp";
+    public static String URL_VISTA="/WEB-INF/Contacto/contacto.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -58,6 +59,11 @@ public class Contacto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Usuario u = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
+        if(u != null){
+            request.setAttribute("nombre", u.getNombreUsuario());
+            request.setAttribute("email", u.getEmail());
+        }
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 

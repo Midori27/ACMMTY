@@ -7,8 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Noticia, Modelo.Comentario" %>
 <%
     Noticia n = (Noticia) request.getAttribute(Noticia.NOMBRE_TABLA);
-    Comentario[] comentarios = (Comentario[]) request.getAttribute(Comentario.NOMBRE_TABLA_NOTICIA);
-    %>
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,12 +19,7 @@
         <h2><%=n.getTitulo()%></h2>
         <img src="ImagenServidor/<%=n.getImagen()%>">
         <p><%=n.getDescripcion()%></p>
-        <% if(comentarios != null){
-            for(int i =0; i<comentarios.length;i++){
-               out.println("<div>"+comentarios[i].getFecha().toString()+" | "+comentarios[i].getNombreUsuario()+": "+comentarios[i].getDescripcion()+"</div>");
-            }
-        }
-        %>
+        <%@include file="/WEB-INF/Includes/comentariosNoticia.jsp"%>
         <form action="CreaComentarioNoticia" method="post">
             <label for="descripcion">Comentario:</label><input type="text" name="descripcion">
             <input type="hidden" name="id" value="<%=n.getId()%>">
