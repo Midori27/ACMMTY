@@ -16,21 +16,13 @@
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS Usuario (
   id int(11) NOT NULL AUTO_INCREMENT,
-  username varchar(35) NOT NULL,
+  nombreUsuario varchar(35) NOT NULL,
   password varchar(20) NOT NULL,
   nombre varchar(35) NOT NULL,
   apellidoP varchar(35) NOT NULL,
   apellidoM varchar(35),
-  fechaNacimiento DATE NOT NULL,
-  telefono varchar (35) ,
-  ciudad varchar(35) NOT NULL,
-  estado varchar(35) NOT NULL,
   email varchar(255) NOT NULL,
   tipo int(1) NOT NULL,
-  carrera varchar(255) NOT NULL,
-  matricula varchar(10) NULL,
-  campus varchar(35) NOT NULL,
-  universidad varchar(255) NOT NULL,
   PRIMARY KEY (id)
 ) ;
 

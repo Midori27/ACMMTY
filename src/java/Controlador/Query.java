@@ -123,7 +123,7 @@ public class Query {
         Connection conexion = pool.getConexion();
         PreparedStatement insertaUsuario = null;
         boolean resultado = true;
-        String query = "INSERT INTO "+Usuario.NOMBRE_TABLA+" "+Usuario.CAMPOS_TABLA+" VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO "+Usuario.NOMBRE_TABLA+" "+Usuario.CAMPOS_TABLA+" VALUES (?,?,?,?,?,?,?)";
         
         try{
             insertaUsuario = conexion.prepareStatement(query);
@@ -133,15 +133,7 @@ public class Query {
             insertaUsuario.setString(4, u.getApellidoP());
             insertaUsuario.setString(5, u.getApellidoM());
             insertaUsuario.setString(6, u.getEmail());
-            insertaUsuario.setDate(7, java.sql.Date.valueOf("1990-11-27"));
-            insertaUsuario.setString(8, u.getTelefono());
-            insertaUsuario.setString(9, u.getCiudad());
-            insertaUsuario.setString(10, u.getEstado());
-            insertaUsuario.setInt(11, u.getTipo());
-            insertaUsuario.setString(12, u.getCarrera());
-            insertaUsuario.setString(13, u.getMatricula());
-            insertaUsuario.setString(14, u.getCampus());
-            insertaUsuario.setString(15, u.getUniversidad());
+            insertaUsuario.setInt(7, u.getTipo());
             insertaUsuario.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();
@@ -169,10 +161,7 @@ public class Query {
         boolean resultado = true;
         String query = "UPDATE "+Usuario.NOMBRE_TABLA+" SET "+Usuario.COL_PASSWORD+"=?,"
                 +Usuario.COL_NOMBRE+"=?,"+Usuario.COL_APELLIDO_P+"=?,"+Usuario.COL_APELLIDO_M+"=?,"
-                +Usuario.COL_EMAIL+"=?,"+Usuario.COL_FECHA_NACIMIENTO+"=?,"+Usuario.COL_TELEFONO+"=?,"
-                +Usuario.COL_CIUDAD+"=?,"+Usuario.COL_ESTADO+"=?,"+Usuario.COL_TIPO+"=?,"
-                +Usuario.COL_CARRERA+"=?,"+Usuario.COL_MATRICULA+"=?,"+Usuario.COL_CAMPUS+"=?,"
-                +Usuario.COL_UNIVERSIDAD+"=? WHERE "+Usuario.COL_ID+"=?";
+                +Usuario.COL_EMAIL+"=?,"+Usuario.COL_TIPO+"=? WHERE "+Usuario.COL_ID+"=?";
         
         try{
             actualizaUsuario = conexion.prepareStatement(query);
@@ -181,16 +170,8 @@ public class Query {
             actualizaUsuario.setString(3, u.getApellidoP());
             actualizaUsuario.setString(4, u.getApellidoM());
             actualizaUsuario.setString(5, u.getEmail());
-            actualizaUsuario.setDate(6, new java.sql.Date(123123123));
-            actualizaUsuario.setString(7, u.getTelefono());
-            actualizaUsuario.setString(8, u.getCiudad());
-            actualizaUsuario.setString(9, u.getEstado());
-            actualizaUsuario.setInt(10, u.getTipo());
-            actualizaUsuario.setString(11, u.getCarrera());
-            actualizaUsuario.setString(12, u.getMatricula());
-            actualizaUsuario.setString(13, u.getCampus());
-            actualizaUsuario.setString(14, u.getUniversidad());
-            actualizaUsuario.setInt(15, u.getId());
+            actualizaUsuario.setInt(6, u.getTipo());
+            actualizaUsuario.setInt(7, u.getId());
             actualizaUsuario.executeUpdate();
         } catch (SQLException e){
             e.printStackTrace();

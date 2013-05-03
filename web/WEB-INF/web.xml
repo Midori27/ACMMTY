@@ -108,6 +108,14 @@
         <servlet-name>VerEvento</servlet-name>
         <servlet-class>Servlet.Evento.VerEvento</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Noticias</servlet-name>
+        <servlet-class>Servlet.Noticia.Noticias</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Eventos</servlet-name>
+        <servlet-class>Servlet.Evento.Eventos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -178,7 +186,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ActualizaUsuario</servlet-name>
-        <url-pattern>/Usuario/ActualizaUsuario</url-pattern>
+        <url-pattern>/ActualizaUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminMesaDirectiva</servlet-name>
@@ -216,22 +224,19 @@
         <servlet-name>VerEvento</servlet-name>
         <url-pattern>/VerEvento</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Noticias</servlet-name>
+        <url-pattern>/Noticias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Eventos</servlet-name>
+        <url-pattern>/Eventos</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <!-- 
-    <security-constraint>
-      <web-resource-collection>
-         <web-resource-name>PortalACM</web-resource-name>
-         <url-pattern>/login</url-pattern>
-      </web-resource-collection>
-      <user-data-constraint> 
-         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-      </user-data-constraint>
-   </security-constraint>
--->
     <filter>
         <filter-name>filtro-usuario</filter-name>
         <filter-class>Filtro.FiltroUsuario</filter-class>
@@ -246,7 +251,9 @@
     </filter>
     <filter-mapping>
         <filter-name>filtro-usuario</filter-name>
-        <url-pattern>/Usuario/*</url-pattern>
+        <url-pattern>/ActualizaUsuario</url-pattern>
+        <url-pattern>/CreaComentarioEvento</url-pattern>
+        <url-pattern>/CreaComentarioNoticia</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>filtro-administrador</filter-name>

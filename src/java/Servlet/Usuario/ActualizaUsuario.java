@@ -43,18 +43,10 @@ public class ActualizaUsuario extends HttpServlet {
         String apellidoP = request.getParameter("apellidoP");
         String apellidoM = request.getParameter("apellidoM");
         String email = request.getParameter("email");
-        Date fechaNacimiento = Fecha.parseFechaAnoMesDia((String) request.getParameter("fechaNacimiento"));
-        String telefono = request.getParameter("telefono");
-        String ciudad = request.getParameter("ciudad");
-        String estado = request.getParameter("estado");
-        String carrera = request.getParameter("carrera");
-        String matricula = request.getParameter("matricula");
-        String campus = request.getParameter("campus");
-        String universidad = request.getParameter("universidad");
-        Integer tipo = (universidad.equals("ITESM")) ? 1 : 2;
+        Integer tipo = 1;
         Query cq = new Query();
         
-        Usuario u = new Usuario(id, password, nombre, apellidoP, apellidoM, email, fechaNacimiento, telefono, ciudad, estado, tipo, carrera, matricula, campus, universidad);
+        Usuario u = new Usuario(id, password, nombre, apellidoP, apellidoM, email, tipo);
         
         Validator validator = new Validator();
         List<ConstraintViolation> violation = validator.validate(u);
