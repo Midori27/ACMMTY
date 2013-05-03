@@ -37,14 +37,15 @@ public class ActualizaUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Integer id = Integer.parseInt((String)request.getSession().getAttribute("id"));
+        Usuario usuario = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
+        Integer id = usuario.getId();
         String password = request.getParameter("password");
         String nombre = request.getParameter("nombre");
         String apellidoP = request.getParameter("apellidoP");
         String apellidoM = request.getParameter("apellidoM");
         String email = request.getParameter("email");
         Integer tipo = 1;
-        Query cq = new Query();
+        Query q = new Query();
         
         Usuario u = new Usuario(id, password, nombre, apellidoP, apellidoM, email, tipo);
         
@@ -58,7 +59,10 @@ public class ActualizaUsuario extends HttpServlet {
             return;
         }
         
-        if(cq.actualizaUsuarioBD(u)){
+        if(q.actualizaUsuarioBD(u)){
+            Usuario usuarioActualizado = q.getUsuarioBD(u.getId());
+            request.getSession().setAttribute(Usuario.NOMBRE_TABLA, usuarioActualizado);
+            request.setAttribute("usuario", usuarioActualizado);
             request.setAttribute("mensaje", "Tu cuenta ha sido actualizada exitosamente.");
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{

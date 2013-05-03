@@ -21,8 +21,6 @@
             <label>Nombre</label><input class="textbox" type="text" name="nombre"  id="nombre" value="<%=usuario.getNombre()%>"/><br />
             <label>Apellido Paterno</label><input class="textbox" type="text" name="apellidoP"  id="apellidoP" value="<%=usuario.getApellidoP()%>"/><br />
             <label>Apellido Materno</label><input class="textbox" type="text" name="apellidoM"  id="apellidoM" value="<%=usuario.getApellidoM()%>"/><br />
-            <label>Nombre de Usuario</label>
-            <input class="textbox" type="text" name="nombreUsuario"  id="nombreUsuario" value="<%=usuario.getNombreUsuario()%>"/><br /><br />
             <label>Email</label><input class="textbox" type="text" name="email"  id="email" value="<%=usuario.getEmail()%>"/><br />
             <label>password</label><input class="textbox" type="password" name="password"  id="password" value="<%=usuario.getPassword()%>"/><br />		
             <input type="submit" value="Actualizar usuario">	

@@ -77,7 +77,7 @@ public class Usuario {
     
     public Usuario(int id, String password, String nombre, String apellidoP, String apellidoM, String email, int tipo) {
         this.id = id;
-        this.nombreUsuario = "";
+        this.nombreUsuario = "NULL";
         this.password = password;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
