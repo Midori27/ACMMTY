@@ -116,6 +116,10 @@
         <servlet-name>Eventos</servlet-name>
         <servlet-class>Servlet.Evento.Eventos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MesaDirectiva</servlet-name>
+        <servlet-class>Servlet.MesaDirectiva.MesaDirectiva</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>Eventos</servlet-name>
         <url-pattern>/Eventos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MesaDirectiva</servlet-name>
+        <url-pattern>/MesaDirectiva</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
