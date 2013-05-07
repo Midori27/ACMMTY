@@ -79,15 +79,20 @@
 			<h3><%=mensaje%></h3>
 			<%  for(int i=0; i<miembros.length;i++){%>
             <%=miembros[i].getNombre()%> 
-            <a href="ActualizaMiembroMesa?id=<%=miembros[i].getId()%>">Modificar</a>
-            <a href="BorraMiembroMesa?id=<%=miembros[i].getId()%>">Eliminar</a>
+            	<br>
+            	<img src="foto Miembro" alt="" width="120px" height="100px" />
+            	<br>
+            	<br><input class="button" type="image" src="../../images/modificar.png" value="modificar"
+            	onClick="window.location.href='ActualizaMiembroMesa?id=<%=miembros[i].getId()%>'" />
+            	<input class="button" type="image" src="../../images/eliminar.png"  value="eliminar" 
+            	onClick="window.location.href='BorraMiembroMesa?id=<%=miembros[i].getId()%>'"/>
+            	<input class="button" type="image" src="../../images/publicar.png"  value="publicar"
+            	onClick="window.location.href='Pagina'"/>
+            	<br>
+            	                 
             <br />
             <%}%>   
-
-					
-			<!-- final forma de envio -->
-			
-					
+            		
 				<div id="footer">
 					<p>
 						ACM MTY 2013

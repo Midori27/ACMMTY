@@ -80,12 +80,20 @@
 			
 				<% for(int i=0; i<noticias.length;i++){%>
 		        <%=noticias[i].getTitulo()%>
-		        <a href="ActualizaNoticia?id=<%=noticias[i].getId()%>">Modificar</a>
-		        <a href="BorraNoticia?id=<%=noticias[i].getId()%>">Eliminar</a>
-		        <br />
-		        <%}%>
 		        <h3><%=mensaje%></h3>
 
+		        <br>
+            	<br>
+            	<br><input class="button" type="image" src="../../images/modificar.png" value="modificar"
+            	onClick="window.location.href='ActualizaNoticia?id=<%=noticias[i].getId()%>'" />
+            	<input class="button" type="image" src="../../images/eliminar.png"  value="Crea evento" 
+            	onClick="window.location.href='BorraNoticia?id=<%=noticias[i].getId()%>'"/>
+            	<input class="button" type="image" src="../../images/publicar.png"  value="Crea evento"
+            	onClick="window.location.href='Pagina'"/>
+            	<br>
+		        
+		        
+		        <%}%>
 
 					
 			</div>

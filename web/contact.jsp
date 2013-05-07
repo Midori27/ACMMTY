@@ -81,7 +81,7 @@
 					<fieldset class="info_fieldset">
 						<div id="note"></div>
 						<div id="fields">
-							<label>Nombre</label><input class="textbox" type="text" name="name" value="" /><br />
+							<label>Nombre</label><input class="textbox" type="text" name="name" value="" />
 							<label>Correo</label><input class="textbox" type="text" name="email" value="" /><br />
 							<label>Asunto</label><input class="textbox" type="text" name="subject" value="" /><br />
 							<label>Mensaje</label><textarea name="message" rows="5" cols="25"></textarea><br />

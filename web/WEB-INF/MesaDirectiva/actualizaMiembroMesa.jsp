@@ -95,7 +95,7 @@
 		            <img src="ImagenServidor/<%=miembro.getFoto()%>" height="100" width="100">
 		            <br><br>
 		            <input type="hidden" name="fotoSubida" value="<%=miembro.getFoto()%>">
-	                <label>&nbsp;</label><input class="button" type="image" src="images/send.png" id="submit" value="Actualizar" />	
+	                <label>&nbsp;</label><input class="button" type="image" src="../../images/send.png" id="submit" value="Actualizar" />	
                 </form>
 
 

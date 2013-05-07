@@ -9,17 +9,18 @@
 	<link type="text/css" rel="stylesheet" href="../../css/style.css" />
 	<title>ACM MTY</title>
 	<meta name="Description" content="ACMMTY"
-	<script type="text/javascript" src="js/jquery.js"></script> 
+	<script type="text/javascript" src="../../js/jquery.js"></script> 
+	<script type="text/javascript" src="../../js/validacionEvento.js"></script>
 
 
 
 	<!-- JS -->
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/scrollto.js"></script>
-	<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script> 
-	<script type="text/javascript" src="js/jquery.filterable.js"></script> 
-	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script> 
-	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<script type="text/javascript" src="../../js/scrollto.js"></script>
+	<script type="text/javascript" src="../../js/jquery.prettyPhoto.js"></script> 
+	<script type="text/javascript" src="../../js/jquery.filterable.js"></script> 
+	<script type="text/javascript" src="../../js/jquery.easing.1.3.js"></script> 
+	<script type="text/javascript" src="../../js/script.js"></script>
 	
 </head>
 
@@ -54,7 +55,6 @@
 				Puedes encontrarnos en las redes sociales a través de:
 			</p>
 
-			<!-- Redes Sociales -->
 			<div id="socials">
 			  <ul>
 				<li class="twitter"><a href="https://twitter.com/acmmonterrey"></a></li>
@@ -62,34 +62,45 @@
 
 			  </ul>
 			</div>
-			<!--Final Redes Sociales-->
 			
 			<div class="clearer"></div>
 			
 	
+		</div>	
+		
+		<!-- Final de la Barra Izquierda -->	
+		
+		<div id="contentInside">
+
+		<div id="mesa">
+		  <ul>
+		    <li>
+		      <img src="http://lorempixum.com/100/100/nature/1">
+		      <h3 >Juanjo Leñero</h3>
+		      <p>Presidente</p>
+		      
+		    </li>
+		       
+		    <li>
+		      <img src="http://lorempixum.com/100/100/nature/2">
+		      <h3>Victor Clemente</h3>
+		      <p>Vicepresidente</p>
+		    </li>
+		 
+		    <li>
+		      <img src="http://lorempixum.com/100/100/nature/3">
+		      <h3>Liz López</h3>
+		      <p>Tesorería</p>
+		    </li>
+		 
+		    <li>
+		      <img src="http://lorempixum.com/100/100/nature/4">
+		      <h3>Shuyi López</h3>
+		      <p>Progamación</p>
+		    </li>
+		  </ul>
 		</div>
-
 	
-		<div id="contentInside">	
-			<img src="images/404.jpg" class="detailImg" alt=""/>
-			
-			<h3>Hackaton 2013</h3>
-			
-			<p>
-			 	Este año el Hackaton fué totalmente un exito.
-			</p>
-			
-			<div class="fb-comments" data-href="http://victorclemente.com" data-width="470" data-num-posts="10" data-colorscheme="dark"></div>
-			
-			<div id="fb-root"></div>
-			<script>(function(d, s, id) {
-			  var js, fjs = d.getElementsByTagName(s)[0];
-			  if (d.getElementById(id)) return;
-			  js = d.createElement(s); js.id = id;
-			  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-			  fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));</script>
-
 			<div id="footer">
 				<p>
 				ACM MTY 20130

@@ -100,7 +100,7 @@
           			<img src="ImagenServidor/<%=miembro.getFoto()%>" height="150" width="150">
            			<input type="hidden" name="fotoSubida" value="<%=miembro.getFoto()%>">
            			<br><br>
-	                <label>&nbsp;</label><input class="button" type="image" src="images/send.png" id="submit" value="Crea miembro" />	
+	                <label>&nbsp;</label><input class="button" type="image" src="../../images/send.png" id="submit" value="Crea miembro" />	
                 </form>
 
 

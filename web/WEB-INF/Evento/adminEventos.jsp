@@ -81,9 +81,17 @@
 			
 			<h3><%=mensaje%></h3>
 			<%  for(int i=0; i<eventos.length;i++){%>
-            	<%=eventos[i].getNombre()%> 
-            	<a href="ActualizaEvento?id=<%=eventos[i].getId()%>">Modificar</a>
-            	<a href="BorraEvento?id=<%=eventos[i].getId()%>">Eliminar</a>
+            	
+            	<br>
+            	<img src="hackaton.jpg" alt="" width="120px" height="100px" />
+            	<h3><%=eventos[i].getNombre()%> <h3>
+            	<br>
+            	<br><input class="button" type="image" src="../../images/modificar.png" value="modificar"
+            	onClick="window.location.href='ActualizaEvento?id=<%=eventos[i].getId()%>'" />
+            	<input class="button" type="image" src="../../images/eliminar.png"  value="Crea evento" 
+            	onClick="window.location.href='BorraEvento?id=<%=eventos[i].getId()%>'"/>
+            	<input class="button" type="image" src="../../images/publicar.png"  value="Crea evento"
+            	onClick="window.location.href='Pagina'"/>
             	<br>
             <%}%>   
 						

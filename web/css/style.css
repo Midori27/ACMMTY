@@ -134,6 +134,41 @@ fieldset {border:none;}
 
 
 
+
+/*Estilo para lista de miembros*/ 
+#mesa { margin: 20px;}
+#mesa ul {
+  list-style-type: none;
+  width: 500px;
+}
+ 
+#mesa h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+ 
+#mesa li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+ 
+#mesa li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+ 
+#mesa li {
+  padding: 10px;
+  overflow: auto;
+}
+ 
+#mesa li:hover {
+  background: #eee;
+}
+
+
+
+
+
+
 .Group img{
 	padding:0 0 0 0;
 	}
@@ -194,7 +229,6 @@ a.details {background:url('../images/more.png') no-repeat;border-left-width:0px;
 a.zoom {background:url('../images/zoom.png') no-repeat;bottom:0;height:20px;position:absolute;right:20px;text-indent:-9999px;width:20px;}
 .work .hover p {color: #666666;font-size:12px;line-height:20px!important;margin:50px 10px 10px 10px!important;}
 .work .hover:hover {opacity: 1;}
-
 
 
 
