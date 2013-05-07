@@ -57,12 +57,6 @@
 			<!--Final Redes Sociales-->
 			
 			<div class="clearer"></div>
-			
-			<h2>Testimonios</h2>
-			
-			<p>
-				Este espacio puede ser usado para anuncios<span class="black"></span>
-			</p>
 
 		</div>
 		<!--Final barra izquierda-->
@@ -82,9 +76,13 @@
 						<div id="note"></div>
 						<div id="fields">
 							<label>Nombre</label><input class="textbox" type="text" name="name" value="" />
-							<label>Correo</label><input class="textbox" type="text" name="email" value="" /><br />
-							<label>Asunto</label><input class="textbox" type="text" name="subject" value="" /><br />
-							<label>Mensaje</label><textarea name="message" rows="5" cols="25"></textarea><br />
+							<br /><br />
+							<label>Correo</label><input class="textbox" type="text" name="email" value="" />
+							<br /><br />
+							<label>Asunto</label><input class="textbox" type="text" name="subject" value="" />
+							<br /><br />
+							<label>Mensaje</label><textarea name="message" rows="5" cols="25"></textarea>
+							<br /><br />
 							<label>&nbsp;</label><input class="button" type="image" src="images/send.png" id="submit" value="Send Message" />	
 						</div>
 					</fieldset>
