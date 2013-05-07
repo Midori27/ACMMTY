@@ -19,33 +19,20 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/scrollto.js"></script>
 	
-	<!--Librerias usadas para gallery view
+	<!--Librerias Slider-->
 	
-	<!-- First, add jQuery (and jQuery UI if using custom easing or animation -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-	
-	<!-- Second, add the Timer and Easing plugins -->
-	<script type="text/javascript" src="jsGV/jquery.timers-1.2.js"></script>
-	<script type="text/javascript" src="jsGV/jquery.easing.1.3.js"></script>
-	
-	<!-- Third, add the GalleryView Javascript and CSS files -->
-	<script type="text/javascript" src="jsGV/jquery.galleryview-3.0-dev.js"></script>
-	<link type="text/css" rel="stylesheet" href="css/jquery.galleryview-3.0-dev.css" />
-	
-	<!-- Lastly, call the galleryView() function on your unordered list(s) -->
-	<script type="text/javascript">
-		$(function(){
-			$('#myGallery').galleryView({
-				transition_speed: 600,
-				show_filmstrip: false,
-				panel_animation: 'slide',
-				show_infobar: false,
-				panel_width: 1270,
-				panel_height: 500,
-			});
-		});
-	</script>
+	<link rel="stylesheet" href="js/slider/css/royalslider.css" />
+    <link rel="stylesheet" href="js/slider/css/royalslider-skins/default/default.css" />
+    <link rel="stylesheet" href="js/slider/css/royalslider-skins/iskin/iskin.css" /> 
+    <link rel="stylesheet" href="js/slider/css/royalslider-preview.css" />
+    
+   
+    
+    <script src="js/slider/js/jquery-1.6.2.min.js"></script>      
+	<script src="js/slider/js/jquery.easing.1.3.min.js"></script> 
+    <script src="js/slider/js/royal-slider-8.1.min.js"></script>
+   
+    <!--Fin del Slider-->
 	
 	
 </head>
@@ -64,26 +51,60 @@
 	<div class="container">
 
 		
-		<!-- Contenido especial para home-->
-		<div id="contenth">
+		<br>
+		<br>
+		<br>
+		<br>
+	
 			
-			
-			<ul id="myGallery">
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp1.jpg" alt="Lone Tree Yellowstone" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp2.jpg" alt="Is He Still There?!" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp4.jpg" alt="Noni Nectar For Green Gecko" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp7.jpg" alt="Flight of an Eagle Owl" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp14.jpg" alt="Winter Lollipops" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp26.jpg" alt="Day of Youth" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp27.jpg" alt="Sunbathing Underwater" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp28.jpg" alt="Untitled" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp41.jpg" alt="New Orleans Streetcar" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp49.jpg" alt="By The Wind of Chance" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp52.jpg" alt="Fishing on the Cloud" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp53.jpg" alt="Blue Lagoon" />
-				<li><img src="http://www.spaceforaname.com/galleryview/img/photos/bp54.jpg" alt="Time" />
-			</ul>
-		
+			<div id="main-body">		
+			<div id="slider-ajax-container">
+				<div id="banner-rotator" class="royalSlider default">    
+	    <ul class="royalSlidesContainer">
+	
+	        <li class="royalSlide"> 
+	        	<img class="royalImage" src="js/slider/img/1150x400/4.jpg" width="1150" height="400"/>
+	            <div class="royalCaption" style="left:40%; top:130px; width:300px; color: #eaeaed;">
+	                <div class="royalCaptionItem " data-show-effect="fade moveleft"  data-move-offset="30" style="left: -320px;">Muestra Slider</div>
+	                <div class="royalCaptionItem sgMidText" data-show-effect="fade moveright" data-move-offset="20" style="left: -200px; top: 30px;">Texto editable.</div>
+	            </div>      	
+	        </li>
+	        <li class="royalSlide">          
+	           <img class="royalImage" src="js/slider/img/1150x400/5.jpg" width="1150" height="400"/>        
+	           <div class="royalCaption" style="left:40%; top:120px; width:400px; color: #000000; text-align:center;" >
+	                <div class="royalCaptionItem " data-show-effect="fade movetop"  data-move-offset="10" style="left: -320px; width: 100%;">Texto en grande</div>
+	                <div class="royalCaptionItem sgMidText" data-show-effect="fade movebottom" data-delay="400" data-move-offset="5"  style="left: -320px; top: 35px; width: 100%;" >Vista</div>
+	            </div>                               	
+	        </li>
+	        <li class="royalSlide">                     
+	        	<img class="royalImage" src="js/slider/img/1150x400/1.jpg" width="1150" height="400"/>
+	            <div class="royalCaption" style="left:58%; text-align:center; color:#ffffff; width:315px; top: 110px;">
+	                <div class="royalCaptionItem" data-show-effect="fade movetop"  data-move-offset="15" style="width: 100%;">ACM MONTERREY</div>
+	                <div class="royalCaptionItem sgMidText" data-show-effect="fade movetop"  data-move-offset="8" style="top:35px; width: 100%;"></div>
+	                <div class="royalCaptionItem sgSmallText " data-show-effect="fade movetop" data-move-offset="8" data-delay="600" style="top:70px; left: 96px;"><a class="tintButton non-draggable" href="www.facebook.com">Ver mas información</a></div>
+	            </div>      	
+	        </li>
+	        <li class="royalSlide"> 
+	        	<img class="royalImage" src="js/slider/img/1150x400/2.jpg" width="1150" height="400"/>
+	            <div class="royalCaption" style="left:57%; top:300px; color:#ffffff;">
+	                <div class="royalCaptionItem" data-show-effect="moveleft fade" data-move-offset="30" style="width: 280px;">¡Regístrate!</div>
+	                <div class="royalCaptionItem sgMidText" data-show-effect="moveleft fade" style="left: 120px; top:35px; width: 200px;" data-move-offset="30">¿Éstas listo?</div>
+	            </div> 
+	        </li> 
+	    </ul>  
+	</div>
+			</div>		
+		</div>
+	
+		<script>     	
+		jQuery(document).ready(function($) {		
+			$('#banner-rotator').royalSlider({			
+		   		imageAlignCenter:true,
+		   		hideArrowOnLastSlide:true,
+		   		slideSpacing:20
+		    });		
+		});
+	    </script>		
 			<div id="contenth2">
 
 				<!-- Noticias-->

@@ -41,6 +41,30 @@
 	</div>
 	
 	<div class="container">
+
+		<!-- Barra Izquierda -->
+		<div id="sidebar">
+
+			<h2>Contacto</h2>
+			
+			<p>
+				Puedes encontrarnos en las redes sociales a través de:
+			</p>
+
+			<!-- Redes Sociales -->
+			<div id="socials">
+			  <ul>
+				<li class="twitter"><a href="https://twitter.com/acmmonterrey"></a></li>
+				<li class="facebook"><a href="http://www.facebook.com/acmmonterrey?fref=ts"></a></li>
+
+			  </ul>
+			</div>
+			<!--Final Redes Sociales-->
+			
+			<div class="clearer"></div>
+			
+	
+		</div>
 		<!--Contenido -->
 		<div id="contentInside">	
                     <h3>Recuperaci&oacute;n de cuenta.</h3>
@@ -54,7 +78,7 @@
                         <input id="email" type="text" placeholder="Tu E-Mail" name="email"></input>
                         <label for="email">E-Mail</label><br></br>
                         <h3 style="color:red;"><%=mensaje%></h3>
-                        <input type="submit" value="Continuar"></input>
+                        <label>&nbsp;</label><input class="button" type="image" src="images/send.png" id="submit" value="Continuar" />
                     </form>
 				<div id="footer">
 					<p>
