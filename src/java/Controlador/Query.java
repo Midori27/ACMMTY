@@ -82,17 +82,17 @@ public class Query {
      * @return Usuario Un objeto usuario inicializado con los datos de la base.
      * @see Modelo.Usuario
      */ 
-    public Usuario getUsuarioBD(String nombreUsuario, String password){
+    public Usuario getUsuarioBD(String email, String password){
         Connection conexion = pool.getConexion();
         PreparedStatement selectUsuario = null;
         ResultSet rs = null;
         Usuario u = null;
-        String query = "SELECT * FROM "+Usuario.NOMBRE_TABLA+" WHERE "+Usuario.COL_NOMBRE_USUARIO+" = ? AND "
+        String query = "SELECT * FROM "+Usuario.NOMBRE_TABLA+" WHERE "+Usuario.COL_EMAIL+" = ? AND "
                 +Usuario.COL_PASSWORD+" = ?";
         
         try{
             selectUsuario = conexion.prepareStatement(query);
-            selectUsuario.setString(1,nombreUsuario);
+            selectUsuario.setString(1,email);
             selectUsuario.setString(2,password);
             rs = selectUsuario.executeQuery();
             

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Contacto extends HttpServlet {
     public static String URL_VISTA="/WEB-INF/Contacto/contacto.jsp";
+    public static String URL_EXITO="/WEB-INF/Mensaje/exito.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -33,16 +34,20 @@ public class Contacto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nombre = request.getParameter("nombre");
-        String mail = request.getParameter("mail");
-        String asunto = request.getParameter("asunto");
-        String mensaje = request.getParameter("mensaje");
+        String nombre = request.getParameter("name");
+        String mail = request.getParameter("email");
+        String asunto = request.getParameter("subject");
+        String mensaje = request.getParameter("message");
+        if(nombre == null || mail == null || asunto == null || mensaje == null || nombre.isEmpty() || mail.isEmpty() || asunto.isEmpty() || mensaje.isEmpty()){
+            request.setAttribute("mensaje", "Asegurate de llenar todos los campos.");
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
+        }
         
         Email ce = new Email();
         ce.enviaMail(mail, "acm.monterrey+contacto@gmail.com", asunto, nombre + "\n" + mensaje);
         request.setAttribute("mensaje", "Gracias por comunicarte con nosotros, te atenderemos en la brevedad posible.");
-        RequestDispatcher despachador = getServletContext().getRequestDispatcher("/exito.jsp");
-        despachador.forward(request, response);
+        request.getRequestDispatcher(URL_EXITO).forward(request, response);
         
     }
 

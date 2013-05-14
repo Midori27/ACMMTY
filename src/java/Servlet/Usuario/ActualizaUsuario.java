@@ -40,6 +40,7 @@ public class ActualizaUsuario extends HttpServlet {
         Usuario usuario = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
         Integer id = usuario.getId();
         String password = request.getParameter("password");
+        String confirmaPassword = request.getParameter("confirmaPassword");
         String nombre = request.getParameter("nombre");
         String apellidoP = request.getParameter("apellidoP");
         String apellidoM = request.getParameter("apellidoM");
@@ -47,12 +48,11 @@ public class ActualizaUsuario extends HttpServlet {
         Integer tipo = 1;
         Query q = new Query();
         
-        Usuario u = new Usuario(id, password, nombre, apellidoP, apellidoM, email, tipo);
+        Usuario u = new Usuario(id, password, confirmaPassword, nombre, apellidoP, apellidoM, email, tipo);
         
         Validator validator = new Validator();
         List<ConstraintViolation> violation = validator.validate(u);
         if(violation.size()>0){
-            request.setAttribute("mensaje", "Porfavor corrija los errores.");
             request.setAttribute("errores", violation);
             request.setAttribute("usuario", u);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);

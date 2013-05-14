@@ -18,13 +18,12 @@ import javax.servlet.http.HttpSession;
 public class Sesion {
 
     public static boolean iniciaSesion(HttpServletRequest req){
-        HashMap<String,String> parametros = ParseaParametros.parsea(req, req.getServletContext());
-        String nombreUsuario = parametros.get(Usuario.COL_NOMBRE_USUARIO);
-        String password = parametros.get(Usuario.COL_PASSWORD);
+        String email = req.getParameter(Usuario.COL_EMAIL);
+        String password = req.getParameter(Usuario.COL_PASSWORD);
         boolean auth = false;
         Query q = new Query();
 
-        Usuario u = q.getUsuarioBD(nombreUsuario, password);
+        Usuario u = q.getUsuarioBD(email, password);
         
         if(u != null){
             // datos de login validos

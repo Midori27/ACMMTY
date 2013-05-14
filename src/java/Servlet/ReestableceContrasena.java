@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ReestableceContrasena extends HttpServlet {
     public static final String URL_VISTA = "/WEB-INF/Public/reestableceContrasena.jsp";
+    public static final String URL_EXITO = "/WEB-INF/Mensaje/exito.jsp";
+    public static final String URL_FALLO = "/WEB-INF/Mensaje/fallo.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -35,29 +37,27 @@ public class ReestableceContrasena extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd = null;
-        String mensaje = "";
         String password = (String) request.getParameter("password");
         String confirmaPassword = (String) request.getParameter("confirmaPassword");
         String textuuid = (String) request.getParameter("uuid");
         UUID uuid = UUID.fromString(textuuid);
-        if(password.equals(confirmaPassword)){
+        if(password.equals(confirmaPassword) || password == null || password.isEmpty()){
             Query cq = new Query();
             RecuperacionCuenta rc = cq.getRecuperacionCuentaBD(uuid);
             if(validaRecuperacionCuenta(rc)){
                 if(cq.actualizaPasswordUsuarioBD(rc.getIdUsuario(), password)){
                     cq.reclamaRecuperacionCuentaBD(rc.getId());
                     request.setAttribute("mensaje", "Tu contraseña ha sido actualizada exitosamente.");
-                    request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                    request.getRequestDispatcher(URL_EXITO).forward(request, response);
                     return;
                 }else{
                     request.setAttribute("mensaje", "Lo sentimos, hubo un problema con la base de datos.");
-                    request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                    request.getRequestDispatcher(URL_VISTA).forward(request, response);
                     return;
                 }
             }else{
                 request.setAttribute("mensaje", "Lo sentimos la petición de recuperación de cuenta ha caducado o ya fue efectuada.");
-                request.getRequestDispatcher("/exito.jsp").forward(request, response);
+                request.getRequestDispatcher(URL_FALLO).forward(request, response);
                 return;
             }
            
@@ -80,8 +80,8 @@ public class ReestableceContrasena extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String uuid = (String) request.getAttribute("UUID");
-        request.setAttribute("UUID", uuid);
+        String uuid = (String) request.getAttribute("uuid");
+        request.setAttribute("uuid", uuid);
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 

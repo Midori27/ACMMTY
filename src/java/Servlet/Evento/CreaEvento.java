@@ -66,9 +66,10 @@ public class CreaEvento extends HttpServlet {
         }
         
         if(q.insertaEventoBD(ev)){    
-            mensaje="Evento creado exitosamente";
-            request.setAttribute("mensaje", mensaje);
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            //mensaje="Evento creado exitosamente";
+            //request.setAttribute("mensaje", mensaje);
+            response.sendRedirect("AdminEventos");
+            //request.getRequestDispatcher("AdminEventos").forward(request, response);
         }else{
             mensaje="El evento no pudo ser creado.";
             request.setAttribute("mensaje", mensaje);

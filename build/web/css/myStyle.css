@@ -1,0 +1,24 @@
+/*
+body { 
+  background: url(../img/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; 
+}
+
+.fieldset{
+  background-color: #101010;
+  padding: 10px 10px 10px 10px;
+  opacity:0.9;
+  filter:alpha(opacity=90); /* For IE8 and earlier */
+  /*	
+  -moz-box-shadow:    3px 3px 5px 6px #000;
+  -webkit-box-shadow: 3px 3px 5px 6px #000;
+  box-shadow:         3px 3px 5px 6px #000;
+    
+  -moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+}
+*/

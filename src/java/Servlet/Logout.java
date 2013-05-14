@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
  * @author juanjo
  */
 public class Logout extends HttpServlet {
+    public static final String URL_VISTA = "Indice";
 
     /**
      * Processes requests for both HTTP
@@ -31,7 +32,7 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.getSession().invalidate();
-        response.sendRedirect("index.jsp");
+        response.sendRedirect(URL_VISTA);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

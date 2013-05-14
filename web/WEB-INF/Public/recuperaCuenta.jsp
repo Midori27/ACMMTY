@@ -5,25 +5,26 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Recuperaci&oacute;n de cuenta.</h1>
-         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="RecuperaCuenta" method="post" enctype="multipart/form-data">
-            <h4>¿Qu&eacute; olvidaste?</h4>
-            <input id="campoPassword" type="radio" name="campo" value="password" checked="checked" />
-            <label for="campoPassword">Contrase&ntilde;a</label><br></br>
-            <input id="campoUsuario"type="radio" name="campo" value="usuario" />
-            <label for="campoUsuario">Usuario</label><br></br>
-            <h4>Introduce tu e-mail</h4>
-            <input id="email" type="text" placeholder="Tu E-Mail" name="email"></input>
-            <label for="email">E-Mail</label><br></br>
-            <input type="submit" value="Continuar"></input>
-        </form>
-    </body>
-</html>
+<%@include file="/WEB-INF/Includes/header.jsp" %>
+<%@include file="/WEB-INF/Includes/alerta.jsp" %>
+    <div class="row">
+           <div class="large-8 large-centered columns">
+               <form action="RecuperaCuenta" method="post">
+                   <fieldset>
+                       <legend>Recuperacion de cuenta</legend>
+                       <div class="row">
+                           <div class="large-12 columns">
+                               <label>Email</label>
+                               <input type="text" name="email" placeholder="El email con el que te registraste">
+                           </div>
+                       </div>
+                       <div class="row">
+                            <div class="large-offset-9 columns">
+                                <input type="submit" class="small button" value="Continuar">
+                           </div>
+                       </div>
+                   </fieldset>
+               </form>
+           </div>
+    </div>
+<%@include file="/WEB-INF/Includes/footer.jsp" %>

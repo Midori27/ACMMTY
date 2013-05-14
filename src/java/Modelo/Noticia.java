@@ -37,7 +37,7 @@ public class Noticia {
     private String titulo;
     @NotNull(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
     @NotBlank(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
-    @MaxLength(value=60, message=COL_DESCRIPCION+": "+Error.TAM_MAX+": 60")
+    @MaxLength(value=150, message=COL_DESCRIPCION+": "+Error.TAM_MAX+": 150")
     private String descripcion;
     private Date fecha;
     

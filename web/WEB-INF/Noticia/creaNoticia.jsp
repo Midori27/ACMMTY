@@ -9,22 +9,39 @@
     Noticia noticia = (Noticia) request.getAttribute("noticia");
     if(noticia==null) noticia=new Noticia();
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Crea Noticia</h1>
+<%@include file="/WEB-INF/Includes/header.jsp" %>
         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="CreaNoticia" method="post" enctype="multipart/form-data">
-            <label for="titulo">Titulo</label><input type="text" name="titulo" value="<%=noticia.getTitulo()%>"><br />
-            <label for="descripcion">Descripcion</label><textarea name="descripcion"><%=noticia.getDescripcion()%></textarea><br />
-            <label for="imagen">Imagen</label><input type="file" name="imagen"><br />
-            <img src="ImagenServidor/<%=noticia.getImagen()%>" height="150" width="150">
-            <input type="hidden" name="imagenSubida" value="<%=noticia.getImagen()%>">
-            <input type="submit" value="Crea noticia">
-        </form>
-    </body>
-</html>
+        <!-- forma crear noticia -->
+	<div class="row">
+		<div class="large-8 large-centered columns">
+			<form action="CreaNoticia" method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend>Crear Noticia</legend>
+                                        <div class="row">
+                                            <div class="large-12 columns">
+                                                <label>Titulo</label>
+                                                <input type="text" name="titulo" placeholder="Titulo de la noticia" value="<%=noticia.getTitulo()%>">
+                                                <label>Descripcion</label>
+                                                <textarea style="height:300px;" rows="50" name="descripcion" placeholder="El desarrollo de la noticia"><%=noticia.getDescripcion()%></textarea>
+                                                <label>Imagen</label>
+                                                <input type="file" name="imagen">
+                                                <img src="ImagenServidor/<%=noticia.getImagen()%>" height="150" width="150">
+                                                <input type="hidden" name="imagenSubida" value="<%=noticia.getImagen()%>">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                             <div class="large-offset-9 columns">
+                                                 <input type="submit" class="small button" value="Crea noticia">
+                                            </div>
+                                        </div>
+                                </fieldset>
+                        </form>
+                </div>
+        </div>
+        <div class="row">
+            <div class="large-8 large-centered columns text-center">
+                <a class="small button secondary" href="AdminNoticias">Regresa a administrar noticias</a>
+            </div>
+        </div>
+<%@include file="/WEB-INF/Includes/footer.jsp" %>

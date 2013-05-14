@@ -59,8 +59,9 @@ public class CreaNoticia extends HttpServlet {
         }
         
         if(cq.insertaNoticiaBD(n)){
-            request.setAttribute("mensaje", "La noticia ha sido creada exitosamente.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            //request.setAttribute("mensaje", "La noticia ha sido creada exitosamente.");
+            response.sendRedirect("AdminNoticias");
+            //request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
             request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser creada en este momento.");
             request.setAttribute("noticia", n);

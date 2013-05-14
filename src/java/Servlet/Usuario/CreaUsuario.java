@@ -23,7 +23,7 @@ import net.sf.oval.Validator;
  */
 public class CreaUsuario extends HttpServlet {
     private static final String URL_VISTA = "/WEB-INF/Public/creaUsuario.jsp";
-    private static final String URL_EXITO = "/WEB-INF/Especial/exito.jsp";
+    private static final String URL_EXITO = "/WEB-INF/Mensaje/exito.jsp";
     public static final String ATRIBUTO_USUARIO = "usuario";
     /**
      * Processes requests for both HTTP
@@ -40,6 +40,7 @@ public class CreaUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nombreUsuario = request.getParameter("nombreUsuario");
         String password = request.getParameter("password");
+        String confirmaPassword = request.getParameter("confirmaPassword");
         String nombre = request.getParameter("nombre");
         String apellidoP = request.getParameter("apellidoP");
         String apellidoM = request.getParameter("apellidoM");
@@ -47,14 +48,13 @@ public class CreaUsuario extends HttpServlet {
         Integer tipo = 1;
         
         
-        Usuario u = new Usuario(nombreUsuario, password, nombre, apellidoP, apellidoM, email, tipo);
+        Usuario u = new Usuario(nombreUsuario, password, confirmaPassword, nombre, apellidoP, apellidoM, email, tipo);
         
         Validator validator = new Validator();
         List<ConstraintViolation> violation = validator.validate(u);
         if(violation.size()>0){
-            request.setAttribute("mensaje", "Porfavor corrija los errores.");
             request.setAttribute("errores", violation);
-            request.setAttribute("usuario", u);
+            request.setAttribute(Usuario.NOMBRE_TABLA, u);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }

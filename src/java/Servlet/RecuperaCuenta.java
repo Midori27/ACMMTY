@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RecuperaCuenta extends HttpServlet {
     public static final String URL_VISTA = "/WEB-INF/Public/recuperaCuenta.jsp";
+    public static final String URL_EXITO = "/WEB-INF/Mensaje/exito.jsp";
+    public static final String URL_FALLO = "/WEB-INF/Mensaje/fallo.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -38,38 +40,31 @@ public class RecuperaCuenta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HashMap<String,String> parametros = ParseaParametros.parsea(request,this.getServletConfig().getServletContext());
-        String campo = parametros.get("campo");
-        String email = parametros.get("email");
-        
+        String email = request.getParameter("email");
+        if(email == null || email.isEmpty()){
+            request.setAttribute("mensaje", "Es necesario que llenes el campo de email.");
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
+        }
         Query cq = new Query();
         Integer id = cq.existeUsuarioConEmail(email);
         if(id == null){
             request.setAttribute("mensaje", "La direccion no existe en nuestra base de datos.");
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
-        }else{
-            Usuario u = cq.getUsuarioBD(id);
-            if (campo.equals("usuario")){
-                recuperaUsuario(u);
-                request.setAttribute("mensaje", "Se ha enviado un correo a tu cuenta con tu nombre de usuario.");
-                request.getRequestDispatcher(URL_VISTA).forward(request, response);
-                return;
-            } else{
-                if(campo.equals("password")){
-                    if(recuperaPassword(u)){
-                        request.setAttribute("mensaje", "Se ha enviado un correo a tu cuenta con más información para recuperar tu cuenta.");
-                        request.getRequestDispatcher("/exito.jsp").forward(request, response);
-                        return;
-                    }else{
-                        request.setAttribute("mensaje", "Lo sentimos, ya existe una peticion de recuperación de cuenta activa.");
-                        request.getRequestDispatcher("/exito.jsp").forward(request, response);
-                        return;
-                    }
-                }
-            }
         }
+        
+        Usuario u = cq.getUsuarioBD(id);    
             
+        if(recuperaPassword(u)){
+            request.setAttribute("mensaje", "Se ha enviado un correo a tu dirección con más información para recuperar tu cuenta.");
+            request.getRequestDispatcher(URL_EXITO).forward(request, response);
+            return;
+        }else{
+            request.setAttribute("mensaje", "Lo sentimos, ya existe una peticion de recuperación de cuenta activa.");
+            request.getRequestDispatcher(URL_FALLO).forward(request, response);
+            return;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -112,16 +107,6 @@ public class RecuperaCuenta extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    public void recuperaUsuario(Usuario u){
-        String de = "acm.monterrey@gmail.com";
-        String para = "juanjo.lenero@gmail.com"; //u.getEmail();
-        String asunto = "Recuperacion de cuenta ACM Monterrey.";
-        String contenido="Hola "+u.getNombre()+",\n Hemos recibido una solicitud de recuperación de usuario para la cuenta asignada a este correo en monterrey.acm.org.\n\nTu nombre de usuario es: "+u.getNombreUsuario();
-        //envia mail con usuario
-        Email ce = Email.getInstanceControladorEmail();
-        ce.enviaMail(de, para, asunto, contenido);
-    }
     
     public boolean recuperaPassword(Usuario u){
         

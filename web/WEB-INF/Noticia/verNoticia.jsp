@@ -6,25 +6,51 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Noticia, Modelo.Comentario" %>
 <%
-    Noticia n = (Noticia) request.getAttribute(Noticia.NOMBRE_TABLA);
+    Noticia noticia = (Noticia) request.getAttribute(Noticia.NOMBRE_TABLA);
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>verNoticia</h1>
-        <h2><%=n.getTitulo()%></h2>
-        <img src="ImagenServidor/<%=n.getImagen()%>">
-        <p><%=n.getDescripcion()%></p>
+<%@include file="/WEB-INF/Includes/header.jsp" %>   
+        <!-- Noticia -->
+	<div class="row">
+		<div class="large-10 large-centered columns">
+			<div class="row">
+				<div class="large-12 columns">
+					<h2><%=noticia.getTitulo()%></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns panel text-center">
+					<img src="ImagenServidor/<%=noticia.getImagen()%>" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns panel">
+					<p><%=noticia.getDescripcion()%></p>
+				</div>
+			</div>
+		</div>
+	</div>
         <%@include file="/WEB-INF/Includes/comentariosNoticia.jsp"%>
-        <form action="CreaComentarioNoticia" method="post">
-            <label for="descripcion">Comentario:</label><input type="text" name="descripcion">
-            <input type="hidden" name="id" value="<%=n.getId()%>">
-            <input type="submit" value="Enviar">
-        </form>
+        <div class="row">
+            <div class="large-10 large-centered columns">
+                <form action="CreaComentarioNoticia" method="post">
+                    <fieldset>
+                        <legend>Deja tu comentario:</legend>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <label>Comentario</label>
+                                <textarea style="height:20px;" name="descripcion" placeholder="Tu comentario" rows="5"></textarea>
+                                <input type="hidden" name="id" value="<%=noticia.getId()%>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-offset-9 columns">
+                                <input type="submit" class="small button" value="Comentar">
+                           </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+               
+<%@include file="/WEB-INF/Includes/footer.jsp" %>
         
-    </body>
-</html>

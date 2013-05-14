@@ -24,16 +24,8 @@ import javax.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
     private static final String URL_VISTA = "/WEB-INF/Public/login.jsp";
-    //Error a desplegar en caso de datos inválidos.
-    private static final String ERR_LOGIN = "Nombre de usuario y/o contraseña inválidos.";
     //Url de la redirección en caso de login exitoso.
-    private static final String URL_INDEX = "/index.jsp";
-    //Url del forward en caso de login inválido.
-    private static final String URL_LOGIN = "/login.jsp";
-    //Nombre del atributo con el que se guardara el id del usuario en la sesion.
-    public static final String ATRIBUTO_ID = "idusuario";
-    //Nombre del atributo que contiene el mensaje de error.
-    public static final String ATRIBUTO_ERR = "mensaje";
+    private static final String URL_INDEX = "Indice";
     
     /**
      * Processes requests for both HTTP
@@ -51,12 +43,12 @@ public class Login extends HttpServlet {
       
         if (Sesion.iniciaSesion(request)){
             //Se hace forward al inicio.
-            request.getRequestDispatcher(URL_INDEX).forward(request, response);
+            //request.getRequestDispatcher(URL_INDEX).forward(request, response);
+            response.sendRedirect(URL_INDEX);
         }else{
-            //Falló el login.
-            request.setAttribute(ATRIBUTO_ERR, ERR_LOGIN);
+            // falla el login
             //Se obtiene el despachador.
-            request.getRequestDispatcher(URL_LOGIN).forward(request, response);
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
         
     }

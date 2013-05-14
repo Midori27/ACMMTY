@@ -11,20 +11,38 @@
     String email = (String) request.getAttribute("email");
     if(email==null) email="";
     %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Contacto</h1>
-            <form action="Contacto" method="post">
-                <label for="name">Nombre</label><input type="text" name="name" value="<%=nombre%>" /><br />
-		<label for="email">Correo</label><input type="text" name="email" value="<%=email%>" /><br />
-		<label for="subject">Asunto</label><input type="text" name="subject" value="" /><br />
-                <label for="message">Mensaje</label><textarea name="message" rows="5" cols="25"></textarea><br />
-                <input type="submit" value="Contactanos" />	
-            </form>
-    </body>
-</html>
+<%@include file="/WEB-INF/Includes/header.jsp" %>
+<%@include file="/WEB-INF/Includes/alerta.jsp"%>
+        <div class="row">
+            <div class="large-8 large-centered columns">
+                <form action="Contacto" method="post">
+                    <fieldset>
+                        <legend>Contacto</legend>
+                        <div class="row">
+                            <div class="large-6 columns">
+                                <label>Nombre</label>
+                                <input type="text" name="name" placeholder="Tu nombre" value="<%=nombre%>">
+                            </div>
+                            <div class="large-6 columns">
+                                <label>Email</label>
+                                <input type="text" name="email" placeholder="Tu email" value="<%=email%>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <label>Asunto</label>
+                                <input type="text" name="subject" placeholder="Cual es tu asunto" value="">
+                                <label>Mensaje</label>
+                                <textarea style="height:300px;" rows="50" name="message" placeholder="Tu mensaje"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-offset-9 columns">
+                                <input type="submit" class="small button" value="Contactanos">
+                           </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+<%@include file="/WEB-INF/Includes/footer.jsp" %>

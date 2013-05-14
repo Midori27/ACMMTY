@@ -5,23 +5,33 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Reestablece contrasena</h1>
-        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="ReestableceContrasena" method="post">
-            <input id="campoPassword" type="password" name="password" />
-            <label for="campoPassword">Contrase&ntilde;a</label><br></br>
-            <input id="confirmaPassword" type="password" name="confirmaPassword" />
-            <label for="confirmaPassword">Confirma contrase&ntilde;a</label><br></br>
-            <h3 style="color:red;"><%=mensaje%></h3>
-            <input type="hidden" value="<%=uuid%>" name="uuid" />
-            <input type="submit" value="Aceptar"></input>
-        </form>
-    </body>
-</html>
+<%
+    String uuid = (String) request.getAttribute("uuid");
+    
+%>
+<%@include file="/WEB-INF/Includes/header.jsp" %>
+<%@include file="/WEB-INF/Includes/alerta.jsp" %>
+    <div class="row">
+           <div class="large-8 large-centered columns">
+               <form action="ReestableceContrasena" method="post">
+                   <fieldset>
+                       <legend>Reestablecer password</legend>
+                       <div class="row">
+                           <div class="large-12 columns">
+                               <label>Nuevo password</label>
+                               <input type="password" name="password">
+                               <label>Confirma tu nuevo password</label>
+                               <input type="password" name="confirmaPassword">
+                               <input type="hidden" value="<%=uuid%>" name="uuid" />
+                           </div>
+                       </div>
+                       <div class="row">
+                            <div class="large-offset-9 columns">
+                                <input type="submit" class="small button" value="Continuar">
+                           </div>
+                       </div>
+                   </fieldset>
+               </form>
+           </div>
+    </div>
+<%@include file="/WEB-INF/Includes/footer.jsp" %>

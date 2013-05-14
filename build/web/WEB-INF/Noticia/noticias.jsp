@@ -8,18 +8,27 @@
 <%
     Noticia[] noticias = (Noticia[]) request.getAttribute("noticias");
     %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Noticias</h1>
-        <%
-            for(int i=0;i<noticias.length;i++){
-                out.println("<h2><a href=\"VerNoticia?id="+noticias[i].getId()+"\">"+noticias[i].getTitulo()+"</a></h2>");
-            }
-        %>
-    </body>
-</html>
+<%@include file="/WEB-INF/Includes/header.jsp" %>
+    <!-- Noticias -->
+    <div class="row">
+            <div class="large-10 large-centered columns">
+                    <h2>Noticias</h2>
+            </div>
+    </div>
+    <div class="row">
+                    <div class="large-10 large-centered columns panel">
+                            <ul class="large-block-grid-3">
+                                    <%  for(int i=0;i<noticias.length;i++){ %>
+                                    <li>	
+                                            <h3 class="subheader text-center"><%=noticias[i].getTitulo()%></h3>
+                                            <a class="th radius" href="VerNoticia?id=<%=noticias[i].getId()%>">
+                                                    <img style="height:200px;width:250px;"src="ImagenServidor/<%=noticias[i].getImagen()%>" />
+                                            </a>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum.</p>
+                                            <center><a class="button" href="VerNoticia?id=<%=noticias[i].getId()%>">Ver</a></center>
+                                    </li>
+                                    <%  }  %>
+                            </ul>
+                    </div>
+    </div>
+<%@include file="/WEB-INF/Includes/footer.jsp" %>

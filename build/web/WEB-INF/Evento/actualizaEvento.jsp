@@ -9,29 +9,74 @@
     Evento evento = (Evento) request.getAttribute("evento");
     if(evento==null) response.sendRedirect("/AdminEventos");
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Actualiza Evento</h1>
+<%@include file="/WEB-INF/Includes/header.jsp" %>
         <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
-        <form action="ActualizaEvento"  method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<%=evento.getId()%>"
-                <label for="nombre">Nombre Evento</label><input type="text" name="nombre" value="<%=evento.getNombre()%>"/><br />
-                <label for="fecha">Fecha del Evento</label>
-                <input type="date" name="fecha" value="<%=evento.getFechaString()%>"><br /><br />
-                <label>Lugar</label><input type="text" name="lugar" value="<%=evento.getLugar()%>"/><br />
-                <label for="descripcion">Descripción del Evento</label><input class="textbox"  type="text" name="descripcion"  id="descripcion" value="<%=evento.getDescripcion()%>"/>
-                <br /><br />
-                <label for="maxIntegranesEquipo">Integrantes por Equipo</label><input type="text" name="integrantesPorEquipo" value="<%=evento.getMaxIntegrantesEquipo()%>"/>
-                <br />
-                <label for="imagen">Imagen</label><input type="file" name="imagen"><br />
-                <img src="<%="ImagenServidor/"+evento.getImagen()%>" height="100" width="100">
-                <input type="hidden" name="imagenSubida" value="<%=evento.getImagen()%>">
-                <input type="submit" value="Actualiza evento">
-        </form>
-    </body>
-</html>
+        <div class="row">
+            <div class="large-8 large-centered columns">
+                <form action="ActualizaEvento" method="post" enctype="multipart/form-data">
+                    <fieldset>
+                        <legend>Actualizar Evento</legend>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <input type="hidden" name="id" value="<%=evento.getId()%>"
+                                        <label>Nombre</label>
+                                        <input type="text" name="nombre" placeholder="Nombre del evento" value="<%=evento.getNombre()%>">
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <label>Fecha</label>
+                                        <input type="text" name="fecha" placeholder="aaaa-mm-dd" value="<%=evento.getFechaString()%>"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <label>Lugar</label>
+                                        <input type="text" name="lugar" placeholder="Lugar del evento" value="<%=evento.getLugar()%>">
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <label>Integrantes por equipo</label>
+                                        <input type="text" name="integrantesPorEquipo" placeholder="# maximo de integrantes por equipo" value="<%=evento.getMaxIntegrantesEquipo()%>"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <label>Descripcion</label>
+                                <textarea style="height:300px;" rows="50" name="descripcion" placeholder="La descripcion del evento"><%=evento.getDescripcion()%></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <div class="row">
+                                    <div class="large-6 columns">
+                                        <label>Imagen</label>
+                                        <input type="file" name="imagen">
+                                    </div>
+                                    <div class="large-6 columns">
+                                        <img src="ImagenServidor/<%=evento.getImagen()%>" height="150" width="150">
+                                        <input type="hidden" name="imagenSubida" value="<%=evento.getImagen()%>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="large-offset-9 columns">
+                                <input type="submit" class="small button" value="Actualiza evento">
+                           </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-8 large-centered columns text-center">
+                <a class="small button secondary" href="AdminEventos">Regresa a administrar eventos</a>
+            </div>
+        </div>
+<%@include file="/WEB-INF/Includes/footer.jsp" %>

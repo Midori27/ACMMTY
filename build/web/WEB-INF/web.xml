@@ -120,6 +120,10 @@
         <servlet-name>MesaDirectiva</servlet-name>
         <servlet-class>Servlet.MesaDirectiva.MesaDirectiva</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Indice</servlet-name>
+        <servlet-class>Servlet.Indice</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -146,7 +150,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
-        <url-pattern>/Usuario/logout</url-pattern>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RecuperaCuenta</servlet-name>
@@ -240,6 +244,10 @@
         <servlet-name>MesaDirectiva</servlet-name>
         <url-pattern>/MesaDirectiva</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Indice</servlet-name>
+        <url-pattern>/Indice</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -283,10 +291,13 @@
         <url-pattern>/CreaUsuario</url-pattern>
         <url-pattern>/Login</url-pattern>
         <url-pattern>/RecuperaCuenta</url-pattern>
-        <url-pattern>/ReestableceContrasena</url-pattern>
+        <url-pattern>/ReestableceContrasena*</url-pattern>
     </filter-mapping>
     <error-page>
         <error-code>401</error-code>
         <location>/accesoNegado.html</location>
     </error-page>
+    <welcome-file-list> 
+        <welcome-file>Indice</welcome-file> 
+    </welcome-file-list> 
 </web-app>
