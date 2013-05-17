@@ -10,7 +10,7 @@
     if(noticia==null) noticia=new Noticia();
 %>
 <%@include file="/WEB-INF/Includes/header.jsp" %>
-        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
+        <%@include file="/WEB-INF/Includes/errores.jsp"%>
         <!-- forma crear noticia -->
 	<div class="row">
 		<div class="large-8 large-centered columns">

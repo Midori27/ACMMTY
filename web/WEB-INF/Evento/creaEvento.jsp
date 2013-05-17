@@ -10,7 +10,7 @@
     if(evento==null)evento = new Evento();  
 %>
 <%@include file="/WEB-INF/Includes/header.jsp" %>
-        <%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
+        <%@include file="/WEB-INF/Includes/errores.jsp"%>
         <div class="row">
             <div class="large-8 large-centered columns">
                 <form action="CreaEvento" method="post" enctype="multipart/form-data">

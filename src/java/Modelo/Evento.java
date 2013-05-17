@@ -50,7 +50,7 @@ public class Evento {
     private String lugar;
     @NotNull(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
     @NotBlank(message=COL_DESCRIPCION+": "+Error.EN_BLANCO)
-    @MaxLength(value=2000, message=COL_DESCRIPCION+": "+Error.TAM_MAX+": 2000")
+    @MaxLength(value=1000, message=COL_DESCRIPCION+": "+Error.TAM_MAX+": 2000")
     private String descripcion;
     @Max(value=20, message=COL_MAX_INTEGRANTES_POR_EQUIPO+": "+Error.MAX+" 20")
     @Min(value=1, message=COL_MAX_INTEGRANTES_POR_EQUIPO+": "+Error.MIN+" 1")

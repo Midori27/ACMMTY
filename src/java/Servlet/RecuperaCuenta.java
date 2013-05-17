@@ -46,6 +46,7 @@ public class RecuperaCuenta extends HttpServlet {
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }
+        String url = "http://"+request.getLocalAddr()+":"+request.getServerPort()+request.getContextPath();
         Query cq = new Query();
         Integer id = cq.existeUsuarioConEmail(email);
         if(id == null){
@@ -56,7 +57,7 @@ public class RecuperaCuenta extends HttpServlet {
         
         Usuario u = cq.getUsuarioBD(id);    
             
-        if(recuperaPassword(u)){
+        if(recuperaPassword(u, url)){
             request.setAttribute("mensaje", "Se ha enviado un correo a tu dirección con más información para recuperar tu cuenta.");
             request.getRequestDispatcher(URL_EXITO).forward(request, response);
             return;
@@ -108,8 +109,7 @@ public class RecuperaCuenta extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
-    public boolean recuperaPassword(Usuario u){
-        
+    public boolean recuperaPassword(Usuario u, String url){
        Query cq = new Query();
         if(cq.ExisteRecuperacionCuentaActivoBD(u.getId())){
             return false;
@@ -120,12 +120,12 @@ public class RecuperaCuenta extends HttpServlet {
         Date fechaExpedicion = new Date();
         // agrega 12 horas a la fecha de expedicion para formar la de expiracion
         Date fechaExpiracion = new Date(fechaExpedicion.getTime()+(1000*60*60*12));
-        String urlRecuperacion = getServletContext().getContextPath() + "/reestableceContrasena.jsp&uuid="+uuid.toString();
+        String urlRecuperacion = url+"/ReestableceContrasena?uuid="+uuid.toString();
         String de = "acm.monterrey@gmail.com";
-        String para = "juanjo.lenero@gmail.com"; //u.getEmail();
+        String para = u.getEmail();
         String asunto = "Recuperacion de cuenta ACM Monterrey.";
         String contenido="Hola "+u.getNombre()+",\n Hemos recibido una solicitud de recuperación de contraseña para la cuenta asignada a este correo en monterrey.acm.org.\n\n"
-                +"Porfavor accede a la siguiente liga para reestablecer tu contraseña:\nhttp://localhost:8084"+urlRecuperacion;
+                +"Porfavor accede a la siguiente liga para reestablecer tu contraseña:\n"+urlRecuperacion;
         RecuperacionCuenta rc = new RecuperacionCuenta(u.getId(), fechaExpedicion, fechaExpiracion, uuid);
         cq.insertaRecuperacionCuentaBD(rc);
         Email ce = Email.getInstanceControladorEmail();

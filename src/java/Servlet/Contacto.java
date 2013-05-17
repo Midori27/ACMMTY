@@ -40,12 +40,17 @@ public class Contacto extends HttpServlet {
         String mensaje = request.getParameter("message");
         if(nombre == null || mail == null || asunto == null || mensaje == null || nombre.isEmpty() || mail.isEmpty() || asunto.isEmpty() || mensaje.isEmpty()){
             request.setAttribute("mensaje", "Asegurate de llenar todos los campos.");
+            Usuario u = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
+            if(u != null){
+                request.setAttribute("nombre", u.getNombreUsuario());
+                request.setAttribute("email", u.getEmail());
+            }
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }
         
         Email ce = new Email();
-        ce.enviaMail(mail, "acm.monterrey+contacto@gmail.com", asunto, nombre + "\n" + mensaje);
+        ce.enviaMail(mail, "acm.monterrey+contacto@gmail.com", asunto, mail+" >> "+nombre + "\n" + mensaje);
         request.setAttribute("mensaje", "Gracias por comunicarte con nosotros, te atenderemos en la brevedad posible.");
         request.getRequestDispatcher(URL_EXITO).forward(request, response);
         

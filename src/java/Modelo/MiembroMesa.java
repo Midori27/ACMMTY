@@ -20,7 +20,7 @@ import Helper.Error;
 public class MiembroMesa {
     public static final String NOMBRE_TABLA = "MesaDirectiva";
     public static final String COL_ID = "id";
-    public static final String COL_PERIODO = "periodo";
+    public static final String COL_PERIODO = "idPeriodo";
     public static final String COL_FOTO = "foto";
     public static final String COL_NOMBRE = "nombre";
     public static final String COL_POSICION = "posicion";
@@ -28,10 +28,7 @@ public class MiembroMesa {
     
     
     private int id;
-    @NotNull(message=COL_PERIODO+": "+Error.EN_BLANCO)
-    @NotBlank(message=COL_PERIODO+": "+Error.EN_BLANCO)
-    @MaxLength(value=60, message=COL_PERIODO+": "+Error.TAM_MAX+": 60")
-    private String periodo;
+    private int idPeriodo;
     @NotNull(message=COL_FOTO+": "+Error.EN_BLANCO)
     @NotBlank(message=COL_FOTO+": "+Error.EN_BLANCO)
     private String foto;
@@ -47,23 +44,23 @@ public class MiembroMesa {
     
     public MiembroMesa() {
         this.id=-1;
-        this.periodo="";
+        this.idPeriodo=-1;
         this.foto="";
         this.nombre="";
         this.posicion="";
     }
 
-    public MiembroMesa(String periodo, String foto, String nombre, String posicion) {
+    public MiembroMesa(int idPeriodo, String foto, String nombre, String posicion) {
         this.id=-1;
-        this.periodo = periodo;
+        this.idPeriodo=idPeriodo;
         this.foto = foto;
         this.nombre = nombre;
         this.posicion = posicion;
     }
 
-    public MiembroMesa(int id, String periodo, String foto, String nombre, String posicion) {
+    public MiembroMesa(int id, int idPeriodo, String foto, String nombre, String posicion) {
         this.id = id;
-        this.periodo = periodo;
+        this.idPeriodo=idPeriodo;
         this.foto = foto;
         this.nombre = nombre;
         this.posicion = posicion;
@@ -72,7 +69,7 @@ public class MiembroMesa {
      public MiembroMesa(ResultSet rs){
         try{
             this.id = rs.getInt(COL_ID);
-            this.periodo = rs.getString(COL_PERIODO);
+            this.idPeriodo = rs.getInt(COL_PERIODO);
             this.foto = rs.getString(COL_FOTO);
             this.nombre = rs.getString(COL_NOMBRE);
             this.posicion = rs.getString(COL_POSICION);
@@ -90,12 +87,12 @@ public class MiembroMesa {
         this.id = id;
     }
 
-    public String getPeriodo() {
-        return periodo;
+    public int getIdPeriodo() {
+        return idPeriodo;
     }
 
-    public void setPeriodo(String periodo) {
-        this.periodo = periodo;
+    public void setIdPeriodo(int idPeriodo) {
+        this.idPeriodo = idPeriodo;
     }
 
     public String getFoto() {

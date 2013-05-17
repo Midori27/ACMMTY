@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/Includes/header.jsp"%>
+<%@include file="/WEB-INF/Includes/errores.jsp"%>
     <!-- forma login -->
 	<div class="row">
 		<div class="large-8 large-centered columns">

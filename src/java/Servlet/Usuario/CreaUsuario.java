@@ -5,10 +5,10 @@
 package Servlet.Usuario;
 
 import Controlador.Query;
-import Helper.Fecha;
+import Helper.Validacion;
 import Modelo.Usuario;
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,24 +49,30 @@ public class CreaUsuario extends HttpServlet {
         
         
         Usuario u = new Usuario(nombreUsuario, password, confirmaPassword, nombre, apellidoP, apellidoM, email, tipo);
-        
-        Validator validator = new Validator();
-        List<ConstraintViolation> violation = validator.validate(u);
-        if(violation.size()>0){
-            request.setAttribute("errores", violation);
+        ArrayList<String> errores = Validacion.valida(u);
+        if(errores.size()>0){
+            request.setAttribute("errores", errores);
             request.setAttribute(Usuario.NOMBRE_TABLA, u);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }
         
         Query cq = new Query();
+        if(cq.existeUsuarioConEmail(email)!=null){
+            request.setAttribute(Usuario.NOMBRE_TABLA, u);
+            request.setAttribute("errores", Validacion.creaError("Ya existe un usuario con ese email"));
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+        }
+          
         
         if(cq.insertaUsuarioBD(u)){
             request.setAttribute("mensaje", "Tu usuario ha sido creado exitosamente");
             request.getRequestDispatcher(URL_EXITO).forward(request, response);
         }else{
             request.setAttribute("usuario", u);
-            request.setAttribute("mensaje", "Lo sentimos, tu usuario no puede ser creado en este momento.");
+            ArrayList<String> errores2 = new ArrayList<String>();
+            errores.add("Lo sentimos, tu usuario no puede ser creado en este momento.");
+            request.setAttribute("errores", errores);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
     }

@@ -7,16 +7,15 @@ package Servlet.Evento;
 import Controlador.ParseaParametros;
 import Controlador.Query;
 import Helper.Fecha;
+import Helper.Validacion;
 import Modelo.Evento;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.oval.ConstraintViolation;
-import net.sf.oval.Validator;
 
 /**
  *
@@ -53,20 +52,18 @@ public class ActualizaEvento extends HttpServlet {
         Evento ev = new Evento(id,imagen,nombre, Fecha.parseFechaAnoMesDia(fecha), lugar, descripcion, maxIntegrantesEquipo);
         request.setAttribute("evento", ev);
         
-        Validator validator = new Validator();
-        List<ConstraintViolation> violation = validator.validate(ev);
-        if(violation.size()>0){
-            request.setAttribute("mensaje", "Porfavor corrija los errores.");
-            request.setAttribute("errores", violation);
+        ArrayList<String> errores = Validacion.valida(ev);
+        if(errores.size()>0){
+            request.setAttribute("errores", errores);
+            request.setAttribute("evento", ev);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }
         
         if(cq.actualizaEventoBD(ev)){
-            request.setAttribute("mensaje", "El evento ha sido actualizado exitosamente.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            response.sendRedirect("AdminEventos");
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, el evento no puede ser actualizado en este momento.");
+            request.setAttribute("errores", Validacion.creaError("Lo sentimos, el evento no puede ser actualizado en este momento."));
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
         

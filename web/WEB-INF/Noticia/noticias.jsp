@@ -7,7 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Noticia"%>
 <%
     Noticia[] noticias = (Noticia[]) request.getAttribute("noticias");
-    %>
+    if(noticias==null) noticias = new Noticia[0];
+%>
 <%@include file="/WEB-INF/Includes/header.jsp" %>
     <!-- Noticias -->
     <div class="row">
@@ -15,6 +16,13 @@
                     <h2>Noticias</h2>
             </div>
     </div>
+    <% if(noticias.length==0){ %>
+    <div class="row panel">
+        <div class="large-10 large-centered columns">
+            <p>Actualmente no hay contenido en esta sección.</p>
+        </div>
+    </div>
+    <% }else{ %>
     <div class="row">
                     <div class="large-10 large-centered columns panel">
                             <ul class="large-block-grid-3">
@@ -31,4 +39,5 @@
                             </ul>
                     </div>
     </div>
+    <% } %>
 <%@include file="/WEB-INF/Includes/footer.jsp" %>

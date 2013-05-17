@@ -5,7 +5,9 @@
 package Servlet.MesaDirectiva;
 
 import Controlador.Query;
+import Helper.ParPeriodoMiembros;
 import Modelo.MiembroMesa;
+import Modelo.Periodo;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,13 +33,19 @@ public class AdminMesaDirectiva extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Query cq = new Query();
-        MiembroMesa[] miembros = cq.getMiembrosMesaBD();
-        String mensaje = null;
-        request.setAttribute("miembros", miembros);
-        
-        if(miembros==null)mensaje="Actualmente no existen miembros en la base de datos.";
-        request.setAttribute("mensaje", mensaje);
+        Query q = new Query();
+        Periodo[] periodos = q.getPeriodosBD();
+        ParPeriodoMiembros[] pm;
+        MiembroMesa[] miembros;
+        if(periodos!=null){
+            pm = new ParPeriodoMiembros[periodos.length];
+            for(int i=0; i<periodos.length;i++){
+                miembros = q.getMiembrosPeriodoBD(periodos[i].getId());
+                if(miembros==null) miembros = new MiembroMesa[0];
+                pm[i] = new ParPeriodoMiembros(periodos[i], miembros);
+            }
+            request.setAttribute("paresPeriodoMiembros", pm);
+        }
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }
 

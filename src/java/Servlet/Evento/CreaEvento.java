@@ -7,17 +7,16 @@ package Servlet.Evento;
 import Controlador.ParseaParametros;
 import Controlador.Query;
 import Helper.Fecha;
+import Helper.Validacion;
 import Modelo.Evento;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.oval.Validator;
-import net.sf.oval.ConstraintViolation;
 
 /**
  *
@@ -52,14 +51,10 @@ public class CreaEvento extends HttpServlet {
         Evento ev = new Evento(imagen,nombre, fecha, lugar, descripcion, maxIntegrantesEquipo);
         
         Query q = new Query();
-        String mensaje="";
         
-        Validator validator = new Validator();
-        List<ConstraintViolation> violation = validator.validate(ev);
-        if(violation.size()>0){
-            mensaje="Porfavor corrija los errores.";
-            request.setAttribute("mensaje", mensaje);
-            request.setAttribute("errores", violation);
+        ArrayList<String> errores = Validacion.valida(ev);
+        if(errores.size()>0){
+            request.setAttribute("errores", errores);
             request.setAttribute("evento", ev);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
@@ -71,8 +66,7 @@ public class CreaEvento extends HttpServlet {
             response.sendRedirect("AdminEventos");
             //request.getRequestDispatcher("AdminEventos").forward(request, response);
         }else{
-            mensaje="El evento no pudo ser creado.";
-            request.setAttribute("mensaje", mensaje);
+            request.setAttribute("errores", Validacion.creaError("Lo sentimos, tu usuario no puede ser creado en este momento."));
             request.setAttribute("evento", ev);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }

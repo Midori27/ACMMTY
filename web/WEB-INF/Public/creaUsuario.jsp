@@ -10,7 +10,7 @@
     if(usuario==null)usuario = new Usuario();
 %>
 <%@include file="/WEB-INF/Includes/header.jsp"%>
-<%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
+<%@include file="/WEB-INF/Includes/errores.jsp"%>
         <!-- forma crear usuario -->
 	<div class="row">
 		<div class="large-8 large-centered columns">

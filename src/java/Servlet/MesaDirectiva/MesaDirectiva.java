@@ -5,7 +5,9 @@
 package Servlet.MesaDirectiva;
 
 import Controlador.Query;
+import Helper.ParPeriodoMiembros;
 import Modelo.MiembroMesa;
+import Modelo.Periodo;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +35,21 @@ public class MesaDirectiva extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Query q = new Query();
-        MiembroMesa[] miembrosMesa = q.getMiembrosMesaBD();
-        request.setAttribute("miembrosMesa", miembrosMesa);
+        ParPeriodoMiembros[] pm;
+        Periodo[] periodos;
+        MiembroMesa[] miembrosMesa;
+        
+        periodos = q.getPeriodosBD();
+        
+        if(periodos != null){
+            pm = new ParPeriodoMiembros[periodos.length];
+            for(int i=0; i<periodos.length;i++){
+                miembrosMesa = q.getMiembrosPeriodoBD(periodos[i].getId());
+                if(miembrosMesa == null) miembrosMesa = new MiembroMesa[0];
+                pm[i] = new ParPeriodoMiembros(periodos[i], miembrosMesa);
+            }
+            request.setAttribute("paresPeriodoMiembros", pm);
+        }
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
         
     }

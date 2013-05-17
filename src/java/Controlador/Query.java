@@ -10,6 +10,7 @@ import Modelo.Equipo;
 import Modelo.Evento;
 import Modelo.MiembroMesa;
 import Modelo.Noticia;
+import Modelo.Periodo;
 import Modelo.RecuperacionCuenta;
 import Modelo.Usuario;
 import java.sql.Connection;
@@ -789,7 +790,7 @@ public class Query {
         
         try{
             insertaMiembroMesa = conexion.prepareStatement(query);
-            insertaMiembroMesa.setString(1, m.getPeriodo());
+            insertaMiembroMesa.setInt(1, m.getIdPeriodo());
             insertaMiembroMesa.setString(2, m.getFoto());
             insertaMiembroMesa.setString(3, m.getNombre());
             insertaMiembroMesa.setString(4, m.getPosicion());
@@ -823,7 +824,7 @@ public class Query {
         
         try{
             actualizaMiembroMesa = conexion.prepareStatement(query);
-            actualizaMiembroMesa.setString(1, m.getPeriodo());
+            actualizaMiembroMesa.setInt(1, m.getIdPeriodo());
             actualizaMiembroMesa.setString(2, m.getFoto());
             actualizaMiembroMesa.setString(3, m.getNombre());
             actualizaMiembroMesa.setString(4, m.getPosicion());
@@ -1149,6 +1150,38 @@ public class Query {
         return resultado;
     }
     
+    /**
+     * Toma el id de un ComentarioEvento registrado en la base de datos y lo borra.
+     * @param id entero positivo que representa el id del comentario cuyos datos se desean borrar de la base de datos.
+     * @return true si se pudo borrar el registro, false en caso contrario
+     */
+    public boolean borraComentarioNoticiaBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement borraComentario = null;
+        boolean resultado = true;
+        String query = "DELETE FROM "+Comentario.NOMBRE_TABLA_NOTICIA+" WHERE "+Comentario.COL_ID+"=?";
+        
+        try{
+            borraComentario = conexion.prepareStatement(query);
+            borraComentario.setInt(1,id);
+            int registrosAfectados = borraComentario.executeUpdate();
+            if(registrosAfectados==0) resultado=false;
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                borraComentario.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
       /**
      * Crea un objeto Comentario con los datos extraidos del registro de la base
      * de datos con el id provisto como parámetro.
@@ -1266,5 +1299,194 @@ public class Query {
         }
         
         return resultado;
+    }
+    
+        /**
+     * Toma el id de un ComentarioEvento registrado en la base de datos y lo borra.
+     * @param id entero positivo que representa el id del comentario cuyos datos se desean borrar de la base de datos.
+     * @return true si se pudo borrar el registro, false en caso contrario
+     */
+    public boolean borraComentarioEventoBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement borraComentario = null;
+        boolean resultado = true;
+        String query = "DELETE FROM "+Comentario.NOMBRE_TABLA_EVENTO+" WHERE "+Comentario.COL_ID+"=?";
+        
+        try{
+            borraComentario = conexion.prepareStatement(query);
+            borraComentario.setInt(1,id);
+            int registrosAfectados = borraComentario.executeUpdate();
+            if(registrosAfectados==0) resultado=false;
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                borraComentario.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+    /**
+     * Toma un objeto Periodo p e inserta sus campos en un registro de la base de datos.
+     * @param p El objeto Periodo cuyos datos se desean registrar en la base de datos.
+     * @return true si se pudo insertar el registro, false en caso contrario
+     * @see Modelo.Periodo
+     */
+    public boolean insertaPeriodoBD(Periodo p){
+        Connection conexion = pool.getConexion();
+        PreparedStatement insertaPeriodo = null;
+        boolean resultado = true;
+        String query = "INSERT INTO "+Periodo.NOMBRE_TABLA+" "+Periodo.CAMPOS_TABLA+" VALUES (?,?,?,?)";
+        
+        try{
+            insertaPeriodo = conexion.prepareStatement(query);
+            insertaPeriodo.setString(1, p.getmInicio());
+            insertaPeriodo.setInt(2, p.getaInicio());
+            insertaPeriodo.setString(3, p.getmFin());
+            insertaPeriodo.setInt(4, p.getaFin());
+            insertaPeriodo.executeUpdate();
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                insertaPeriodo.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+        /**
+     * Toma el id de un Periodo registrado en la base de datos y lo borra.
+     * @param id entero positivo que representa el id del Periodo cuyos datos se desean borrar de la base de datos.
+     * @return true si se pudo borrar el registro, false en caso contrario
+     */
+    public boolean borraPeriodoBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement borraPeriodo = null;
+        boolean resultado = true;
+        String query = "DELETE FROM "+Periodo.NOMBRE_TABLA+" WHERE "+Periodo.COL_ID+"=?";
+        
+        try{
+            borraPeriodo = conexion.prepareStatement(query);
+            borraPeriodo.setInt(1,id);
+            int registrosAfectados = borraPeriodo.executeUpdate();
+            if(registrosAfectados==0) resultado=false;
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+            resultado = false;
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                borraPeriodo.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return resultado;
+    }
+    
+        /**
+     * Crea un arreglo de objetos MiembroMesa con los datos extraidos del registro de la base
+     * de datos con el id de Periodo provisto como parámetro.
+     * @param id  Un entero que representa el id del Periodo cuyos miembros se desean obtener.
+     * @return MiembroMesa[] Un arreglo de objetos Comentario inicializado con los datos de la base.
+     * @see Modelo.MiembroMesa
+     */ 
+    public MiembroMesa[] getMiembrosPeriodoBD(int id){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectMiembrosPeriodo = null;
+        ResultSet rs = null;
+        MiembroMesa[] miembros = null;
+        String query = "SELECT * FROM "+MiembroMesa.NOMBRE_TABLA+" WHERE "+ MiembroMesa.COL_PERIODO+" = ?";
+        int numRegistros;
+        int i = 0;
+        try{
+            selectMiembrosPeriodo = conexion.prepareStatement(query);
+            selectMiembrosPeriodo.setInt(1,id);
+            rs = selectMiembrosPeriodo.executeQuery();
+            if(rs.first()){
+                rs.last();
+                numRegistros = rs.getRow();
+                miembros = new MiembroMesa[numRegistros];
+                rs.beforeFirst();
+                
+                while(rs.next()){
+                    miembros[i] = new MiembroMesa(rs);
+                    i++;
+                }
+            }
+           
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectMiembrosPeriodo.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return miembros;
+    }
+    
+         /**
+     * Obtiene todos los periodos guardados en la base de datos y los regresa en un arreglo de objetos Periodo.
+     * de datos con el id provisto como parámetro.
+     * @return Periodo[] Un arreglo que contiene los objetos periodo que se encuentran en la base.
+     * @see Modelo.Periodo
+     */ 
+    public Periodo[] getPeriodosBD(){
+        Connection conexion = pool.getConexion();
+        PreparedStatement selectPeriodos = null;
+        ResultSet rs = null;
+        Periodo[] periodos = null;
+        String query = "SELECT * FROM "+Periodo.NOMBRE_TABLA;
+        int numRegistros;
+        int i = 0;
+        try{
+            selectPeriodos = conexion.prepareStatement(query);
+            rs = selectPeriodos.executeQuery();
+            if(rs.first()){
+                rs.last();
+                numRegistros = rs.getRow();
+                periodos = new Periodo[numRegistros];
+                rs.beforeFirst();
+                
+                while(rs.next()){
+                    periodos[i] = new Periodo(rs);
+                    i++;
+                }
+            }
+            
+            
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            pool.cierraConexion(conexion);
+            try{
+                selectPeriodos.close();
+                rs.close();
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        
+        return periodos;
     }
 }

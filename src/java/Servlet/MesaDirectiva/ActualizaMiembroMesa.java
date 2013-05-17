@@ -6,17 +6,16 @@ package Servlet.MesaDirectiva;
 
 import Controlador.ParseaParametros;
 import Controlador.Query;
+import Helper.Validacion;
 import Modelo.MiembroMesa;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.oval.ConstraintViolation;
-import net.sf.oval.Validator;
 
 /**
  *
@@ -39,7 +38,7 @@ public class ActualizaMiembroMesa extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HashMap<String,String> parametros = ParseaParametros.parsea(request, this.getServletConfig().getServletContext());
         Integer id = Integer.parseInt(parametros.get(MiembroMesa.COL_ID));
-        String periodo = parametros.get(MiembroMesa.COL_PERIODO);
+        int idPeriodo = Integer.parseInt(parametros.get(MiembroMesa.COL_PERIODO));
         String foto = parametros.get(MiembroMesa.COL_FOTO);
         if(foto.isEmpty()){
             foto = parametros.get("fotoSubida");
@@ -48,23 +47,21 @@ public class ActualizaMiembroMesa extends HttpServlet {
         String posicion = parametros.get(MiembroMesa.COL_POSICION);
         Query cq = new Query();
         RequestDispatcher rd = getServletContext().getRequestDispatcher(URL_VISTA);
-        MiembroMesa m = new MiembroMesa(id, periodo, foto, nombre, posicion);
+        MiembroMesa m = new MiembroMesa(id, idPeriodo, foto, nombre, posicion);
         request.setAttribute("miembro", m);
         
-        Validator validator = new Validator();
-        List<ConstraintViolation> violation = validator.validate(m);
-        if(violation.size()>0){
-            request.setAttribute("mensaje", "Porfavor corrija los errores.");
-            request.setAttribute("errores", violation);
+        ArrayList<String> errores = Validacion.valida(m);
+        if(errores.size()>0){
+            request.setAttribute("errores", errores);
+            //request.setAttribute("miembro", m);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }
         
         if(cq.actualizaMiembroMesaBD(m)){
-            request.setAttribute("mensaje", "El miembro de la mesa ha sido actualisado exitosamente.");
-            rd.forward(request, response);
+            response.sendRedirect("AdminMesaDirectiva");
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, el miembro de la mesa no puede ser actualisado en este momento.");
+            request.setAttribute("errores", Validacion.creaError("Lo sentimos, el miembro de la mesa no puede ser actualisado en este momento."));
             rd.forward(request, response);
         }
     }

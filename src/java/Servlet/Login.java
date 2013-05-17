@@ -4,19 +4,13 @@
  */
 package Servlet;
 
-import Controlador.Query;
 import Controlador.Sesion;
-import Modelo.Usuario;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -48,6 +42,9 @@ public class Login extends HttpServlet {
         }else{
             // falla el login
             //Se obtiene el despachador.
+            ArrayList<String> errores = new ArrayList<String>();
+            errores.add("Email o password inválidos");
+            request.setAttribute("errores", errores);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
         

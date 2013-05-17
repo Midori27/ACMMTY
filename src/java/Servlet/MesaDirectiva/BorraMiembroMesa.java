@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class BorraMiembroMesa extends HttpServlet {
-    public static final String URL_VISTA = "/AdminMesaDirectiva";
+    public static final String URL_VISTA = "AdminMesaDirectiva";
+    public static final String URL_FALLO = "/WEB-INF/Mensaje/fallo.jsp";
     
     /**
      * Processes requests for both HTTP
@@ -35,11 +36,12 @@ public class BorraMiembroMesa extends HttpServlet {
         Integer id = Integer.parseInt(request.getParameter("id"));
         Query q = new Query();
         if(q.borraMiembroMesaBD(id)){
-            request.setAttribute("mensaje", "El miembro de la mesa ha sido borrado exitosamente.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            response.sendRedirect(URL_VISTA);
+            return;
         }else{
-            request.setAttribute("mensaje", "Lo sentimos el miembro de la mesa no puede ser eliminado en este momento. Es probable que el miembro no existiera antes de intentar borrarlo o que haya problemas con la base de datos.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            request.setAttribute("mensaje", "Lo sentimos el periodo no puede ser eliminado en este momento. Es probable que no existiera antes de intentar borrarlo o que haya problemas con la base de datos.");
+            request.getRequestDispatcher(URL_FALLO).forward(request, response);
+            return;
         }
     }
 

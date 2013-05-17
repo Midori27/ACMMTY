@@ -6,16 +6,15 @@ package Servlet.Noticia;
 
 import Controlador.ParseaParametros;
 import Controlador.Query;
+import Helper.Validacion;
 import Modelo.Noticia;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.oval.ConstraintViolation;
-import net.sf.oval.Validator;
 
 /**
  *
@@ -48,19 +47,18 @@ public class ActualizaNoticia extends HttpServlet {
         Noticia n = new Noticia(id, imagen, titulo, descripcion);
         request.setAttribute("noticia", n);
         
-        Validator validator = new Validator();
-        List<ConstraintViolation> violation = validator.validate(n);
-        if(violation.size()>0){
-            request.setAttribute("mensaje", "Porfavor corrija los errores.");
-            request.setAttribute("errores", violation);
+        ArrayList<String> errores = Validacion.valida(n);
+        if(errores.size()>0){
+            request.setAttribute("errores", errores);
+            request.setAttribute("noticia", n);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }
         if(q.actualizaNoticiaBD(n)){
-            request.setAttribute("mensaje", "La noticia ha sido actualisada exitosamente.");
-            request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            response.sendRedirect("AdminNoticias");
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser actualizada en este momento.");
+            request.setAttribute("errores", Validacion.creaError("Lo sentimos, la noticia no puede ser actualizada en este momento."));
+            request.setAttribute("noticia", n);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
         

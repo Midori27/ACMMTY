@@ -25,7 +25,7 @@ import net.sf.oval.constraint.NotNull;
 public class Usuario {
     public static final String NOMBRE_TABLA = "Usuario";
     public static final String COL_ID = "id";
-    public static final String COL_NOMBRE_USUARIO = "username";
+    public static final String COL_NOMBRE_USUARIO = "nombreUsuario";
     public static final String COL_PASSWORD = "password";
     public static final String COL_NOMBRE = "nombre";
     public static final String COL_APELLIDO_P = "apellidoP";
@@ -111,6 +111,18 @@ public class Usuario {
         this.apellidoM = apellidoM;
         this.email = email;
         this.tipo = tipo;
+    }
+    
+    public Usuario(String password, String confirmaPassword, int id, String nombre, String apellidoP, String apellidoM, String email, int tipo) {
+        this.id = id;
+        this.password = password;
+        this.confirmaPassword = confirmaPassword;
+        this.nombre = nombre;
+        this.apellidoP = apellidoP;
+        this.apellidoM = apellidoM;
+        this.email = email;
+        this.tipo = tipo;
+        this.nombreUsuario = "DEFAULT";
     }
     
     public Usuario(ResultSet rs){

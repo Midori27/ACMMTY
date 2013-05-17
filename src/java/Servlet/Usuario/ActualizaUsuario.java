@@ -5,18 +5,14 @@
 package Servlet.Usuario;
 
 import Controlador.Query;
-import Helper.Fecha;
+import Helper.Validacion;
 import Modelo.Usuario;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.oval.ConstraintViolation;
-import net.sf.oval.Validator;
 
 /**
  *
@@ -48,25 +44,30 @@ public class ActualizaUsuario extends HttpServlet {
         Integer tipo = 1;
         Query q = new Query();
         
-        Usuario u = new Usuario(id, password, confirmaPassword, nombre, apellidoP, apellidoM, email, tipo);
+        Usuario u = new Usuario(password, confirmaPassword, id, nombre, apellidoP, apellidoM, email, tipo);
         
-        Validator validator = new Validator();
-        List<ConstraintViolation> violation = validator.validate(u);
-        if(violation.size()>0){
-            request.setAttribute("errores", violation);
+        ArrayList<String> errores = Validacion.valida(u);
+        if(errores.size()>0){
+            request.setAttribute("errores", errores);
             request.setAttribute("usuario", u);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
+        }
+        
+        if(q.existeUsuarioConEmail(email)!=null){
+            request.setAttribute(Usuario.NOMBRE_TABLA, u);
+            request.setAttribute("errores", Validacion.creaError("Ya existe un usuario con ese email"));
+            request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
         
         if(q.actualizaUsuarioBD(u)){
             Usuario usuarioActualizado = q.getUsuarioBD(u.getId());
             request.getSession().setAttribute(Usuario.NOMBRE_TABLA, usuarioActualizado);
             request.setAttribute("usuario", usuarioActualizado);
-            request.setAttribute("mensaje", "Tu cuenta ha sido actualizada exitosamente.");
+            request.setAttribute("noError", "Tu cuenta ha sido actualizada exitosamente.");
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, tu cuenta no puede ser actualizada en este momento.");
+            request.setAttribute("errores", Validacion.creaError("Lo sentimos, tu cuenta no puede ser actualizada en este momento."));
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
     }

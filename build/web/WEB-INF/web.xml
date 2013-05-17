@@ -124,6 +124,22 @@
         <servlet-name>Indice</servlet-name>
         <servlet-class>Servlet.Indice</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreaPeriodo</servlet-name>
+        <servlet-class>Servlet.MesaDirectiva.CreaPeriodo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorraPeriodo</servlet-name>
+        <servlet-class>Servlet.MesaDirectiva.BorraPeriodo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorraComentarioEvento</servlet-name>
+        <servlet-class>Servlet.Comentario.BorraComentarioEvento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BorraComentarioNoticia</servlet-name>
+        <servlet-class>Servlet.Comentario.BorraComentarioNoticia</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -248,6 +264,22 @@
         <servlet-name>Indice</servlet-name>
         <url-pattern>/Indice</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaPeriodo</servlet-name>
+        <url-pattern>/CreaPeriodo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorraPeriodo</servlet-name>
+        <url-pattern>/BorraPeriodo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorraComentarioEvento</servlet-name>
+        <url-pattern>/BorraComentarioEvento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorraComentarioNoticia</servlet-name>
+        <url-pattern>/BorraComentarioNoticia</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -270,6 +302,8 @@
         <url-pattern>/ActualizaUsuario</url-pattern>
         <url-pattern>/CreaComentarioEvento</url-pattern>
         <url-pattern>/CreaComentarioNoticia</url-pattern>
+        <url-pattern>/BorraComentarioNoticia</url-pattern>
+        <url-pattern>/BorraComentarioEvento</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>filtro-administrador</filter-name>
@@ -285,6 +319,8 @@
         <url-pattern>/ActualizaMiembroMesa</url-pattern>
         <url-pattern>/ActualizaNoticia</url-pattern>
         <url-pattern>/ActualizaEvento</url-pattern>
+        <url-pattern>/CreaPeriodo</url-pattern>
+        <url-pattern>/BorraPeriodo</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>filtro-sinauth</filter-name>
@@ -295,9 +331,17 @@
     </filter-mapping>
     <error-page>
         <error-code>401</error-code>
-        <location>/accesoNegado.html</location>
+        <location>/accesoNegado.jsp</location>
     </error-page>
-    <welcome-file-list> 
-        <welcome-file>Indice</welcome-file> 
-    </welcome-file-list> 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.NullPointerException</exception-type>
+        <location>/errorBD.jsp</location>
+    </error-page>
+    <welcome-file-list>
+        <welcome-file>Indice</welcome-file>
+    </welcome-file-list>
 </web-app>

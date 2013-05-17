@@ -9,7 +9,7 @@
     Usuario usuario = (Usuario) request.getAttribute("usuario");
 %>
 <%@include file="/WEB-INF/Includes/header.jsp"%>
-<%@include file="/WEB-INF/Includes/muestraErrores.jsp"%>
+<%@include file="/WEB-INF/Includes/errores.jsp"%>
         <!-- forma crear usuario -->
 	<div class="row">
 		<div class="large-8 large-centered columns">
@@ -39,11 +39,11 @@
 						<div class="row">
 							<div class="large-6 columns">
 								<label>Password</label>
-								<input type="password" placeholder="Tu password" name="password">
+								<input type="password"  name="password">
 							</div>
 							<div class="large-6 columns">
 								<label>Confirma password</label>
-								<input type="password" placeholder="Confirma tu password." name="confirmaPassword">
+								<input type="password" name="confirmaPassword">
 							</div>
 						</div>
 						<div class="row">

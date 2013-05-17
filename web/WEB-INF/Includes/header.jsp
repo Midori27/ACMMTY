@@ -44,7 +44,7 @@
                         <li class="divider"></li>
                         <li><a href="Eventos">Eventos</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">ACM</a></li>
+                        <li><a href="MesaDirectiva">ACM</a></li>
                         <li class="divider"></li>
                         <li><a href="Contacto">Contacto</a></li>
                         <li class="divider"></li>
@@ -62,8 +62,9 @@
                             <% if(us.getTipo()==0) { %>
                             <li class="has-dropdown"><a href="#">Administrar</a>
                                 <ul class="dropdown">
-                                    <li><a href="AdminEventos">Eventos</a></li>
                                     <li><a href="AdminNoticias">Noticias</a></li>
+                                    <li><a href="AdminEventos">Eventos</a></li>
+                                    <li><a href="AdminMesaDirectiva">Mesa Directiva</a></li>
                                 </ul>
                             </li>
                             <% } %>

@@ -46,7 +46,8 @@ public class CreaComentarioNoticia extends HttpServlet {
         Query q = new Query();
         
         if(q.insertaComentarioNoticiaBD(c)){
-            request.getRequestDispatcher(URL_VISTA+"?id="+idPadre).forward(request, response);
+            response.sendRedirect(URL_VISTA+"?id="+idPadre);
+            //request.getRequestDispatcher(URL_VISTA+"?id="+idPadre).forward(request, response);
         }else{
             request.setAttribute("mensaje", "Lo sentimos, su comentario no puede ser enviado.");
             request.getRequestDispatcher(descripcion).forward(request, response);

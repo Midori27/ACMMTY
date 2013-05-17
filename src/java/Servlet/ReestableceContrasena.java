@@ -41,7 +41,7 @@ public class ReestableceContrasena extends HttpServlet {
         String confirmaPassword = (String) request.getParameter("confirmaPassword");
         String textuuid = (String) request.getParameter("uuid");
         UUID uuid = UUID.fromString(textuuid);
-        if(password.equals(confirmaPassword) || password == null || password.isEmpty()){
+        if(password.equals(confirmaPassword) && password != null && !password.isEmpty()){
             Query cq = new Query();
             RecuperacionCuenta rc = cq.getRecuperacionCuentaBD(uuid);
             if(validaRecuperacionCuenta(rc)){
@@ -62,6 +62,7 @@ public class ReestableceContrasena extends HttpServlet {
             }
            
         }else{
+            request.setAttribute("uuid", textuuid);
             request.setAttribute("mensaje", "Las contraseñas no coinciden.");
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
@@ -80,7 +81,12 @@ public class ReestableceContrasena extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String uuid = (String) request.getAttribute("uuid");
+        String uuid = (String) request.getParameter("uuid");
+        if(uuid==null || uuid.isEmpty()){
+                request.setAttribute("mensaje", "Si intentabas recuperar tu contraseña, asegurate de copiar la dirección como viene en el correo.");
+                request.getRequestDispatcher(URL_FALLO).forward(request, response);
+                return;
+        }
         request.setAttribute("uuid", uuid);
         request.getRequestDispatcher(URL_VISTA).forward(request, response);
     }

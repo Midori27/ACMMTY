@@ -75,13 +75,13 @@ CREATE TABLE IF NOT EXISTS Noticia (
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS ComentarioNoticia (
   id int(11) NOT NULL AUTO_INCREMENT,
-  descripcion varchar(150) NOT NULL,
+  descripcion varchar(1000) NOT NULL,
   fecha DATE NOT NULL, 
   idNoticia int(11) NOT NULL,
   idUsuario int(11) NOT NULL,
   nombreUsuario varchar(35) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (idNoticia) REFERENCES Noticia(id),
+  FOREIGN KEY (idNoticia) REFERENCES Noticia(id) ON DELETE CASCADE,
   FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
 ) ;
 
@@ -90,13 +90,13 @@ CREATE TABLE IF NOT EXISTS ComentarioNoticia (
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS ComentarioEvento (
   id int(11) NOT NULL AUTO_INCREMENT,
-  descripcion varchar(150) NOT NULL,
+  descripcion varchar(1000) NOT NULL,
   fecha DATE NOT NULL, 
   idEvento int(11) NOT NULL,
   idUsuario int(11) NOT NULL,
   nombreUsuario varchar(35) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (idEvento) REFERENCES Evento(id),
+  FOREIGN KEY (idEvento) REFERENCES Evento(id) ON DELETE CASCADE,
   FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
 ) ;
 
@@ -113,15 +113,26 @@ CREATE TABLE IF NOT EXISTS RecuperacionCuenta(
   PRIMARY KEY (id),
   FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
 ) ;
-
+-- --------------------------------------------------------
+-- Creacion de la tabla Periodo
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Periodo(
+  id int(11) NOT NULL AUTO_INCREMENT,
+  mInicio varchar(10) NOT NULL,
+  aInicio int(11) NOT NULL,
+  mFin varchar(10) NOT NULL,
+  aFin int(11) NOT NULL,
+  PRIMARY KEY (id)
+) ;
 -- --------------------------------------------------------
 -- Creacion de la tabla MesaDirectiva
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS MesaDirectiva(
   id int(11) NOT NULL AUTO_INCREMENT,
-  periodo varchar(60) NOT NULL,
+  idPeriodo int(11) NOT NULL,
   foto varchar(60) NOT NULL,
   nombre varchar(60) NOT NULL,
   posicion varchar(60) NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (idPeriodo) REFERENCES Periodo(id) ON DELETE CASCADE
 ) ;

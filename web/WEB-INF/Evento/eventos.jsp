@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" import="Modelo.Evento"%>
 <%
     Evento[] eventos = (Evento[]) request.getAttribute("eventos");
+    if(eventos==null) eventos = new Evento[0];
 %>
 <%@include file="/WEB-INF/Includes/header.jsp" %>
     <!-- Eventos -->
@@ -15,6 +16,13 @@
                     <h2>Eventos</h2>
             </div>
     </div>
+    <% if(eventos.length==0){ %>
+    <div class="row panel">
+        <div class="large-10 large-centered columns">
+            <p>Actualmente no hay contenido en esta sección.</p>
+        </div>
+    </div>
+    <% }else{ %>
     <div class="row">
                     <div class="large-10 large-centered columns panel">
                             <ul class="large-block-grid-3">
@@ -31,4 +39,6 @@
                             </ul>
                     </div>
     </div>
+    <% } %>
+                                    
 <%@include file="/WEB-INF/Includes/footer.jsp" %>

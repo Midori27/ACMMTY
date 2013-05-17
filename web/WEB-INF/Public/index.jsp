@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Noticia[] noticias = (Noticia[]) request.getAttribute(Noticia.NOMBRE_TABLA);
-    Evento[] eventos = (Evento[]) request.getAttribute(Evento.NOMBRE_TABLA);
+    if(noticias==null) noticias = new Noticia[0];
 %>
 <%@include file="/WEB-INF/Includes/header.jsp"%>
     <!-- slider -->
@@ -18,33 +18,18 @@
                     <ul  data-orbit data-options="timer-speed:1000; bullets:false;">
                             <% for(int i=0; i<noticias.length && i<4;i++){ %>
                             <li>
-                                    <img style="width:960px;height:400px;" src="ImagenServidor/<%=noticias[i].getImagen()%>" />
-                                    <div class="orbit-caption"><%=noticias[i].getTitulo()%></div>
+                                    <img style="width:970px;height:600px;" src="ImagenServidor/<%=noticias[i].getImagen()%>" />
+                                    <div class="orbit-caption"><%=noticias[i].getTitulo()%> <a class="tiny button" href="VerNoticia?id=<%=noticias[i].getId()%>">Ver</a></div>
                             </li>
                             <% } %>
                     </ul>
             </div>
     </div>
     <!-- termina slider -->
-    
-    <!-- Eventos -->
     <div class="row">
-            <div class="large-12 columns">
-                    <h2>Eventos</h2>
-            </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <ul class="large-block-grid-3 panel">
-                <% for(int i=0; i<eventos.length && i<9;i++){ %>
-                <li>
-                    <h3 class="subheader"><%=eventos[i].getNombre()%></h3>
-                    <img style="height:200px;width:250px;" src="ImagenServidor/<%=eventos[i].getImagen()%>"></img>
-                    <p><%=eventos[i].getDescripcion()%></p>
-                </li>
-                <% } %>
-            </ul>
+        <div class="large-12 columns text-center">
+            <img style="width:25%;" src="img/acm.png" />
         </div>
     </div>
-    <!-- termina eventos -->
+    
 <%@include file="/WEB-INF/Includes/footer.jsp"%>

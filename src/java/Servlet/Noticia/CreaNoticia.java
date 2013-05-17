@@ -6,17 +6,16 @@ package Servlet.Noticia;
 
 import Controlador.Query;
 import Controlador.ParseaParametros;
+import Helper.Validacion;
 import Modelo.Noticia;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.oval.ConstraintViolation;
-import net.sf.oval.Validator;
 
 /**
  *
@@ -48,11 +47,9 @@ public class CreaNoticia extends HttpServlet {
         Query cq = new Query();
         Noticia n = new Noticia(imagen, titulo, descripcion, fecha);
         
-        Validator validator = new Validator();
-        List<ConstraintViolation> violation = validator.validate(n);
-        if(violation.size()>0){
-            request.setAttribute("mensaje", "Porfavor corrija los errores.");
-            request.setAttribute("errores", violation);
+        ArrayList<String> errores = Validacion.valida(n);
+        if(errores.size()>0){
+            request.setAttribute("errores", errores);
             request.setAttribute("noticia", n);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
@@ -63,7 +60,7 @@ public class CreaNoticia extends HttpServlet {
             response.sendRedirect("AdminNoticias");
             //request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }else{
-            request.setAttribute("mensaje", "Lo sentimos, la noticia no puede ser creada en este momento.");
+            request.setAttribute("errores", Validacion.creaError("Lo sentimos, la noticia no puede ser creada en este momento."));
             request.setAttribute("noticia", n);
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
         }
