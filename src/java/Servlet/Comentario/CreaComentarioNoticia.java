@@ -5,7 +5,7 @@
 package Servlet.Comentario;
 
 import Controlador.Query;
-import Helper.Fecha;
+import Helper.Validacion;
 import Modelo.Comentario;
 import Modelo.Usuario;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author juanjo
  */
 public class CreaComentarioNoticia extends HttpServlet {
-    public static String URL_VISTA = "/VerNoticia";
+    public static String URL_VISTA = "VerNoticia";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,6 +41,11 @@ public class CreaComentarioNoticia extends HttpServlet {
         Usuario usuario = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
         Integer idUsuario = usuario.getId();
         String nombreUsuario = usuario.getNombreUsuario();
+        if(descripcion==null || descripcion.isEmpty()){
+            request.setAttribute("errores", Validacion.creaError("El comentario no puede estar vacio."));
+            request.getRequestDispatcher(URL_VISTA+"?id="+idPadre).forward(request, response);
+            return;
+        }
         Comentario c = new Comentario(descripcion, fecha, idPadre, idUsuario, nombreUsuario);
         
         Query q = new Query();

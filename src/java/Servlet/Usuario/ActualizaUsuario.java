@@ -35,13 +35,13 @@ public class ActualizaUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Usuario usuario = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
         Integer id = usuario.getId();
+        Integer tipo = usuario.getTipo();
         String password = request.getParameter("password");
         String confirmaPassword = request.getParameter("confirmaPassword");
         String nombre = request.getParameter("nombre");
         String apellidoP = request.getParameter("apellidoP");
         String apellidoM = request.getParameter("apellidoM");
         String email = request.getParameter("email");
-        Integer tipo = 1;
         Query q = new Query();
         
         Usuario u = new Usuario(password, confirmaPassword, id, nombre, apellidoP, apellidoM, email, tipo);

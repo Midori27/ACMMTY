@@ -6,6 +6,7 @@
 
 <%@page import="Modelo.Usuario"%>
 <%@page import="Modelo.Comentario"%>
+<%@include file="/WEB-INF/Includes/errores.jsp" %>
 <%
     Usuario user = (Usuario) request.getSession().getAttribute(Usuario.NOMBRE_TABLA);
     Integer idComentador = (user!=null) ? user.getId() : -1;
