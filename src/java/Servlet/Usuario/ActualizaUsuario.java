@@ -54,12 +54,13 @@ public class ActualizaUsuario extends HttpServlet {
             return;
         }
         
-        if(q.existeUsuarioConEmail(email)!=null){
+       /* if(q.existeUsuarioConEmail(email)!=null){
             request.setAttribute(Usuario.NOMBRE_TABLA, u);
             request.setAttribute("errores", Validacion.creaError("Ya existe un usuario con ese email"));
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
+            return;
         }
-        
+        */
         if(q.actualizaUsuarioBD(u)){
             Usuario usuarioActualizado = q.getUsuarioBD(u.getId());
             request.getSession().setAttribute(Usuario.NOMBRE_TABLA, usuarioActualizado);

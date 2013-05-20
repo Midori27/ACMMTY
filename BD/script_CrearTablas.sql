@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS Usuario (
 CREATE TABLE IF NOT EXISTS Evento (
   id int(11) NOT NULL AUTO_INCREMENT,
   imagen varchar(90) NOT NULL,
-  nombre varchar(30) NOT NULL,
+  nombre varchar(90) NOT NULL,
   fecha DATE NOT NULL,
   lugar varchar(50) NOT NULL,
-  descripcion varchar(150) NOT NULL,
+  descripcion varchar(1000) NOT NULL,
   integrantesPorEquipo int(2) NOT NULL,
   PRIMARY KEY (id)
 ) ;
@@ -65,8 +65,8 @@ CREATE TABLE IF NOT EXISTS Noticia (
   id int(11) NOT NULL AUTO_INCREMENT,
   imagen varchar(90) NOT NULL,
   fecha DATE,
-  titulo varchar(30) NOT NULL,
-  descripcion varchar(200) NOT NULL, 
+  titulo varchar(90) NOT NULL,
+  descripcion varchar(1000) NOT NULL, 
   PRIMARY KEY (id)
 ) ;
 
@@ -136,3 +136,13 @@ CREATE TABLE IF NOT EXISTS MesaDirectiva(
   PRIMARY KEY (id),
   FOREIGN KEY (idPeriodo) REFERENCES Periodo(id) ON DELETE CASCADE
 ) ;
+-- --------------------------------------------------------
+-- Creacion de la tabla Mision
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS Mision(
+  id int(11) NOT NULL AUTO_INCREMENT,
+  descripcion int(2000) NOT NULL,
+  imagen varchar(2000) NOT NULL,
+  PRIMARY KEY (id)
+) ;
+

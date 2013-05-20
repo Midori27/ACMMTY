@@ -46,7 +46,7 @@ public class RecuperaCuenta extends HttpServlet {
             request.getRequestDispatcher(URL_VISTA).forward(request, response);
             return;
         }
-        String url = "http://"+request.getLocalAddr()+":"+request.getServerPort()+request.getContextPath();
+        String url = "http://localhost:"+request.getServerPort()+request.getContextPath();
         Query cq = new Query();
         Integer id = cq.existeUsuarioConEmail(email);
         if(id == null){

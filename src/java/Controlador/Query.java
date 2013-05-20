@@ -349,7 +349,7 @@ public class Query {
         PreparedStatement selectEvento = null;
         ResultSet rs = null;
         Evento ev = null;
-        String query = "SELECT * FROM "+Evento.NOMBRE_TABLA+" WHERE "+Evento.COL_ID+" = ?";
+        String query = "SELECT * FROM "+Evento.NOMBRE_TABLA+" WHERE "+Evento.COL_ID+" = ? ORDER BY fecha ASC";
         
         try{
             selectEvento = conexion.prepareStatement(query);
@@ -385,7 +385,7 @@ public class Query {
         PreparedStatement selectEventos = null;
         ResultSet rs = null;
         Evento eventos[] = null;
-        String query = "SELECT * FROM "+Evento.NOMBRE_TABLA;
+        String query = "SELECT * FROM "+Evento.NOMBRE_TABLA+" ORDER BY fecha ASC";
         int numRegistros;
         int i = 0;
         try{
@@ -607,7 +607,7 @@ public class Query {
         PreparedStatement selectNoticia = null;
         ResultSet rs = null;
         Noticia n = null;
-        String query = "SELECT * FROM "+Noticia.NOMBRE_TABLA+" WHERE "+Noticia.COL_ID+" = ?";
+        String query = "SELECT * FROM "+Noticia.NOMBRE_TABLA+" WHERE "+Noticia.COL_ID+" = ? ORDER BY fecha DESC";
         
         try{
             selectNoticia = conexion.prepareStatement(query);
@@ -742,7 +742,7 @@ public class Query {
         PreparedStatement selectNoticias = null;
         ResultSet rs = null;
         Noticia noticias[] = null;
-        String query = "SELECT * FROM "+Noticia.NOMBRE_TABLA;
+        String query = "SELECT * FROM "+Noticia.NOMBRE_TABLA+" ORDER BY fecha DESC";
         int numRegistros;
         int i = 0;
         try{
@@ -1042,7 +1042,7 @@ public class Query {
         PreparedStatement selectComentario = null;
         ResultSet rs = null;
         Comentario c = null;
-        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_NOTICIA+" WHERE "+Comentario.COL_ID+" = ?";
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_NOTICIA+" WHERE "+Comentario.COL_ID+" = ? ORDER BY fecha ASC";
         
         try{
             selectComentario = conexion.prepareStatement(query);
@@ -1079,7 +1079,7 @@ public class Query {
         PreparedStatement selectComentarios = null;
         ResultSet rs = null;
         Comentario[] comentarios = null;
-        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_NOTICIA+" WHERE "+Comentario.COL_ID_NOTICIA+" = ?";
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_NOTICIA+" WHERE "+Comentario.COL_ID_NOTICIA+" = ? ORDER BY fecha ASC";
         int numRegistros;
         int i = 0;
         try{
@@ -1194,7 +1194,7 @@ public class Query {
         PreparedStatement selectComentario = null;
         ResultSet rs = null;
         Comentario c = null;
-        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_EVENTO+" WHERE "+Comentario.COL_ID+" = ?";
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_EVENTO+" WHERE "+Comentario.COL_ID+" = ? ORDER BY fecha ASC";
         
         try{
             selectComentario = conexion.prepareStatement(query);
@@ -1231,7 +1231,7 @@ public class Query {
         PreparedStatement selectComentarios = null;
         ResultSet rs = null;
         Comentario[] comentarios = null;
-        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_EVENTO+" WHERE "+Comentario.COL_ID_EVENTO+" = ?";
+        String query = "SELECT * FROM "+Comentario.NOMBRE_TABLA_EVENTO+" WHERE "+Comentario.COL_ID_EVENTO+" = ? ORDER BY fecha ASC";
         int numRegistros;
         int i = 0;
         try{
@@ -1456,7 +1456,7 @@ public class Query {
         PreparedStatement selectPeriodos = null;
         ResultSet rs = null;
         Periodo[] periodos = null;
-        String query = "SELECT * FROM "+Periodo.NOMBRE_TABLA;
+        String query = "SELECT * FROM "+Periodo.NOMBRE_TABLA+" ORDER BY aInicio DESC, aFin DESC";
         int numRegistros;
         int i = 0;
         try{
